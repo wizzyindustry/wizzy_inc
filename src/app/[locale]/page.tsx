@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CtaBanner } from '@/components/sections/CtaBanner';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
@@ -13,34 +12,14 @@ import { getPublishedServices } from '@/lib/data/services';
 import { getSiteSettings } from '@/lib/data/settings';
 import { getPublishedTestimonials } from '@/lib/data/testimonials';
 import { localized } from '@/lib/i18n/localized';
-import { routing, type Locale } from '@/lib/i18n/routing';
+import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 
 type Props = { params: Promise<{ locale: string }> };
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-
-function toLocale(requested: string): Locale {
-  return hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: 'HomePage.meta' });
-  const languages = Object.fromEntries(routing.locales.map((l) => [l, `/${l}`]));
-
-  return {
-    metadataBase: new URL(siteUrl),
-    title: t('title'),
-    description: t('description'),
-    alternates: { canonical: `/${locale}`, languages },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `/${locale}`,
-      locale: locale === 'sw' ? 'sw_TZ' : 'en_TZ',
-      type: 'website',
-    },
-  };
+  return pageMetadata({ locale, path: '', title: t('title'), description: t('description') });
 }
 
 /** Home page (F1). Every section is optional so a missing collection never breaks the page. */

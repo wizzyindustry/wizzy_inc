@@ -10,6 +10,7 @@ type Props = { item: PortfolioItem; locale: Locale };
 
 export async function PortfolioCard({ item, locale }: Props) {
   const t = await getTranslations('Portfolio');
+  const tCat = await getTranslations('Categories');
   const title = localized(item.title, locale);
 
   return (
@@ -26,7 +27,7 @@ export async function PortfolioCard({ item, locale }: Props) {
         </div>
         <div className="flex flex-col gap-2 p-4">
           <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-            {t(`category.${item.category}`)}
+            {tCat(`${item.category}.title`)}
           </p>
           <h3 className="font-semibold group-hover:text-primary">{title}</h3>
           {item.isPersonalProject && (

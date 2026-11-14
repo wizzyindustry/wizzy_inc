@@ -17,6 +17,7 @@ type Props = { services: Service[]; locale: Locale };
 /** The two service cards (F1). Sub-services and "from" prices come from Firestore. */
 export async function ServiceCategoryCards({ services, locale }: Props) {
   const t = await getTranslations('HomePage.services');
+  const tCat = await getTranslations('Categories');
 
   return (
     <section aria-labelledby="services-heading" className="mx-auto max-w-6xl px-4 py-14">
@@ -30,8 +31,8 @@ export async function ServiceCategoryCards({ services, locale }: Props) {
           return (
             <article key={id} className="flex flex-col gap-4 rounded-lg border border-border p-6">
               <Icon aria-hidden="true" className="size-8 text-primary" />
-              <h3 className="text-xl font-semibold">{t(`${id}.title`)}</h3>
-              <p className="text-muted-foreground">{t(`${id}.description`)}</p>
+              <h3 className="text-xl font-semibold">{tCat(`${id}.title`)}</h3>
+              <p className="text-muted-foreground">{tCat(`${id}.description`)}</p>
               {items.length > 0 && (
                 <ul className="list-inside list-disc space-y-1 text-sm">
                   {items.map((s) => (
@@ -52,7 +53,7 @@ export async function ServiceCategoryCards({ services, locale }: Props) {
                 href={`/services#${id}`}
                 className="mt-auto font-medium text-primary underline-offset-4 hover:underline"
               >
-                {t(`${id}.link`)}
+                {t(`links.${id}`)}
               </Link>
             </article>
           );

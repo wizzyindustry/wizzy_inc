@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 import { adminDb } from '@/lib/firebase/admin';
 import type { ServiceCategory } from '@/lib/schemas/common';
 import { serviceSchema, type Service } from '@/lib/schemas/content';
@@ -10,7 +11,8 @@ export async function getPublishedServices(category?: ServiceCategory): Promise<
   return queryDocs(serviceSchema, query.orderBy('order'));
 }
 
-export async function getServiceBySlug(slug: string): Promise<Service | null> {
+/** Cached per request so generateMetadata and the page share one read. */
+export const getServiceBySlug = cache(async (slug: string): Promise<Service | null> => {
   const query = adminDb()
     .collection('services')
     .where('published', '==', true)
@@ -18,4 +20,4 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
     .limit(1);
   const [service] = await queryDocs(serviceSchema, query);
   return service ?? null;
-}
+});

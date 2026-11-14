@@ -44,15 +44,9 @@
     "services": {
       "heading": "Tunachofanya",
       "fromPrice": "Kuanzia {price}",
-      "graphic-design": {
-        "title": "Usanifu wa Michoro",
-        "description": "Nembo, utambulisho wa chapa, mabango, vipeperushi, michoro ya mitandao ya kijamii na utambulisho wa matukio.",
-        "link": "Tazama huduma za usanifu"
-      },
-      "web-development": {
-        "title": "Utengenezaji wa Tovuti",
-        "description": "Kurasa za kutua, tovuti za biashara na za kazi binafsi, maduka rahisi ya mtandaoni, matengenezo na usanifu upya.",
-        "link": "Tazama huduma za tovuti"
+      "links": {
+        "graphic-design": "Tazama huduma za usanifu",
+        "web-development": "Tazama huduma za tovuti"
       }
     },
     "featured": {
@@ -90,10 +84,36 @@
   },
   "Portfolio": {
     "personalProject": "Mradi binafsi / wa masomo",
-    "coverAlt": "Picha kuu ya {title}",
-    "category": {
-      "graphic-design": "Usanifu wa Michoro",
-      "web-development": "Utengenezaji wa Tovuti"
+    "coverAlt": "Picha kuu ya {title}"
+  },
+  "Categories": {
+    "graphic-design": {
+      "title": "Usanifu wa Michoro",
+      "description": "Nembo, utambulisho wa chapa, mabango, vipeperushi, michoro ya mitandao ya kijamii na utambulisho wa matukio."
+    },
+    "web-development": {
+      "title": "Utengenezaji wa Tovuti",
+      "description": "Kurasa za kutua, tovuti za biashara na za kazi binafsi, maduka rahisi ya mtandaoni, matengenezo na usanifu upya."
     }
+  },
+  "Services": {
+    "meta": {
+      "title": "Huduma — Usanifu wa Michoro na Utengenezaji wa Tovuti | Wizzy Inc",
+      "description": "Usanifu wa nembo, mabango, michoro ya mitandao ya kijamii, tovuti za biashara, kurasa za kutua na zaidi, kwa bei za kuanzia kwa TZS."
+    },
+    "heading": "Huduma",
+    "intro": "Huduma zilizo wazi zenye bei za kuanzia. Bei yako ya mwisho inathibitishwa kwenye makadirio.",
+    "empty": "Huduma zetu zitaorodheshwa hapa hivi karibuni. Kwa sasa, omba makadirio ya bei au tuandikie WhatsApp.",
+    "startingPrice": "Bei ya kuanzia",
+    "turnaround": "Muda wa kawaida",
+    "days": "Siku {min}–{max}",
+    "viewDetails": "Tazama maelezo",
+    "viewDetailsFor": "Tazama maelezo ya {title}",
+    "priceNote": "Bei ya mwisho inathibitishwa kwenye makadirio yako.",
+    "inclusions": "Kilichojumuishwa",
+    "requestQuote": "Omba makadirio ya bei ya huduma hii",
+    "relatedWork": "Kazi zinazohusiana",
+    "faq": "Maswali yanayoulizwa mara kwa mara",
+    "backToServices": "Huduma zote"
   }
 }

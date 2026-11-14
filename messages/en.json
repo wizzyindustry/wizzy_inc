@@ -44,15 +44,9 @@
     "services": {
       "heading": "What we do",
       "fromPrice": "From {price}",
-      "graphic-design": {
-        "title": "Graphic Design",
-        "description": "Logos, brand identity, posters, flyers, social media graphics and event branding.",
-        "link": "View design services"
-      },
-      "web-development": {
-        "title": "Web Development",
-        "description": "Landing pages, business and portfolio websites, simple online shops, maintenance and redesigns.",
-        "link": "View web services"
+      "links": {
+        "graphic-design": "View design services",
+        "web-development": "View web services"
       }
     },
     "featured": {
@@ -90,10 +84,36 @@
   },
   "Portfolio": {
     "personalProject": "Personal / academic project",
-    "coverAlt": "Cover image for {title}",
-    "category": {
-      "graphic-design": "Graphic Design",
-      "web-development": "Web Development"
+    "coverAlt": "Cover image for {title}"
+  },
+  "Categories": {
+    "graphic-design": {
+      "title": "Graphic Design",
+      "description": "Logos, brand identity, posters, flyers, social media graphics and event branding."
+    },
+    "web-development": {
+      "title": "Web Development",
+      "description": "Landing pages, business and portfolio websites, simple online shops, maintenance and redesigns."
     }
+  },
+  "Services": {
+    "meta": {
+      "title": "Services — Graphic Design & Web Development | Wizzy Inc",
+      "description": "Logo design, posters, social media graphics, business websites, landing pages and more, with clear starting prices in TZS."
+    },
+    "heading": "Services",
+    "intro": "Clear services with starting prices. Your final price is confirmed in your quote.",
+    "empty": "Our services will be listed here soon. Meanwhile, request a quote or message us on WhatsApp.",
+    "startingPrice": "Starting price",
+    "turnaround": "Typical turnaround",
+    "days": "{min}–{max} days",
+    "viewDetails": "View details",
+    "viewDetailsFor": "View details for {title}",
+    "priceNote": "Final price is confirmed in your quote.",
+    "inclusions": "What's included",
+    "requestQuote": "Request a quote for this service",
+    "relatedWork": "Related work",
+    "faq": "Frequently asked questions",
+    "backToServices": "All services"
   }
 }
