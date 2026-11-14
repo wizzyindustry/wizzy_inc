@@ -137,5 +137,28 @@
     "relatedWork": "Kazi zinazohusiana",
     "faq": "Maswali yanayoulizwa mara kwa mara",
     "backToServices": "Huduma zote"
+  },
+  "Pricing": {
+    "meta": {
+      "title": "Bei na Vifurushi | Wizzy Inc",
+      "description": "Vifurushi vya Msingi, Kawaida na Premium kwa usanifu wa michoro na utengenezaji wa tovuti, kwa bei za kuanzia kwa TZS."
+    },
+    "heading": "Bei na vifurushi",
+    "intro": "Chagua kifurushi kuanza, au omba makadirio maalum. Bei zote ni kwa shilingi za Tanzania.",
+    "empty": "Vifurushi vitachapishwa hapa hivi karibuni. Bado unaweza kuomba makadirio ya bei.",
+    "popular": "Kinachopendwa zaidi",
+    "from": "Kuanzia",
+    "approxUsd": "Takriban {price}",
+    "revisions": "Marekebisho",
+    "delivery": "Muda wa kukabidhi",
+    "days": "{count, plural, one {Siku #} other {Siku #}}",
+    "requestPackage": "Omba kifurushi hiki",
+    "requestPackageFor": "Omba {name}",
+    "custom": {
+      "heading": "Unahitaji kitu tofauti?",
+      "description": "Tueleze unachohitaji nasi tutakuandalia makadirio yanayoendana na mradi na bajeti yako.",
+      "button": "Omba makadirio maalum"
+    },
+    "note": "Bei hizi ni za kuanzia. Bei yako ya mwisho inathibitishwa kwenye makadirio kabla kazi haijaanza."
   }
 }

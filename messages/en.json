@@ -137,5 +137,28 @@
     "relatedWork": "Related work",
     "faq": "Frequently asked questions",
     "backToServices": "All services"
+  },
+  "Pricing": {
+    "meta": {
+      "title": "Pricing & Packages | Wizzy Inc",
+      "description": "Basic, Standard and Premium packages for graphic design and web development, with clear starting prices in TZS."
+    },
+    "heading": "Pricing & packages",
+    "intro": "Pick a package to get started, or ask for a custom quote. All prices are in Tanzanian shillings.",
+    "empty": "Packages will be published here soon. You can still request a quote.",
+    "popular": "Most popular",
+    "from": "From",
+    "approxUsd": "About {price}",
+    "revisions": "Revisions",
+    "delivery": "Delivery",
+    "days": "{count, plural, one {# day} other {# days}}",
+    "requestPackage": "Request this package",
+    "requestPackageFor": "Request the {name}",
+    "custom": {
+      "heading": "Need something different?",
+      "description": "Tell us what you need and we will prepare a quote that fits your project and budget.",
+      "button": "Request a custom quote"
+    },
+    "note": "Prices are starting prices. Your final price is confirmed in your quote before any work starts."
   }
 }
