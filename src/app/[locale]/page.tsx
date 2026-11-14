@@ -35,10 +35,10 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations('HomePage');
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+    <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
       <h1 className="font-display text-3xl font-bold text-foreground">{t('title')}</h1>
       <p className="text-lg text-muted-foreground">{t('tagline')}</p>
       <p className="rounded-md bg-muted px-4 py-3 text-muted-foreground">{t('comingSoon')}</p>
-    </main>
+    </div>
   );
 }

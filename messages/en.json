@@ -1,4 +1,35 @@
 {
+  "Layout": {
+    "skipToContent": "Skip to main content"
+  },
+  "Nav": {
+    "brand": "Wizzy Inc",
+    "mainNav": "Main navigation",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "requestQuote": "Request a quote",
+    "requestQuoteShort": "Get a quote",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "LanguageSwitcher": {
+    "label": "Choose language",
+    "en": "English",
+    "sw": "Kiswahili"
+  },
+  "WhatsApp": {
+    "label": "Chat with us on WhatsApp",
+    "prefilledMessage": "Hello Wizzy Inc, I would like to ask about your services."
+  },
+  "Footer": {
+    "tagline": "Graphic design and web development in Dodoma, Tanzania.",
+    "linksLabel": "Footer links",
+    "contactHeading": "Contact",
+    "copyright": "© {year} Wizzy Inc. All rights reserved."
+  },
   "HomePage": {
     "meta": {
       "title": "Wizzy Inc — Graphic Design & Web Development",

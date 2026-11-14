@@ -1,4 +1,35 @@
 {
+  "Layout": {
+    "skipToContent": "Ruka hadi maudhui makuu"
+  },
+  "Nav": {
+    "brand": "Wizzy Inc",
+    "mainNav": "Menyu kuu",
+    "services": "Huduma",
+    "portfolio": "Kazi Zetu",
+    "pricing": "Bei",
+    "about": "Kuhusu",
+    "contact": "Mawasiliano",
+    "requestQuote": "Omba makadirio ya bei",
+    "requestQuoteShort": "Omba bei",
+    "openMenu": "Fungua menyu",
+    "closeMenu": "Funga menyu"
+  },
+  "LanguageSwitcher": {
+    "label": "Chagua lugha",
+    "en": "English",
+    "sw": "Kiswahili"
+  },
+  "WhatsApp": {
+    "label": "Ongea nasi kupitia WhatsApp",
+    "prefilledMessage": "Habari Wizzy Inc, ningependa kuuliza kuhusu huduma zenu."
+  },
+  "Footer": {
+    "tagline": "Usanifu wa michoro na utengenezaji wa tovuti, Dodoma, Tanzania.",
+    "linksLabel": "Viungo vya chini",
+    "contactHeading": "Mawasiliano",
+    "copyright": "© {year} Wizzy Inc. Haki zote zimehifadhiwa."
+  },
   "HomePage": {
     "meta": {
       "title": "Wizzy Inc — Usanifu wa Michoro na Utengenezaji wa Tovuti",

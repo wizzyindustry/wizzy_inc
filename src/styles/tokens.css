@@ -20,7 +20,8 @@
   --color-ring: #1d4ed8;
   --color-danger: #b91c1c; /* ~6.5:1 */
   --color-success: #15803d; /* ~5:1 */
-  --color-whatsapp: #128c7e;
+  --color-whatsapp: #128c7e; /* icon-only button: ~4.1:1 with white, meets 3:1 for non-text */
+  --color-whatsapp-foreground: #ffffff;
 
   /* Radius */
   --radius-sm: 0.25rem;
