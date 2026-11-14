@@ -7,6 +7,10 @@ const storageEmulator = process.env.FIREBASE_STORAGE_EMULATOR_HOST;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Quote form: up to 3 attachments x 5 MB (FR-3) plus fields. Default limit is 1 MB.
+    serverActions: { bodySizeLimit: '16mb' },
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

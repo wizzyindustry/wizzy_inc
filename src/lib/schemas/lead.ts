@@ -40,30 +40,64 @@ export const tzPhoneSchema = z
     return normalized;
   });
 
+// ---- Budget ranges offered in the quote form (owner-approved 2026-11-15) ----
+export const BUDGET_RANGES = [
+  { id: 'under-100k', min: 0, max: 100_000 },
+  { id: '100k-300k', min: 100_000, max: 300_000 },
+  { id: '300k-1m', min: 300_000, max: 1_000_000 },
+  { id: 'over-1m', min: 1_000_000 },
+] as const satisfies readonly { id: string; min: number; max?: number }[];
+export type BudgetRangeId = (typeof BUDGET_RANGES)[number]['id'];
+const budgetRangeIds = BUDGET_RANGES.map((r) => r.id) as [BudgetRangeId, ...BudgetRangeId[]];
+
+export function budgetRangeById(id: BudgetRangeId): { min: number; max?: number } {
+  const range = BUDGET_RANGES.find((r) => r.id === id);
+  if (!range) throw new RangeError(`Unknown budget range ${id}`);
+  return 'max' in range ? { min: range.min, max: range.max } : { min: range.min };
+}
+
+/** Form inputs send "" for "not chosen"; treat that as undefined. */
+const emptyToUndefined = z.literal('').transform(() => undefined);
+
 /**
  * What the visitor submits in the quote form (FR-2). Used on the client (UX) AND
  * re-run on the server (security). Error messages are i18n keys, not display text.
  */
 export const quoteInputSchema = z.object({
-  serviceSlug: slugSchema,
-  packageId: z.string().min(1).optional(),
-  description: z.string().trim().min(20, 'descriptionTooShort').max(5000),
-  budgetRangeTZS: z
-    .object({ min: priceTZSSchema, max: priceTZSSchema.optional() })
-    .refine((b) => b.max === undefined || b.max >= b.min, 'invalidBudget')
-    .optional(),
-  deadline: z.iso.date().optional(), // YYYY-MM-DD from the date input
+  serviceSlug: slugSchema.or(z.literal('')).refine((v) => v !== '', 'serviceRequired'),
+  packageId: z.string().min(1).max(100).optional().or(emptyToUndefined),
+  description: z.string().trim().min(20, 'descriptionTooShort').max(5000, 'descriptionTooLong'),
+  budgetRange: z.enum(budgetRangeIds).optional().or(emptyToUndefined),
+  deadline: z.iso.date('invalidDate').optional().or(emptyToUndefined), // YYYY-MM-DD
   name: z.string().trim().min(2, 'nameRequired').max(100),
   phone: tzPhoneSchema,
-  email: z
-    .email('invalidEmail')
-    .optional()
-    .or(z.literal('').transform(() => undefined)),
-  preferredContact: preferredContactSchema.default('whatsapp'),
+  email: z.email('invalidEmail').optional().or(emptyToUndefined),
+  preferredContact: preferredContactSchema,
   locale: localeSchema,
 });
 export type QuoteInput = z.input<typeof quoteInputSchema>;
 export type QuoteData = z.output<typeof quoteInputSchema>;
+
+/** Minimal file info, available both from browser `File` and server `File`. */
+type FileLike = { name: string; size: number; type: string };
+
+/** Validate attachments (FR-3). Returns an i18n error key, or null when fine. */
+export function attachmentError(files: FileLike[]): string | null {
+  if (files.length > MAX_ATTACHMENTS) return 'tooManyFiles';
+  for (const file of files) {
+    if (file.size > MAX_ATTACHMENT_BYTES) return 'fileTooLarge';
+    if (!(ALLOWED_ATTACHMENT_TYPES as readonly string[]).includes(file.type)) return 'fileType';
+  }
+  return null;
+}
+
+/** Next counter value for reference numbers; numbering restarts each year. */
+export function nextLeadNumber(
+  counter: { year: number; value: number } | null,
+  year: number,
+): { year: number; value: number } {
+  return counter && counter.year === year ? { year, value: counter.value + 1 } : { year, value: 1 };
+}
 
 /** A lead document as read by admin code (Timestamps converted to Date). */
 export const leadSchema = z.object({

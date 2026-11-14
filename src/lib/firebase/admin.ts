@@ -14,16 +14,15 @@ function adminApp(): App {
   const existing = getApps()[0];
   if (existing) return existing;
 
-  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? 'demo-wizzy';
+  const storageBucket =
+    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || `${projectId}.appspot.com`;
   const key = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
   if (key) {
     const serviceAccount = JSON.parse(Buffer.from(key, 'base64').toString('utf8'));
     return initializeApp({ credential: cert(serviceAccount), storageBucket });
   }
-  return initializeApp({
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? 'demo-wizzy',
-    storageBucket,
-  });
+  return initializeApp({ projectId, storageBucket });
 }
 
 export const adminDb = () => getFirestore(adminApp());
