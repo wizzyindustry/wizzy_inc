@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 import { adminDb } from '@/lib/firebase/admin';
 import type { ServiceCategory } from '@/lib/schemas/common';
 import { portfolioItemSchema, type PortfolioItem } from '@/lib/schemas/content';
@@ -16,13 +17,14 @@ export async function getFeaturedPortfolio(limit = 6): Promise<PortfolioItem[]> 
   return items.sort((a, b) => a.order - b.order).slice(0, limit);
 }
 
-export async function getPortfolioBySlug(slug: string): Promise<PortfolioItem | null> {
+/** Cached per request so generateMetadata and the page share one read. */
+export const getPortfolioBySlug = cache(async (slug: string): Promise<PortfolioItem | null> => {
   const [item] = await queryDocs(
     portfolioItemSchema,
     published().where('slug', '==', slug).limit(1),
   );
   return item ?? null;
-}
+});
 
 export async function getPortfolioForService(
   serviceSlug: string,

@@ -84,7 +84,29 @@
   },
   "Portfolio": {
     "personalProject": "Mradi binafsi / wa masomo",
-    "coverAlt": "Picha kuu ya {title}"
+    "coverAlt": "Picha kuu ya {title}",
+    "meta": {
+      "title": "Kazi Zetu — Miradi ya Usanifu na Tovuti | Wizzy Inc",
+      "description": "Nembo, mabango, michoro ya mitandao ya kijamii na tovuti zilizosanifiwa na kutengenezwa na Wizzy Inc."
+    },
+    "heading": "Kazi Zetu",
+    "intro": "Baadhi ya miradi ya usanifu na tovuti. Miradi binafsi na ya masomo imewekewa alama.",
+    "empty": "Miradi itaongezwa hapa hivi karibuni.",
+    "filterLabel": "Chuja miradi kwa aina",
+    "all": "Yote",
+    "showing": "{count, plural, =0 {Hakuna miradi katika aina hii} one {Mradi # unaonyeshwa} other {Miradi # inaonyeshwa}}",
+    "backToPortfolio": "Miradi yote",
+    "clientType": "Aina ya mteja",
+    "completed": "Ulikamilika",
+    "tools": "Zana",
+    "problem": "Changamoto",
+    "solution": "Tulichofanya",
+    "result": "Matokeo",
+    "gallery": "Picha zaidi",
+    "galleryAlt": "{title} — picha {number}",
+    "liveSite": "Tembelea tovuti",
+    "similarProject": "Omba mradi kama huu",
+    "relatedServices": "Huduma zilizotumika"
   },
   "Categories": {
     "graphic-design": {

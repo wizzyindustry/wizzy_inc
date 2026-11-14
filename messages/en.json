@@ -84,7 +84,29 @@
   },
   "Portfolio": {
     "personalProject": "Personal / academic project",
-    "coverAlt": "Cover image for {title}"
+    "coverAlt": "Cover image for {title}",
+    "meta": {
+      "title": "Portfolio — Design & Web Projects | Wizzy Inc",
+      "description": "Logos, posters, social media graphics and websites designed and built by Wizzy Inc."
+    },
+    "heading": "Portfolio",
+    "intro": "A selection of design and web projects. Personal and academic projects are labelled.",
+    "empty": "Projects will be added here soon.",
+    "filterLabel": "Filter projects by category",
+    "all": "All",
+    "showing": "{count, plural, =0 {No projects in this category} one {Showing # project} other {Showing # projects}}",
+    "backToPortfolio": "All projects",
+    "clientType": "Client type",
+    "completed": "Completed",
+    "tools": "Tools",
+    "problem": "The challenge",
+    "solution": "What we did",
+    "result": "The result",
+    "gallery": "Gallery",
+    "galleryAlt": "{title} — image {number}",
+    "liveSite": "Visit the live website",
+    "similarProject": "Request a similar project",
+    "relatedServices": "Services used"
   },
   "Categories": {
     "graphic-design": {
