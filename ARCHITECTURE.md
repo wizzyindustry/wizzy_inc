@@ -227,8 +227,8 @@ There are three places where server logic runs:
 
 ### 5.2 Indexes
 - `leads`: `status ASC, createdAt DESC`; `serviceSlug ASC, createdAt DESC`
-- `portfolio`: `published ASC, category ASC, order ASC`; `published ASC, featured ASC`
-- `services`: `published ASC, category ASC, order ASC`
+- `portfolio`: `published ASC, category ASC, order ASC`; `published ASC, order ASC`; `published ASC, featured ASC`
+- `services`: `published ASC, category ASC, order ASC`; `published ASC, order ASC`
 
 ### 5.3 Security rules (summary)
 - Deny everything by default.
