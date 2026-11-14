@@ -1,5 +1,3 @@
-import type { z } from 'zod';
-
 /**
  * Shape every Server Action returns (CLAUDE.md conventions): never throw raw errors to the
  * client. `error` and `fieldErrors` values are i18n keys, translated in the UI.
@@ -24,7 +22,10 @@ export const FORM_ERROR_KEYS = [
 ] as const;
 
 /** First error per top-level field, as an i18n key. */
-export function zodFieldErrors(error: z.ZodError): Record<string, string> {
+/** Works with errors from both `zod` and `zod/mini` (same v4 issue format). */
+type IssueList = { issues: readonly { path: readonly PropertyKey[]; message: string }[] };
+
+export function zodFieldErrors(error: IssueList): Record<string, string> {
   const known = new Set<string>(FORM_ERROR_KEYS);
   const result: Record<string, string> = {};
   for (const issue of error.issues) {

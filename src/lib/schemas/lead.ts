@@ -1,17 +1,10 @@
 import { z } from 'zod';
-import { normalizeTzPhone } from '@/lib/utils/format-phone';
 import { localeSchema, priceTZSSchema, slugSchema } from './common';
+import { ALLOWED_ATTACHMENT_TYPES, MAX_ATTACHMENTS, MAX_ATTACHMENT_BYTES } from './quote-input';
 
-// ---- Attachment limits (FR-3) — enforced in UI, server and storage.rules ----
-export const MAX_ATTACHMENTS = 3;
-export const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
-export const ALLOWED_ATTACHMENT_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'application/pdf',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-] as const;
+// The quote form input (shared with the browser) lives in ./quote-input.ts. Re-exported
+// here so server code has one import for everything lead-related.
+export * from './quote-input';
 
 export const attachmentSchema = z.object({
   path: z.string().min(1),
@@ -26,70 +19,6 @@ export const leadStatusSchema = z.enum(['new', 'contacted', 'quoted', 'won', 'lo
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 
 export const preferredContactSchema = z.enum(['whatsapp', 'phone', 'email']);
-
-/** Tanzanian phone: accepts +255… / 0…, outputs normalised +255XXXXXXXXX. */
-export const tzPhoneSchema = z
-  .string()
-  .trim()
-  .transform((value, ctx) => {
-    const normalized = normalizeTzPhone(value);
-    if (!normalized) {
-      ctx.addIssue({ code: 'custom', message: 'invalidPhone' });
-      return z.NEVER;
-    }
-    return normalized;
-  });
-
-// ---- Budget ranges offered in the quote form (owner-approved 2026-11-15) ----
-export const BUDGET_RANGES = [
-  { id: 'under-100k', min: 0, max: 100_000 },
-  { id: '100k-300k', min: 100_000, max: 300_000 },
-  { id: '300k-1m', min: 300_000, max: 1_000_000 },
-  { id: 'over-1m', min: 1_000_000 },
-] as const satisfies readonly { id: string; min: number; max?: number }[];
-export type BudgetRangeId = (typeof BUDGET_RANGES)[number]['id'];
-const budgetRangeIds = BUDGET_RANGES.map((r) => r.id) as [BudgetRangeId, ...BudgetRangeId[]];
-
-export function budgetRangeById(id: BudgetRangeId): { min: number; max?: number } {
-  const range = BUDGET_RANGES.find((r) => r.id === id);
-  if (!range) throw new RangeError(`Unknown budget range ${id}`);
-  return 'max' in range ? { min: range.min, max: range.max } : { min: range.min };
-}
-
-/** Form inputs send "" for "not chosen"; treat that as undefined. */
-const emptyToUndefined = z.literal('').transform(() => undefined);
-
-/**
- * What the visitor submits in the quote form (FR-2). Used on the client (UX) AND
- * re-run on the server (security). Error messages are i18n keys, not display text.
- */
-export const quoteInputSchema = z.object({
-  serviceSlug: slugSchema.or(z.literal('')).refine((v) => v !== '', 'serviceRequired'),
-  packageId: z.string().min(1).max(100).optional().or(emptyToUndefined),
-  description: z.string().trim().min(20, 'descriptionTooShort').max(5000, 'descriptionTooLong'),
-  budgetRange: z.enum(budgetRangeIds).optional().or(emptyToUndefined),
-  deadline: z.iso.date('invalidDate').optional().or(emptyToUndefined), // YYYY-MM-DD
-  name: z.string().trim().min(2, 'nameRequired').max(100),
-  phone: tzPhoneSchema,
-  email: z.email('invalidEmail').optional().or(emptyToUndefined),
-  preferredContact: preferredContactSchema,
-  locale: localeSchema,
-});
-export type QuoteInput = z.input<typeof quoteInputSchema>;
-export type QuoteData = z.output<typeof quoteInputSchema>;
-
-/** Minimal file info, available both from browser `File` and server `File`. */
-type FileLike = { name: string; size: number; type: string };
-
-/** Validate attachments (FR-3). Returns an i18n error key, or null when fine. */
-export function attachmentError(files: FileLike[]): string | null {
-  if (files.length > MAX_ATTACHMENTS) return 'tooManyFiles';
-  for (const file of files) {
-    if (file.size > MAX_ATTACHMENT_BYTES) return 'fileTooLarge';
-    if (!(ALLOWED_ATTACHMENT_TYPES as readonly string[]).includes(file.type)) return 'fileType';
-  }
-  return null;
-}
 
 /** Next counter value for reference numbers; numbering restarts each year. */
 export function nextLeadNumber(

@@ -160,5 +160,89 @@
       "button": "Request a custom quote"
     },
     "note": "Prices are starting prices. Your final price is confirmed in your quote before any work starts."
+  },
+  "QuoteForm": {
+    "meta": {
+      "title": "Request a quote | Wizzy Inc",
+      "description": "Tell us about your design or website project and get a clear price."
+    },
+    "heading": "Request a quote",
+    "intro": "Answer a few quick questions — it takes about 2 minutes. We reply on WhatsApp, by phone or email.",
+    "unavailable": "The quote form is temporarily unavailable. Please contact us on WhatsApp.",
+    "fromPrice": "from {price}",
+    "progressLabel": "Form progress",
+    "stepOf": "Step {current} of {total}",
+    "steps": {
+      "service": "Service and package",
+      "details": "Project details",
+      "budget": "Budget and deadline",
+      "contact": "Your contact details"
+    },
+    "optional": "optional",
+    "fields": {
+      "service": "Which service do you need?",
+      "chooseService": "Choose a service",
+      "package": "Package",
+      "noPackage": "No package / not sure",
+      "description": "Describe your project",
+      "descriptionHint": "What do you need, who is it for, and any colours, text or examples you have in mind (at least 20 characters).",
+      "attachments": "Reference files",
+      "attachmentsHint": "Up to {max} files: JPG, PNG, WebP, PDF or DOCX, max 5 MB each.",
+      "budget": "Budget",
+      "deadline": "When do you need it?",
+      "name": "Your name",
+      "phone": "Phone / WhatsApp number",
+      "phoneHint": "Tanzanian number, e.g. 0712 345 678 or +255 712 345 678",
+      "email": "Email",
+      "preferredContact": "How should we contact you?"
+    },
+    "contactMethods": {
+      "whatsapp": "WhatsApp",
+      "phone": "Phone call",
+      "email": "Email"
+    },
+    "budget": {
+      "notSure": "Not sure yet",
+      "under-100k": "Under TSh 100,000",
+      "100k-300k": "TSh 100,000 – 300,000",
+      "300k-1m": "TSh 300,000 – 1,000,000",
+      "over-1m": "Over TSh 1,000,000"
+    },
+    "removeFile": "Remove {name}",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "privacy": "TODO: real content — privacy notice (Tanzania Personal Data Protection Act 2022) to be written and reviewed by the owner before launch.",
+    "errors": {
+      "serviceRequired": "Please choose a service.",
+      "invalidPackage": "This package is not available for the chosen service.",
+      "descriptionTooShort": "Please describe your project in at least 20 characters.",
+      "descriptionTooLong": "Please keep the description under 5,000 characters.",
+      "invalidDate": "Please choose a valid date.",
+      "deadlinePast": "Please choose a date from today onwards.",
+      "nameRequired": "Please enter your name.",
+      "invalidPhone": "Please enter a Tanzanian number like 0712 345 678.",
+      "invalidEmail": "Please enter a valid email address or leave it empty.",
+      "tooManyFiles": "You can attach up to 3 files.",
+      "fileTooLarge": "Each file must be 5 MB or smaller.",
+      "fileType": "Only JPG, PNG, WebP, PDF or DOCX files are allowed.",
+      "invalid": "Please check this field.",
+      "validation": "Please check the highlighted fields.",
+      "appCheck": "We could not verify your browser. Please refresh the page and try again.",
+      "rateLimited": "Too many requests from your connection. Please try again later or message us on WhatsApp.",
+      "server": "Something went wrong on our side. Please try again or message us on WhatsApp.",
+      "network": "Could not send your request. Check your connection and try again."
+    }
+  },
+  "QuoteSuccess": {
+    "title": "Thank you — your request was sent",
+    "body": "We have received your request and will contact you soon, usually within one working day.",
+    "refLabel": "Your reference number",
+    "refHint": "Mention this number when you contact us.",
+    "whatsappButton": "Follow up on WhatsApp",
+    "whatsappMessage": "Hello Wizzy Inc, I just sent a quote request.",
+    "whatsappMessageWithRef": "Hello Wizzy Inc, I just sent a quote request. My reference number is {ref}.",
+    "home": "Back to home"
   }
 }

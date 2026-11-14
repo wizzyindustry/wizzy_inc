@@ -160,5 +160,89 @@
       "button": "Omba makadirio maalum"
     },
     "note": "Bei hizi ni za kuanzia. Bei yako ya mwisho inathibitishwa kwenye makadirio kabla kazi haijaanza."
+  },
+  "QuoteForm": {
+    "meta": {
+      "title": "Omba makadirio ya bei | Wizzy Inc",
+      "description": "Tueleze kuhusu mradi wako wa usanifu au tovuti upate bei iliyo wazi."
+    },
+    "heading": "Omba makadirio ya bei",
+    "intro": "Jibu maswali machache — inachukua takriban dakika 2. Tunajibu kwa WhatsApp, simu au barua pepe.",
+    "unavailable": "Fomu ya maombi haipatikani kwa sasa. Tafadhali wasiliana nasi kupitia WhatsApp.",
+    "fromPrice": "kuanzia {price}",
+    "progressLabel": "Hatua za fomu",
+    "stepOf": "Hatua {current} kati ya {total}",
+    "steps": {
+      "service": "Huduma na kifurushi",
+      "details": "Maelezo ya mradi",
+      "budget": "Bajeti na muda",
+      "contact": "Mawasiliano yako"
+    },
+    "optional": "si lazima",
+    "fields": {
+      "service": "Unahitaji huduma gani?",
+      "chooseService": "Chagua huduma",
+      "package": "Kifurushi",
+      "noPackage": "Hakuna kifurushi / sina uhakika",
+      "description": "Eleza mradi wako",
+      "descriptionHint": "Unahitaji nini, ni kwa ajili ya nani, na rangi, maandishi au mifano uliyonayo (angalau herufi 20).",
+      "attachments": "Mafaili ya mfano",
+      "attachmentsHint": "Hadi mafaili {max}: JPG, PNG, WebP, PDF au DOCX, kila moja isizidi MB 5.",
+      "budget": "Bajeti",
+      "deadline": "Unahitaji lini?",
+      "name": "Jina lako",
+      "phone": "Namba ya simu / WhatsApp",
+      "phoneHint": "Namba ya Tanzania, mfano 0712 345 678 au +255 712 345 678",
+      "email": "Barua pepe",
+      "preferredContact": "Tukutafute kwa njia gani?"
+    },
+    "contactMethods": {
+      "whatsapp": "WhatsApp",
+      "phone": "Simu",
+      "email": "Barua pepe"
+    },
+    "budget": {
+      "notSure": "Sina uhakika bado",
+      "under-100k": "Chini ya TSh 100,000",
+      "100k-300k": "TSh 100,000 – 300,000",
+      "300k-1m": "TSh 300,000 – 1,000,000",
+      "over-1m": "Zaidi ya TSh 1,000,000"
+    },
+    "removeFile": "Ondoa {name}",
+    "back": "Rudi",
+    "next": "Endelea",
+    "submit": "Tuma ombi",
+    "sending": "Inatuma…",
+    "privacy": "TODO: real content — taarifa ya faragha (Sheria ya Ulinzi wa Taarifa Binafsi ya Tanzania 2022) itaandikwa na kukaguliwa na mmiliki kabla ya kuzindua.",
+    "errors": {
+      "serviceRequired": "Tafadhali chagua huduma.",
+      "invalidPackage": "Kifurushi hiki hakipatikani kwa huduma uliyochagua.",
+      "descriptionTooShort": "Tafadhali eleza mradi wako kwa angalau herufi 20.",
+      "descriptionTooLong": "Tafadhali punguza maelezo yawe chini ya herufi 5,000.",
+      "invalidDate": "Tafadhali chagua tarehe sahihi.",
+      "deadlinePast": "Tafadhali chagua tarehe ya leo au baadaye.",
+      "nameRequired": "Tafadhali andika jina lako.",
+      "invalidPhone": "Tafadhali andika namba ya Tanzania kama 0712 345 678.",
+      "invalidEmail": "Tafadhali andika barua pepe sahihi au iache wazi.",
+      "tooManyFiles": "Unaweza kuambatisha hadi mafaili 3.",
+      "fileTooLarge": "Kila faili lisizidi MB 5.",
+      "fileType": "Mafaili ya JPG, PNG, WebP, PDF au DOCX pekee yanaruhusiwa.",
+      "invalid": "Tafadhali kagua sehemu hii.",
+      "validation": "Tafadhali kagua sehemu zilizowekewa alama.",
+      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali onyesha upya ukurasa ujaribu tena.",
+      "rateLimited": "Maombi mengi mno kutoka kwenye mtandao wako. Tafadhali jaribu baadaye au tuandikie WhatsApp.",
+      "server": "Kuna hitilafu upande wetu. Tafadhali jaribu tena au tuandikie WhatsApp.",
+      "network": "Ombi lako halikutumwa. Kagua mtandao wako ujaribu tena."
+    }
+  },
+  "QuoteSuccess": {
+    "title": "Asante — ombi lako limetumwa",
+    "body": "Tumepokea ombi lako na tutawasiliana nawe hivi karibuni, kwa kawaida ndani ya siku moja ya kazi.",
+    "refLabel": "Namba yako ya kumbukumbu",
+    "refHint": "Taja namba hii unapowasiliana nasi.",
+    "whatsappButton": "Fuatilia kupitia WhatsApp",
+    "whatsappMessage": "Habari Wizzy Inc, nimetuma ombi la makadirio ya bei.",
+    "whatsappMessageWithRef": "Habari Wizzy Inc, nimetuma ombi la makadirio ya bei. Namba yangu ya kumbukumbu ni {ref}.",
+    "home": "Rudi mwanzo"
   }
 }
