@@ -223,6 +223,7 @@ There are three places where server logic runs:
 ```
 
 **`counters/leads`** — `{ year: number, value: number }` for reference numbers.
+**`rateLimits/{hash}`** (server only) — `{ action, count, windowStart, expiresAt }`, one doc per salted SHA-256 of action + client IP (raw IPs are never stored). Fixed window: 5 quote / 5 contact submissions per IP per hour (`src/lib/security/rate-limit-window.ts`). Set a Firestore TTL policy on `expiresAt` in each project so old docs are deleted automatically.
 **`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual).
 
 ### 5.2 Indexes
@@ -233,6 +234,7 @@ There are three places where server logic runs:
 ### 5.3 Security rules (summary)
 - Deny everything by default.
 - `services`, `packages`, `portfolio`, `testimonials`, `settings`: public **read** only where `published == true` (settings always readable); **write** only if `request.auth.token.admin == true`.
+- `rateLimits`: no client access at all (not listed in the rules, so denied by default).
 - `leads`, `counters`: **no client access at all** for the public — created only by the server (Admin SDK). Admins may read/update `leads`; nobody may delete from the client.
 - Storage: `portfolio/**` public read, admin write; `quotes/**` admin read only, server write only.
 

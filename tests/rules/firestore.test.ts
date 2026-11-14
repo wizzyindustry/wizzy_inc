@@ -96,6 +96,13 @@ describe('counters and unknown collections', () => {
     await assertFails(setDoc(doc(adminDb(), 'counters/leads'), { value: 99 }));
   });
 
+  it('rateLimits (server-only) are closed to every client', async () => {
+    await assertFails(getDoc(doc(publicDb(), 'rateLimits/abc')));
+    await assertFails(setDoc(doc(publicDb(), 'rateLimits/abc'), { count: 0 }));
+    await assertFails(getDoc(doc(adminDb(), 'rateLimits/abc')));
+    await assertFails(setDoc(doc(adminDb(), 'rateLimits/abc'), { count: 0 }));
+  });
+
   it('unknown collections are denied by default', async () => {
     await assertFails(getDoc(doc(adminDb(), 'anything/else')));
     await assertFails(setDoc(doc(adminDb(), 'anything/else'), { a: 1 }));
