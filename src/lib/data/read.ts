@@ -23,6 +23,19 @@ export function parseDoc<S extends z.ZodType>(
   return result.data;
 }
 
+/**
+ * For OPTIONAL page sections only (e.g. featured work on the home page): if the read fails,
+ * log it and render without the section instead of failing the whole page or build.
+ */
+export async function orFallback<T>(read: Promise<T>, fallback: T, label: string): Promise<T> {
+  try {
+    return await read;
+  } catch (error) {
+    console.error(`[data] ${label} unavailable:`, (error as Error).message);
+    return fallback;
+  }
+}
+
 export async function queryDocs<S extends z.ZodType>(
   schema: S,
   query: Query,

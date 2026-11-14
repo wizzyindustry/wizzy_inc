@@ -35,8 +35,65 @@
       "title": "Wizzy Inc — Graphic Design & Web Development",
       "description": "Graphic design and web development services in Dodoma, Tanzania."
     },
-    "title": "Wizzy Inc",
-    "tagline": "Graphic design and web development in Dodoma, Tanzania.",
-    "comingSoon": "Our new website is on the way. Check back soon."
+    "hero": {
+      "headline": "Graphic design and websites that help your business stand out",
+      "subheadline": "Logos, posters, social media graphics and fast, mobile-friendly websites for businesses in Dodoma and across Tanzania.",
+      "primaryCta": "Request a quote",
+      "secondaryCta": "See our work"
+    },
+    "services": {
+      "heading": "What we do",
+      "fromPrice": "From {price}",
+      "graphic-design": {
+        "title": "Graphic Design",
+        "description": "Logos, brand identity, posters, flyers, social media graphics and event branding.",
+        "link": "View design services"
+      },
+      "web-development": {
+        "title": "Web Development",
+        "description": "Landing pages, business and portfolio websites, simple online shops, maintenance and redesigns.",
+        "link": "View web services"
+      }
+    },
+    "featured": {
+      "heading": "Featured work",
+      "viewAll": "View all projects"
+    },
+    "process": {
+      "heading": "How it works",
+      "request": {
+        "title": "Tell us what you need",
+        "description": "Send a quote request or message us on WhatsApp with your idea, deadline and budget."
+      },
+      "agree": {
+        "title": "Agree on scope and price",
+        "description": "We confirm what is included, the price and the delivery date before work starts."
+      },
+      "create": {
+        "title": "Design and build",
+        "description": "We create your project and share progress so you can request revisions."
+      },
+      "deliver": {
+        "title": "Delivery",
+        "description": "You receive the final files or your live website, ready to use."
+      }
+    },
+    "testimonials": {
+      "heading": "What clients say",
+      "rating": "Rated {rating} out of 5"
+    },
+    "cta": {
+      "heading": "Ready to start your project?",
+      "description": "Tell us about your project and get a clear price — no long chats needed.",
+      "button": "Request a quote"
+    }
+  },
+  "Portfolio": {
+    "personalProject": "Personal / academic project",
+    "coverAlt": "Cover image for {title}",
+    "category": {
+      "graphic-design": "Graphic Design",
+      "web-development": "Web Development"
+    }
   }
 }

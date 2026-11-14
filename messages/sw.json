@@ -35,8 +35,65 @@
       "title": "Wizzy Inc — Usanifu wa Michoro na Utengenezaji wa Tovuti",
       "description": "Huduma za usanifu wa michoro na utengenezaji wa tovuti Dodoma, Tanzania."
     },
-    "title": "Wizzy Inc",
-    "tagline": "Usanifu wa michoro na utengenezaji wa tovuti, Dodoma, Tanzania.",
-    "comingSoon": "Tovuti yetu mpya inakuja hivi karibuni. Tafadhali rudi tena baadaye."
+    "hero": {
+      "headline": "Michoro na tovuti zinazoifanya biashara yako ionekane",
+      "subheadline": "Nembo, mabango, michoro ya mitandao ya kijamii na tovuti za haraka zinazofaa simu kwa biashara za Dodoma na Tanzania nzima.",
+      "primaryCta": "Omba makadirio ya bei",
+      "secondaryCta": "Tazama kazi zetu"
+    },
+    "services": {
+      "heading": "Tunachofanya",
+      "fromPrice": "Kuanzia {price}",
+      "graphic-design": {
+        "title": "Usanifu wa Michoro",
+        "description": "Nembo, utambulisho wa chapa, mabango, vipeperushi, michoro ya mitandao ya kijamii na utambulisho wa matukio.",
+        "link": "Tazama huduma za usanifu"
+      },
+      "web-development": {
+        "title": "Utengenezaji wa Tovuti",
+        "description": "Kurasa za kutua, tovuti za biashara na za kazi binafsi, maduka rahisi ya mtandaoni, matengenezo na usanifu upya.",
+        "link": "Tazama huduma za tovuti"
+      }
+    },
+    "featured": {
+      "heading": "Kazi zilizochaguliwa",
+      "viewAll": "Tazama miradi yote"
+    },
+    "process": {
+      "heading": "Jinsi inavyofanya kazi",
+      "request": {
+        "title": "Tuambie unachohitaji",
+        "description": "Tuma ombi la bei au tuandikie WhatsApp ukieleza wazo lako, muda na bajeti."
+      },
+      "agree": {
+        "title": "Kubaliana kazi na bei",
+        "description": "Tunathibitisha kilichojumuishwa, bei na tarehe ya kukabidhi kabla ya kuanza."
+      },
+      "create": {
+        "title": "Kusanifu na kutengeneza",
+        "description": "Tunatengeneza mradi wako na kukuonyesha maendeleo ili uombe marekebisho."
+      },
+      "deliver": {
+        "title": "Kukabidhi",
+        "description": "Unapokea mafaili ya mwisho au tovuti yako ikiwa hewani, tayari kutumika."
+      }
+    },
+    "testimonials": {
+      "heading": "Wateja wanasema",
+      "rating": "Alama {rating} kati ya 5"
+    },
+    "cta": {
+      "heading": "Uko tayari kuanza mradi wako?",
+      "description": "Tueleze kuhusu mradi wako upate bei iliyo wazi — bila mazungumzo marefu.",
+      "button": "Omba makadirio ya bei"
+    }
+  },
+  "Portfolio": {
+    "personalProject": "Mradi binafsi / wa masomo",
+    "coverAlt": "Picha kuu ya {title}",
+    "category": {
+      "graphic-design": "Usanifu wa Michoro",
+      "web-development": "Utengenezaji wa Tovuti"
+    }
   }
 }

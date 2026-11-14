@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
@@ -30,6 +30,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations('Layout');
+  // Only ship the namespaces client components use, to keep public-page JS small.
+  const { Nav, LanguageSwitcher } = await getMessages();
+  const clientMessages = { Nav, LanguageSwitcher };
   const settings = await getSiteSettings();
   const whatsappNumber = resolveWhatsAppNumber(
     settings?.whatsappNumber,
@@ -39,7 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className="flex min-h-dvh flex-col bg-background text-foreground antialiased">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2"
