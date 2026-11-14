@@ -1,0 +1,12 @@
+# Firebase App Hosting config. Secret VALUES live in Cloud Secret Manager, never here.
+runConfig:
+  minInstances: 0
+  maxInstances: 2
+
+# env:
+#   - variable: NEXT_PUBLIC_SITE_URL
+#     value: https://example.com   # TODO: real domain
+#   - variable: FIREBASE_SERVICE_ACCOUNT_KEY
+#     secret: firebaseServiceAccountKey
+#   - variable: REVALIDATE_SECRET
+#     secret: revalidateSecret

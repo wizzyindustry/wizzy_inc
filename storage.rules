@@ -1,0 +1,25 @@
+rules_version = '2';
+
+// Deny by default: anything not matched below is denied.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Portfolio images: public read; admin upload of JPG/PNG/WebP up to 5 MB.
+    match /portfolio/{allPaths=**} {
+      allow read;
+      allow create, update: if isAdmin()
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)');
+      allow delete: if isAdmin();
+    }
+
+    // Quote attachments: written only by the server (Admin SDK); admins may read.
+    match /quotes/{allPaths=**} {
+      allow read: if isAdmin();
+    }
+  }
+}

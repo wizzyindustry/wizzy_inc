@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// Deny by default: anything not matched below is denied.
+// Public visitors read through the server (Admin SDK); these rules protect direct client access.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function isPublished() {
+      return resource.data.published == true;
+    }
+
+    // Public content: read only when published; write only by admins.
+    match /services/{id} {
+      allow read: if isPublished() || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /packages/{id} {
+      allow read: if isPublished() || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /portfolio/{id} {
+      allow read: if isPublished() || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /testimonials/{id} {
+      allow read: if isPublished() || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Site settings (contact details etc.) are public read-only.
+    match /settings/{id} {
+      allow read;
+      allow write: if isAdmin();
+    }
+
+    // Leads: created only by the server. Admins may read and update; nobody deletes from a client.
+    match /leads/{id} {
+      allow read, update: if isAdmin();
+    }
+
+    // counters: no client access at all (server only).
+  }
+}
