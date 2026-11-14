@@ -1,0 +1,75 @@
+/**
+ * Load SAMPLE data into the local Firebase emulators.
+ *   1. pnpm emulators   (in one terminal)
+ *   2. pnpm seed        (in another)
+ *
+ * Safety: this script ALWAYS targets the emulators and the `demo-wizzy` project.
+ * `demo-` projects cannot reach real Firebase, so production data can never be touched.
+ */
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import { getStorage } from 'firebase-admin/storage';
+import type { z } from 'zod';
+import {
+  packageSchema,
+  portfolioItemSchema,
+  serviceSchema,
+  siteSettingsSchema,
+  testimonialSchema,
+} from '@/lib/schemas/content';
+import {
+  PLACEHOLDER_PNG,
+  samplePackages,
+  samplePortfolio,
+  sampleServices,
+  sampleSettings,
+  sampleTestimonials,
+} from './sample-data';
+
+const PROJECT_ID = 'demo-wizzy';
+process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
+process.env.FIREBASE_STORAGE_EMULATOR_HOST = '127.0.0.1:9199';
+
+const app = initializeApp({ projectId: PROJECT_ID, storageBucket: `${PROJECT_ID}.appspot.com` });
+const db = getFirestore(app);
+const bucket = getStorage(app).bucket();
+
+/** Validate with the app's own schema, then store without the `id` field. */
+function check<S extends z.ZodType>(schema: S, doc: { id: string }): Record<string, unknown> {
+  const data = { ...(schema.parse(doc) as Record<string, unknown>) };
+  delete data.id;
+  return data;
+}
+
+async function seedCollection<S extends z.ZodType>(
+  name: string,
+  schema: S,
+  docs: { id: string }[],
+): Promise<void> {
+  const batch = db.batch();
+  for (const doc of docs) batch.set(db.collection(name).doc(doc.id), check(schema, doc));
+  await batch.commit();
+  console.log(`  ${name}: ${docs.length}`);
+}
+
+async function main(): Promise<void> {
+  console.log(`Seeding SAMPLE data into emulator project "${PROJECT_ID}"...`);
+  await seedCollection('services', serviceSchema, sampleServices);
+  await seedCollection('packages', packageSchema, samplePackages);
+  await seedCollection('portfolio', portfolioItemSchema, samplePortfolio);
+  await seedCollection('testimonials', testimonialSchema, sampleTestimonials);
+  await db.doc('settings/site').set(siteSettingsSchema.parse(sampleSettings));
+  console.log('  settings/site: 1');
+
+  for (const item of samplePortfolio) {
+    await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
+  }
+  console.log(`  storage images: ${samplePortfolio.length}`);
+  console.log('Done.');
+}
+
+main().catch((error: unknown) => {
+  console.error('Seed failed:', error instanceof Error ? error.message : error);
+  console.error('Are the emulators running? Start them with `pnpm emulators`.');
+  process.exit(1);
+});

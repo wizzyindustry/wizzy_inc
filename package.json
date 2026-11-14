@@ -19,8 +19,9 @@
     "test:watch": "vitest",
     "test:rules": "firebase emulators:exec --only firestore,storage --project demo-wizzy \"vitest run --config vitest.rules.config.ts\"",
     "test:e2e": "playwright test",
-    "emulators": "firebase emulators:start --project demo-wizzy --import ./.emulator-data --export-on-exit",
-    "check": "pnpm lint && pnpm typecheck && pnpm test"
+    "emulators": "tsx scripts/emulators.ts",
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "seed": "tsx scripts/seed/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",
@@ -52,6 +53,7 @@
     "firebase-tools": "^15.36.0",
     "prettier": "^3.10.1",
     "tailwindcss": "^4.3.5",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vitest": "^5.1.0"
   }

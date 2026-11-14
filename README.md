@@ -16,6 +16,17 @@ cp .env.example .env.local   # fill in values; never commit this file
 pnpm dev                     # http://localhost:3000 -> redirects to /en
 ```
 
+## Local data (emulators)
+
+```bash
+pnpm emulators   # terminal 1: Auth, Firestore, Storage + UI on http://localhost:4000
+pnpm seed        # terminal 2: loads clearly-labelled SAMPLE data (never real content)
+```
+
+To make `pnpm dev` read the emulators, set these in `.env.local`
+(see the note at the bottom of `.env.example`): `NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-wizzy`,
+`FIRESTORE_EMULATOR_HOST=127.0.0.1:8080`, `FIREBASE_STORAGE_EMULATOR_HOST=127.0.0.1:9199`.
+
 ## Quality checks
 
 ```bash
