@@ -13,8 +13,10 @@ describe('pageMetadata', () => {
     expect(meta.alternates?.languages).toEqual({
       en: '/en/services/logo-design',
       sw: '/sw/services/logo-design',
+      'x-default': '/en/services/logo-design',
     });
     expect(meta.openGraph).toMatchObject({ url: '/sw/services/logo-design', locale: 'sw_TZ' });
+    expect(meta.twitter).toMatchObject({ card: 'summary_large_image', title: 'T' });
   });
 });
 

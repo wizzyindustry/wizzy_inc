@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { Button } from '@/components/ui/Button';
 import { getPortfolioBySlug, getPublishedPortfolio } from '@/lib/data/portfolio';
 import { orFallback } from '@/lib/data/read';
@@ -9,6 +10,7 @@ import { getPublishedServices } from '@/lib/data/services';
 import { localized } from '@/lib/i18n/localized';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 import { Link } from '@/lib/i18n/navigation';
+import { creativeWorkJsonLd } from '@/lib/seo/json-ld';
 import { formatMonthYear } from '@/lib/utils/format-date';
 import { storageUrl } from '@/lib/utils/storage-url';
 
@@ -57,6 +59,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12">
+      <JsonLd data={creativeWorkJsonLd(item, locale)} />
       <Link href="/portfolio" className="text-sm text-primary underline-offset-4 hover:underline">
         ← {t('backToPortfolio')}
       </Link>

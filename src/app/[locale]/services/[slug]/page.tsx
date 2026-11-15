@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { PortfolioCard } from '@/components/portfolio/PortfolioCard';
 import { Button } from '@/components/ui/Button';
 import { Markdown } from '@/components/ui/Markdown';
@@ -10,6 +11,7 @@ import { getPublishedServices, getServiceBySlug } from '@/lib/data/services';
 import { localized } from '@/lib/i18n/localized';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 import { Link } from '@/lib/i18n/navigation';
+import { faqJsonLd, serviceJsonLd } from '@/lib/seo/json-ld';
 import { formatTZS } from '@/lib/utils/format-tzs';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -51,6 +53,8 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12">
+      <JsonLd data={serviceJsonLd(service, locale)} />
+      <JsonLd data={faqJsonLd(service.faq, locale)} />
       <Link href="/services" className="text-sm text-primary underline-offset-4 hover:underline">
         ← {t('backToServices')}
       </Link>

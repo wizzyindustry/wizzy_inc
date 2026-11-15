@@ -327,5 +327,11 @@
       "server": "Something went wrong on our side. Please try again or message us on WhatsApp.",
       "network": "Could not send your message. Check your connection and try again."
     }
+  },
+  "Seo": {
+    "ogImage": {
+      "headline": "Graphic design and websites in Dodoma",
+      "subline": "Logos, flyers, branding and websites for businesses in Tanzania"
+    }
   }
 }
