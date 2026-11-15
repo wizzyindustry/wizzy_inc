@@ -128,6 +128,7 @@ There are three places where server logic runs:
 
 ### 4.2 Route Handlers (`src/app/api/*`)
 - `POST /api/revalidate` — called after admin content changes to refresh static pages (protected by a secret).
+- `GET /api/admin/leads/{id}/attachments/{index}` — streams a quote attachment to an admin (`Authorization: Bearer <ID token>`, verified with `requireAdmin`). The file path is taken from the lead document, never from the request; `quotes/**` stays private.
 
 ### 4.3 Cloud Functions (`functions/src`)
 | Function | Trigger | Job |

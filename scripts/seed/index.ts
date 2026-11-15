@@ -18,8 +18,11 @@ import {
   siteSettingsSchema,
   testimonialSchema,
 } from '@/lib/schemas/content';
+import { leadSchema } from '@/lib/schemas/lead';
 import {
   PLACEHOLDER_PNG,
+  SAMPLE_PDF,
+  sampleLeads,
   samplePackages,
   samplePortfolio,
   sampleServices,
@@ -76,6 +79,9 @@ async function seedCollection<S extends z.ZodType>(
 
 async function main(): Promise<void> {
   console.log(`Seeding SAMPLE data into emulator project "${PROJECT_ID}"...`);
+  // Fresh rate-limit windows, so repeated local test runs are not blocked (emulator only).
+  await db.recursiveDelete(db.collection('rateLimits'));
+  console.log('  rateLimits: cleared');
   await seedCollection('services', serviceSchema, sampleServices);
   await seedCollection('packages', packageSchema, samplePackages);
   await seedCollection('portfolio', portfolioItemSchema, samplePortfolio);
@@ -88,6 +94,11 @@ async function main(): Promise<void> {
   }
   console.log(`  storage images: ${samplePortfolio.length}`);
   await seedAccounts();
+
+  await seedCollection('leads', leadSchema, sampleLeads);
+  await bucket.file('quotes/sample-lead-quote/1-sample-brief.pdf').save(SAMPLE_PDF, {
+    contentType: 'application/pdf',
+  });
   console.log('Done.');
 }
 

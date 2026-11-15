@@ -171,3 +171,53 @@ export const PLACEHOLDER_PNG = Buffer.from(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
   'base64',
 );
+
+/**
+ * SAMPLE leads for the admin inbox. Fake people, fake numbers. References use the year 2000
+ * so they never clash with real numbering (counters/leads is not touched).
+ */
+const SAMPLE_DATE = new Date('2000-01-10T07:30:00Z');
+export const SAMPLE_PDF = Buffer.from('%PDF-1.7\n% SAMPLE brief — not a real file\n');
+
+export const sampleLeads = [
+  {
+    id: 'sample-lead-quote',
+    ref: 'WZ-2000-0001',
+    kind: 'quote',
+    name: 'SAMPLE Client One',
+    phone: '+255700000001',
+    email: 'sample-client@example.test',
+    preferredContact: 'whatsapp',
+    locale: 'sw',
+    serviceSlug: 'logo-design',
+    description: 'SAMPLE: a logo for a small shop. Not a real request.',
+    budgetRangeTZS: { min: 100_000, max: 300_000 },
+    attachments: [
+      {
+        path: 'quotes/sample-lead-quote/1-sample-brief.pdf',
+        name: 'sample-brief.pdf',
+        size: SAMPLE_PDF.length,
+        contentType: 'application/pdf',
+      },
+    ],
+    status: 'new',
+    statusHistory: [{ status: 'new', at: SAMPLE_DATE }],
+    notes: [],
+    createdAt: SAMPLE_DATE,
+  },
+  {
+    id: 'sample-lead-contact',
+    ref: 'WZ-2000-0002',
+    kind: 'contact',
+    name: 'SAMPLE Visitor Two',
+    phone: '+255700000002',
+    preferredContact: 'phone',
+    locale: 'en',
+    description: 'SAMPLE: do you print business cards? Not a real message.',
+    attachments: [],
+    status: 'new',
+    statusHistory: [{ status: 'new', at: SAMPLE_DATE }],
+    notes: [],
+    createdAt: SAMPLE_DATE,
+  },
+];
