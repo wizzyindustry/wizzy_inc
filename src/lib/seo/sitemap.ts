@@ -10,6 +10,7 @@ export const STATIC_PATHS = [
   '/pricing',
   '/about',
   '/contact',
+  '/faq',
   '/quote',
 ] as const;
 

@@ -164,6 +164,16 @@ export const sampleSettings = {
     ),
     subheadline: s('Sub-headline placeholder.'),
   },
+  faq: [
+    {
+      q: s('How do I pay?', 'Nalipaje?'),
+      a: s('Placeholder answer — not a real policy.', 'Jibu la mfano — si sera halisi.'),
+    },
+    {
+      q: s('How many revisions are included?'),
+      a: s('Placeholder answer — not a real policy.'),
+    },
+  ],
 };
 
 /** 1×1 transparent PNG used as a stand-in cover image. */

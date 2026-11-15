@@ -13,7 +13,8 @@
     "requestQuote": "Omba makadirio ya bei",
     "requestQuoteShort": "Omba bei",
     "openMenu": "Fungua menyu",
-    "closeMenu": "Funga menyu"
+    "closeMenu": "Funga menyu",
+    "faq": "Maswali"
   },
   "LanguageSwitcher": {
     "label": "Chagua lugha",
@@ -566,7 +567,8 @@
         "featured": "Inaonyeshwa kwenye \"Kazi teule\" ukurasa wa mwanzo.",
         "consentGiven": "Lazima. Usichapishe ushuhuda bila ruhusa ya mteja.",
         "phone": "Kama inavyopaswa kuonekana, mfano +255 7XX XXX XXX.",
-        "whatsappNumber": "255 ikifuatiwa na tarakimu 9, bila + wala nafasi, mfano 2557XXXXXXXX."
+        "whatsappNumber": "255 ikifuatiwa na tarakimu 9, bila + wala nafasi, mfano 2557XXXXXXXX.",
+        "faq": "Maswali ya ukurasa wa Maswali: masharti ya malipo, marekebisho, muda wa kazi, aina za mafaili, uhifadhi wa tovuti."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -580,5 +582,18 @@
         "network": "Hakuna mtandao. Tafadhali jaribu tena."
       }
     }
+  },
+  "Faq": {
+    "meta": {
+      "title": "Maswali | Wizzy Inc",
+      "description": "Majibu kuhusu malipo, marekebisho, muda wa kazi, aina za mafaili na uhifadhi wa tovuti."
+    },
+    "heading": "Maswali yanayoulizwa mara kwa mara",
+    "intro": "Malipo, marekebisho, muda wa kukabidhi, aina za mafaili na uhifadhi wa tovuti — mambo ambayo wateja huuliza kabla ya kuanza.",
+    "empty": "TODO: real content — mmiliki ataongeza maswali na majibu kwenye paneli ya usimamizi (Mipangilio → Maswali yanayoulizwa mara kwa mara).",
+    "moreHeading": "Bado una swali?",
+    "moreText": "Tuulize kupitia WhatsApp au tutumie ujumbe — au omba makadirio ya bei tukueleze kila kitu kuhusu mradi wako.",
+    "quoteButton": "Omba makadirio ya bei",
+    "contactButton": "Wasiliana nasi"
   }
 }

@@ -108,6 +108,7 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'email', type: 'text' },
     { path: 'location', type: 'bilingual' },
     { path: 'workingHours', type: 'bilingual' },
+    { path: 'faq', type: 'faq', hint: true },
     { path: 'socialLinks.instagram', type: 'text', optional: true },
     { path: 'socialLinks.facebook', type: 'text', optional: true },
     { path: 'socialLinks.tiktok', type: 'text', optional: true },

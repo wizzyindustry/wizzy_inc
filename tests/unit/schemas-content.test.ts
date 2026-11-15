@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { serviceSchema, testimonialSchema } from '@/lib/schemas/content';
+import { serviceSchema, siteSettingsSchema, testimonialSchema } from '@/lib/schemas/content';
 
 // Clearly fake fixture data for tests only.
 const service = {
@@ -42,5 +42,25 @@ describe('testimonialSchema', () => {
     };
     expect(testimonialSchema.safeParse({ ...t, consentGiven: true }).success).toBe(true);
     expect(testimonialSchema.safeParse({ ...t, consentGiven: false }).success).toBe(false);
+  });
+});
+
+describe('siteSettingsSchema FAQ (F12)', () => {
+  const base = {
+    phone: '+255700000000',
+    whatsappNumber: '255700000000',
+    email: 'owner@example.test',
+    location: { en: 'Dodoma', sw: '' },
+    workingHours: { en: 'Mon–Sat', sw: '' },
+    hero: { headline: { en: 'H', sw: '' }, subheadline: { en: 'S', sw: '' } },
+  };
+
+  it('defaults to no questions for settings saved before the FAQ existed', () => {
+    expect(siteSettingsSchema.parse(base).faq).toEqual([]);
+  });
+
+  it('requires English for each question and answer', () => {
+    const faq = [{ q: { en: 'How do I pay?', sw: '' }, a: { en: '', sw: 'Jibu' } }];
+    expect(siteSettingsSchema.safeParse({ ...base, faq }).success).toBe(false);
   });
 });

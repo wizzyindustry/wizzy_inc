@@ -10,6 +10,10 @@ import {
 // Shapes of public content documents AFTER they are read by the data layer
 // (Firestore Timestamps converted to Date, document id added as `id`).
 
+/** One question and answer (service pages and the FAQ page). */
+export const faqItemSchema = z.object({ q: bilingualTextSchema, a: bilingualTextSchema });
+export type FaqItem = z.infer<typeof faqItemSchema>;
+
 export const serviceSchema = z.object({
   id: z.string(),
   slug: slugSchema,
@@ -25,7 +29,7 @@ export const serviceSchema = z.object({
   icon: z.string(),
   order: z.number().int(),
   published: z.boolean(),
-  faq: z.array(z.object({ q: bilingualTextSchema, a: bilingualTextSchema })).default([]),
+  faq: z.array(faqItemSchema).default([]),
   updatedAt: z.date().optional(),
 });
 export type Service = z.infer<typeof serviceSchema>;
@@ -93,5 +97,7 @@ export const siteSettingsSchema = z.object({
     .partialRecord(z.enum(['instagram', 'facebook', 'tiktok', 'x', 'linkedin', 'github']), z.url())
     .default({}),
   hero: z.object({ headline: bilingualTextSchema, subheadline: bilingualTextSchema }),
+  /** FAQ page (F12): payment, revisions, timelines, file formats, hosting — owner content. */
+  faq: z.array(faqItemSchema).default([]),
 });
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;

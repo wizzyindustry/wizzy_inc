@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { Link, usePathname } from '@/lib/i18n/navigation';
-import { NAV_ITEMS } from './nav-items';
+import { ALL_NAV_ITEMS } from './nav-items';
 
 /** Collapsible menu for small screens. Closes after navigation or on Escape. */
 export function MobileNav() {
@@ -42,7 +42,7 @@ export function MobileNav() {
         className="absolute inset-x-0 top-full border-b border-border bg-background shadow-md"
       >
         <ul className="flex flex-col px-4 py-2">
-          {NAV_ITEMS.map((item) => (
+          {ALL_NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}

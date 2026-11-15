@@ -20,7 +20,7 @@ test('robots.txt allows the site, blocks admin, and points to the sitemap', asyn
   expect(txt).toMatch(/Sitemap: .+\/sitemap\.xml/);
 });
 
-for (const path of ['/en', '/sw/services', '/en/about', '/sw/contact', '/en/pricing']) {
+for (const path of ['/en', '/sw/services', '/en/about', '/sw/contact', '/en/pricing', '/sw/faq']) {
   test(`${path} has title, description, canonical, hreflang and Open Graph tags`, async ({
     page,
   }) => {

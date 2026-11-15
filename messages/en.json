@@ -13,7 +13,8 @@
     "requestQuote": "Request a quote",
     "requestQuoteShort": "Get a quote",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "faq": "FAQ"
   },
   "LanguageSwitcher": {
     "label": "Choose language",
@@ -566,7 +567,8 @@
         "featured": "Shown in \"Featured work\" on the home page.",
         "consentGiven": "Required. Never publish a testimonial without the client’s permission.",
         "phone": "As it should be shown, e.g. +255 7XX XXX XXX.",
-        "whatsappNumber": "255 followed by 9 digits, no + or spaces, e.g. 2557XXXXXXXX."
+        "whatsappNumber": "255 followed by 9 digits, no + or spaces, e.g. 2557XXXXXXXX.",
+        "faq": "Questions for the public FAQ page: payment terms, revisions, timelines, file formats, hosting."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -580,5 +582,18 @@
         "network": "No connection. Please try again."
       }
     }
+  },
+  "Faq": {
+    "meta": {
+      "title": "FAQ | Wizzy Inc",
+      "description": "Answers about payment, revisions, timelines, file formats and website hosting."
+    },
+    "heading": "Frequently asked questions",
+    "intro": "Payment, revisions, delivery times, file formats and hosting — the things clients usually ask before starting.",
+    "empty": "TODO: real content — the owner adds questions and answers in the admin panel (Settings → Frequently asked questions).",
+    "moreHeading": "Still have a question?",
+    "moreText": "Ask us on WhatsApp or send a message — or request a quote and we will explain everything for your project.",
+    "quoteButton": "Request a quote",
+    "contactButton": "Contact us"
   }
 }

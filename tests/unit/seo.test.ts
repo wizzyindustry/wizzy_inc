@@ -32,7 +32,15 @@ describe('buildSitemap (FR-11)', () => {
 
   it('includes every public page but not the noindex thank-you page', () => {
     expect(STATIC_PATHS).toEqual(
-      expect.arrayContaining(['', '/services', '/portfolio', '/pricing', '/about', '/contact']),
+      expect.arrayContaining([
+        '',
+        '/services',
+        '/portfolio',
+        '/pricing',
+        '/about',
+        '/contact',
+        '/faq',
+      ]),
     );
     expect(STATIC_PATHS).not.toContain('/quote/success');
   });

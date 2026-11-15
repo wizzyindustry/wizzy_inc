@@ -148,6 +148,7 @@ export function ContentField({
       return (
         <FaqField
           label={label}
+          hint={hint}
           items={(value as FaqItem[]) ?? []}
           error={error}
           onChange={onChange}

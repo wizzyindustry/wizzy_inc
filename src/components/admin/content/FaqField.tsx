@@ -9,13 +9,14 @@ export type FaqItem = { q: Bilingual; a: Bilingual };
 
 type Props = {
   label: string;
+  hint?: string;
   items: FaqItem[];
   error?: string;
   onChange: (items: FaqItem[]) => void;
 };
 
 /** Service FAQ (question + answer, EN and SW side by side). */
-export function FaqField({ label, items, error, onChange }: Props) {
+export function FaqField({ label, hint, items, error, onChange }: Props) {
   const t = useTranslations('Admin.content');
   const update = (index: number, part: 'q' | 'a', lang: 'en' | 'sw', text: string) =>
     onChange(
@@ -27,6 +28,7 @@ export function FaqField({ label, items, error, onChange }: Props) {
   return (
     <fieldset className="flex flex-col gap-3">
       <legend className="mb-1 font-medium">{label}</legend>
+      {hint && <p className="text-sm text-muted-foreground">{hint}</p>}
       {items.map((item, i) => (
         <div key={i} className="flex flex-col gap-2 rounded-md border border-border p-3">
           {(['q', 'a'] as const).map((part) => (

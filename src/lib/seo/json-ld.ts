@@ -1,6 +1,6 @@
 import { localized } from '@/lib/i18n/localized';
 import type { Locale } from '@/lib/i18n/routing';
-import type { PortfolioItem, Service, SiteSettings } from '@/lib/schemas/content';
+import type { FaqItem, PortfolioItem, Service, SiteSettings } from '@/lib/schemas/content';
 import { storageUrl } from '@/lib/utils/storage-url';
 import { absoluteUrl, SITE_URL } from './site-url';
 
@@ -61,8 +61,8 @@ export function serviceJsonLd(service: Service, locale: Locale): JsonLd {
   };
 }
 
-/** FAQPage for a service's questions; null when there are none. */
-export function faqJsonLd(faq: Service['faq'], locale: Locale): JsonLd | null {
+/** FAQPage for a list of questions (service page or FAQ page); null when there are none. */
+export function faqJsonLd(faq: FaqItem[], locale: Locale): JsonLd | null {
   if (faq.length === 0) return null;
   return {
     '@context': 'https://schema.org',
