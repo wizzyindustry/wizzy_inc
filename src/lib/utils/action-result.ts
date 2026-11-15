@@ -19,6 +19,8 @@ export const FORM_ERROR_KEYS = [
   'tooManyFiles',
   'fileTooLarge',
   'fileType',
+  'messageTooShort',
+  'messageTooLong',
 ] as const;
 
 /** First error per top-level field, as an i18n key. */

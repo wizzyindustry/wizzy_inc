@@ -18,6 +18,10 @@ export type Attachment = z.infer<typeof attachmentSchema>;
 export const leadStatusSchema = z.enum(['new', 'contacted', 'quoted', 'won', 'lost']);
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 
+/** quote = quote form (F6); contact = contact page message (F9). Older docs have no kind = quote. */
+export const leadKindSchema = z.enum(['quote', 'contact']);
+export type LeadKind = z.infer<typeof leadKindSchema>;
+
 export const preferredContactSchema = z.enum(['whatsapp', 'phone', 'email']);
 
 /** Next counter value for reference numbers; numbering restarts each year. */
@@ -32,12 +36,13 @@ export function nextLeadNumber(
 export const leadSchema = z.object({
   id: z.string(),
   ref: z.string().regex(/^WZ-\d{4}-\d{4,}$/),
+  kind: leadKindSchema.default('quote'),
   name: z.string(),
   phone: z.string(),
   email: z.string().optional(),
   preferredContact: preferredContactSchema,
   locale: localeSchema,
-  serviceSlug: slugSchema,
+  serviceSlug: slugSchema.optional(), // contact messages have no service
   packageId: z.string().optional(),
   description: z.string(),
   budgetRangeTZS: z.object({ min: priceTZSSchema, max: priceTZSSchema.optional() }).optional(),

@@ -8,7 +8,7 @@ import { guardPublicForm } from '@/lib/security/guard';
 import { HONEYPOT_FIELD } from '@/lib/security/honeypot';
 import { zodFieldErrors, type ActionResult } from '@/lib/utils/action-result';
 import { todayInTanzania } from '@/lib/utils/format-date';
-import { createLead } from './create-lead';
+import { createQuoteLead } from '@/lib/data/create-lead';
 
 const FIELDS = [
   'serviceSlug',
@@ -88,7 +88,7 @@ export async function submitQuote(formData: FormData): Promise<ActionResult<{ re
       }
     }
 
-    const { ref } = await createLead(data, uploads);
+    const { ref } = await createQuoteLead(data, uploads);
     return { ok: true, data: { ref } };
   } catch (error) {
     console.error('[quote] submit failed:', error instanceof Error ? error.message : 'unknown');

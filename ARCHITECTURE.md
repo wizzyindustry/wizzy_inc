@@ -210,9 +210,11 @@ There are three places where server logic runs:
 ```ts
 {
   id, ref: "WZ-2026-0042",
+  kind: "quote" | "contact",       // contact = Contact page message (ADR 0002); missing = quote
   name, phone, email?, preferredContact: "whatsapp" | "phone" | "email",
   locale: "en" | "sw",
-  serviceSlug, packageId?, description, budgetRangeTZS?, deadline?: Timestamp,
+  serviceSlug?, packageId?, description, budgetRangeTZS?, deadline?: Timestamp,
+                                      // serviceSlug: quotes only; contact = message in description
   attachments: { path, name, size, contentType }[],
   status: "new" | "contacted" | "quoted" | "won" | "lost",
   statusHistory: { status, at: Timestamp }[],

@@ -11,6 +11,7 @@ import {
 function leadDoc(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
     ref: 'WZ-2026-0042',
+    kind: 'quote',
     name: 'Test Client',
     phone: '+255712345678',
     email: 'client@example.test',
@@ -129,5 +130,34 @@ describe('escapeHtml', () => {
     expect(escapeHtml(`<a href="x" title='y'>&</a>`)).toBe(
       '&lt;a href=&quot;x&quot; title=&#39;y&#39;&gt;&amp;&lt;/a&gt;',
     );
+  });
+});
+
+describe('contact messages (F9)', () => {
+  const doc = leadDoc({
+    kind: 'contact',
+    serviceSlug: undefined,
+    packageId: undefined,
+    budgetRangeTZS: undefined,
+    deadline: undefined,
+    attachments: [],
+    description: 'Do you also print business cards?',
+  });
+
+  it('is readable without a service (a quote without one is not)', () => {
+    expect(toLeadEmailInput('abc', doc)?.kind).toBe('contact');
+    expect(toLeadEmailInput('abc', { ...doc, kind: undefined })).toBeNull();
+  });
+
+  it('uses a contact title and leaves out quote-only sections', () => {
+    const email = buildLeadEmail(toLeadEmailInput('abc', doc)!, SITE);
+    expect(email.subject).toBe('New contact message WZ-2026-0042 — Test Client');
+    for (const out of [email.text, email.html]) {
+      expect(out).toContain('Do you also print business cards?');
+      expect(out).toContain('https://example.test/admin/leads/abc');
+      for (const quoteOnly of ['Service', 'Budget', 'Deadline', 'Attachments']) {
+        expect(out).not.toContain(quoteOnly);
+      }
+    }
   });
 });

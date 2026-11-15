@@ -14,12 +14,14 @@ const TIME_ZONE = 'Africa/Dar_es_Salaam';
 export type LeadEmailInput = {
   id: string;
   ref: string;
+  /** quote = quote form; contact = contact page message (no service, budget or files). */
+  kind: 'quote' | 'contact';
   name: string;
   phone: string;
   email?: string;
   preferredContact: string;
   locale: string;
-  serviceSlug: string;
+  serviceSlug?: string;
   packageId?: string;
   description: string;
   budgetRangeTZS?: { min: number; max?: number };
@@ -63,7 +65,9 @@ export function toLeadEmailInput(id: string, data: Record<string, unknown>): Lea
   const phone = str(data.phone);
   const serviceSlug = str(data.serviceSlug);
   const description = str(data.description);
-  if (!ref || !name || !phone || !serviceSlug || !description) return null;
+  const kind = data.kind === 'contact' ? 'contact' : 'quote'; // older docs: quote
+  if (!ref || !name || !phone || !description) return null;
+  if (kind === 'quote' && !serviceSlug) return null;
 
   const attachments = Array.isArray(data.attachments)
     ? data.attachments.flatMap((a: unknown) => {
@@ -78,6 +82,7 @@ export function toLeadEmailInput(id: string, data: Record<string, unknown>): Lea
   return {
     id,
     ref,
+    kind,
     name,
     phone,
     email: str(data.email),
@@ -148,17 +153,25 @@ export function buildLeadEmail(lead: LeadEmailInput, siteUrl: string): LeadEmail
   const contact = CONTACT_LABELS[lead.preferredContact] ?? lead.preferredContact;
   const language = LANGUAGE_LABELS[lead.locale] ?? lead.locale;
 
+  const isQuote = lead.kind === 'quote';
+  const title = isQuote ? 'New quote request' : 'New contact message';
+
   // [label, plain-text value, HTML value]
   const rows: [string, string, string][] = [
     ['Reference', lead.ref, `<strong>${escapeHtml(lead.ref)}</strong>`],
-    ['Service', lead.serviceSlug, escapeHtml(lead.serviceSlug)],
-    ['Package', lead.packageId ?? '—', escapeHtml(lead.packageId ?? '—')],
-    ['Budget', formatBudget(lead.budgetRangeTZS), escapeHtml(formatBudget(lead.budgetRangeTZS))],
-    [
-      'Deadline',
-      lead.deadline ? dateFmt.format(lead.deadline) : 'Not given',
-      lead.deadline ? dateFmt.format(lead.deadline) : 'Not given',
-    ],
+  ];
+  if (isQuote) {
+    const service = lead.serviceSlug ?? '—';
+    const deadline = lead.deadline ? dateFmt.format(lead.deadline) : 'Not given';
+    const budgetText = formatBudget(lead.budgetRangeTZS);
+    rows.push(
+      ['Service', service, escapeHtml(service)],
+      ['Package', lead.packageId ?? '—', escapeHtml(lead.packageId ?? '—')],
+      ['Budget', budgetText, escapeHtml(budgetText)],
+      ['Deadline', deadline, deadline],
+    );
+  }
+  rows.push(
     ['Name', lead.name, escapeHtml(lead.name)],
     [
       'Phone',
@@ -173,7 +186,7 @@ export function buildLeadEmail(lead: LeadEmailInput, siteUrl: string): LeadEmail
     ],
     ['Preferred contact', contact, escapeHtml(contact)],
     ['Language', language, escapeHtml(language)],
-  ];
+  );
   if (lead.createdAt) {
     const sent = dateTimeFmt.format(lead.createdAt);
     rows.push(['Sent', sent, sent]);
@@ -181,27 +194,35 @@ export function buildLeadEmail(lead: LeadEmailInput, siteUrl: string): LeadEmail
 
   const files = lead.attachments.map((f) => `${f.name} (${formatSize(f.size)})`);
 
-  const subject = oneLine(`New quote request ${lead.ref}: ${lead.serviceSlug} — ${lead.name}`);
+  const about = isQuote ? `: ${lead.serviceSlug ?? ''}` : '';
+  const subject = oneLine(`${title} ${lead.ref}${about} — ${lead.name}`);
+  const descriptionHeading = isQuote ? 'Project description' : 'Message';
 
   const text = [
-    `New quote request ${lead.ref}`,
+    `${title} ${lead.ref}`,
     '',
     ...rows.map(([label, value]) => `${label}: ${value}`),
     '',
-    'Project description:',
+    `${descriptionHeading}:`,
     lead.description,
     '',
-    `Attachments: ${files.length ? files.join(', ') : 'none'}`,
-    '',
+    ...(isQuote ? [`Attachments: ${files.length ? files.join(', ') : 'none'}`, ''] : []),
     `Open in admin: ${adminUrl}`,
   ].join('\n');
 
   // Email clients ignore stylesheets, so this HTML uses inline styles (unlike the website,
   // which uses Tailwind tokens). Kept deliberately plain.
   const cell = 'padding:6px 12px 6px 0;vertical-align:top';
+  const h2 = 'font-size:16px;margin:20px 0 8px';
+  const fileList = files.length
+    ? `<ul style="margin:0;padding-left:20px">${files.map((f) => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
+<p style="margin:8px 0 0;color:#555">Download them from the admin panel.</p>`
+    : '<p style="margin:0">None</p>';
+  const attachmentsHtml = isQuote ? `<h2 style="${h2}">Attachments</h2>\n${fileList}` : '';
+
   const html = `<!doctype html>
 <html><body style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#111">
-<h1 style="font-size:20px;margin:0 0 16px">New quote request ${escapeHtml(lead.ref)}</h1>
+<h1 style="font-size:20px;margin:0 0 16px">${title} ${escapeHtml(lead.ref)}</h1>
 <table role="presentation" style="border-collapse:collapse">
 ${rows
   .map(
@@ -210,15 +231,9 @@ ${rows
   )
   .join('\n')}
 </table>
-<h2 style="font-size:16px;margin:20px 0 8px">Project description</h2>
+<h2 style="${h2}">${descriptionHeading}</h2>
 <p style="margin:0;white-space:pre-wrap">${escapeHtml(lead.description)}</p>
-<h2 style="font-size:16px;margin:20px 0 8px">Attachments</h2>
-${
-  files.length
-    ? `<ul style="margin:0;padding-left:20px">${files.map((f) => `<li>${escapeHtml(f)}</li>`).join('')}</ul>
-<p style="margin:8px 0 0;color:#555">Download them from the admin panel.</p>`
-    : '<p style="margin:0">None</p>'
-}
+${attachmentsHtml}
 <p style="margin:24px 0 0"><a href="${escapeHtml(adminUrl)}" style="background:#111;color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none">Open in admin</a></p>
 </body></html>`;
 
