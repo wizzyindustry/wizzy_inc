@@ -10,17 +10,9 @@ import {
 } from '@/lib/schemas/lead';
 import type { ContactData } from '@/lib/schemas/contact-input';
 import { tanzaniaDateToUtc, yearInTanzania } from '@/lib/utils/format-date';
+import { safeFileName } from '@/lib/utils/safe-file-name';
 
 export type UploadFile = { name: string; size: number; type: string; bytes: Buffer };
-
-/** Keep storage paths safe and readable: letters, digits, dot, dash, underscore. */
-function safeFileName(name: string): string {
-  const cleaned = name
-    .normalize('NFKD')
-    .replace(/[^\w.-]+/g, '_')
-    .replace(/_+/g, '_');
-  return cleaned.slice(-80) || 'file';
-}
 
 /** Status fields every new lead starts with. */
 function newLeadFields(now: Timestamp) {

@@ -115,7 +115,7 @@ src/components/
 
 ### 3.4 Data access from the frontend
 - **Public pages** read data on the server via `src/lib/data/*.ts` (Firebase Admin SDK). Public visitors never talk to Firestore directly.
-- **Admin pages** use the Firebase client SDK with the signed-in admin's ID token; Firestore security rules enforce access.
+- **Admin pages** use the Firebase client SDK with the signed-in admin's ID token; Firestore security rules enforce access. All admin **writes** (lead status/notes, content, settings, image uploads) go through Server Actions that call `requireAdmin(idToken)` and validate with the same Zod schemas as the public pages, then refresh public pages with `revalidatePath`.
 
 ## 4. Backend
 
