@@ -523,7 +523,7 @@
         "highlighted": "Highlight as recommended",
         "serviceSlugs": "Related services",
         "clientType": "Type of client",
-        "isPersonalProject": "Personal / practice project",
+        "isPersonalProject": "Personal / academic project",
         "problem": "The problem",
         "solution": "The solution",
         "result": "The result",
@@ -564,7 +564,7 @@
         "icon": "Short icon name, e.g. palette or code.",
         "order": "Lower numbers are shown first.",
         "clientType": "e.g. Salon, school, NGO. Do not name the client without permission.",
-        "isPersonalProject": "Tick for self-initiated work; it is labelled as such on the site.",
+        "isPersonalProject": "Tick for self-initiated or study work; it is labelled as such on the site.",
         "featured": "Shown in \"Featured work\" on the home page.",
         "consentGiven": "Required. Never publish a testimonial without the client’s permission.",
         "phone": "As it should be shown, e.g. +255 7XX XXX XXX.",
@@ -581,7 +581,10 @@
         "imageTooLarge": "Images must be 5 MB or smaller.",
         "server": "Something went wrong. Please try again.",
         "network": "No connection. Please try again."
-      }
+      },
+      "swMissing": "Swahili missing",
+      "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
+      "swNotice": "Swahili text is missing in these fields. Until it is added, Swahili visitors see the English text:"
     },
     "analytics": {
       "heading": "Analytics",

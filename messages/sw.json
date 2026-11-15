@@ -58,7 +58,7 @@
       "heading": "Jinsi inavyofanya kazi",
       "request": {
         "title": "Tuambie unachohitaji",
-        "description": "Tuma ombi la bei au tuandikie WhatsApp ukieleza wazo lako, muda na bajeti."
+        "description": "Tuma ombi la makadirio ya bei au tuandikie WhatsApp ukieleza wazo lako, muda na bajeti."
       },
       "agree": {
         "title": "Kubaliana kazi na bei",
@@ -169,7 +169,7 @@
     },
     "heading": "Omba makadirio ya bei",
     "intro": "Jibu maswali machache — inachukua takriban dakika 2. Tunajibu kwa WhatsApp, simu au barua pepe.",
-    "unavailable": "Fomu ya maombi haipatikani kwa sasa. Tafadhali wasiliana nasi kupitia WhatsApp.",
+    "unavailable": "Fomu ya makadirio ya bei haipatikani kwa sasa. Tafadhali wasiliana nasi kupitia WhatsApp.",
     "fromPrice": "kuanzia {price}",
     "progressLabel": "Hatua za fomu",
     "stepOf": "Hatua {current} kati ya {total}",
@@ -199,7 +199,7 @@
     },
     "contactMethods": {
       "whatsapp": "WhatsApp",
-      "phone": "Simu",
+      "phone": "Kupigiwa simu",
       "email": "Barua pepe"
     },
     "budget": {
@@ -230,7 +230,7 @@
       "fileType": "Mafaili ya JPG, PNG, WebP, PDF au DOCX pekee yanaruhusiwa.",
       "invalid": "Tafadhali kagua sehemu hii.",
       "validation": "Tafadhali kagua sehemu zilizowekewa alama.",
-      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali onyesha upya ukurasa ujaribu tena.",
+      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali pakia upya ukurasa ujaribu tena.",
       "rateLimited": "Maombi mengi mno kutoka kwenye mtandao wako. Tafadhali jaribu baadaye au tuandikie WhatsApp.",
       "server": "Kuna hitilafu upande wetu. Tafadhali jaribu tena au tuandikie WhatsApp.",
       "network": "Ombi lako halikutumwa. Kagua mtandao wako ujaribu tena."
@@ -280,7 +280,7 @@
     "intro": "Una swali? Tutumie ujumbe, au ongea nasi moja kwa moja kupitia WhatsApp.",
     "formHeading": "Tuma ujumbe",
     "detailsHeading": "Njia nyingine za kutufikia",
-    "whatsappButton": "Ongea nasi WhatsApp",
+    "whatsappButton": "Ongea nasi kupitia WhatsApp",
     "phone": "Simu",
     "email": "Barua pepe",
     "location": "Mahali",
@@ -300,7 +300,7 @@
     },
     "contactMethods": {
       "whatsapp": "WhatsApp",
-      "phone": "Simu",
+      "phone": "Kupigiwa simu",
       "email": "Barua pepe"
     },
     "submit": "Tuma ujumbe",
@@ -323,7 +323,7 @@
       "messageTooLong": "Tafadhali punguza ujumbe uwe chini ya herufi 2,000.",
       "invalid": "Tafadhali kagua sehemu hii.",
       "validation": "Tafadhali kagua sehemu zilizowekewa alama.",
-      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali onyesha upya ukurasa ujaribu tena.",
+      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali pakia upya ukurasa ujaribu tena.",
       "rateLimited": "Ujumbe mwingi mno kutoka kwenye mtandao wako. Tafadhali jaribu baadaye au tuandikie WhatsApp.",
       "server": "Kuna hitilafu upande wetu. Tafadhali jaribu tena au tuandikie WhatsApp.",
       "network": "Ujumbe wako haukutumwa. Kagua mtandao wako ujaribu tena."
@@ -394,7 +394,7 @@
       },
       "status": {
         "new": "Jipya",
-        "contacted": "Amewasiliana",
+        "contacted": "Tumewasiliana",
         "quoted": "Bei imetolewa",
         "won": "Limefanikiwa",
         "lost": "Limepotea"
@@ -409,7 +409,7 @@
       },
       "contactMethod": {
         "whatsapp": "WhatsApp",
-        "phone": "Simu",
+        "phone": "Kupigiwa simu",
         "email": "Barua pepe"
       },
       "client": "Mteja",
@@ -497,7 +497,7 @@
         "web-development": "Utengenezaji wa Tovuti",
         "basic": "Msingi",
         "standard": "Kawaida",
-        "premium": "Bora"
+        "premium": "Premium"
       },
       "fields": {
         "title": "Kichwa",
@@ -523,7 +523,7 @@
         "highlighted": "Onyesha kama kinachopendekezwa",
         "serviceSlugs": "Huduma zinazohusiana",
         "clientType": "Aina ya mteja",
-        "isPersonalProject": "Mradi binafsi / wa mazoezi",
+        "isPersonalProject": "Mradi binafsi / wa masomo",
         "problem": "Changamoto",
         "solution": "Suluhisho",
         "result": "Matokeo",
@@ -531,7 +531,7 @@
         "coverImage": "Picha kuu",
         "gallery": "Picha za ziada",
         "liveUrl": "Kiungo cha tovuti hai",
-        "completedAt": "Ilikamilika tarehe",
+        "completedAt": "Tarehe ya kukamilika",
         "featured": "Onyesha kwenye ukurasa wa mwanzo",
         "role": "Cheo",
         "company": "Kampuni",
@@ -564,8 +564,8 @@
         "icon": "Jina fupi la ikoni, mfano palette au code.",
         "order": "Namba ndogo zinaonyeshwa kwanza.",
         "clientType": "Mfano saluni, shule, NGO. Usimtaje mteja bila ruhusa.",
-        "isPersonalProject": "Weka alama kwa kazi uliyoianzisha mwenyewe; itaonyeshwa hivyo kwenye tovuti.",
-        "featured": "Inaonyeshwa kwenye \"Kazi teule\" ukurasa wa mwanzo.",
+        "isPersonalProject": "Weka alama kwa kazi binafsi au ya masomo; itaonyeshwa hivyo kwenye tovuti.",
+        "featured": "Inaonyeshwa kwenye \"Kazi zilizochaguliwa\" ukurasa wa mwanzo.",
         "consentGiven": "Lazima. Usichapishe ushuhuda bila ruhusa ya mteja.",
         "phone": "Kama inavyopaswa kuonekana, mfano +255 7XX XXX XXX.",
         "whatsappNumber": "255 ikifuatiwa na tarakimu 9, bila + wala nafasi, mfano 2557XXXXXXXX.",
@@ -581,7 +581,10 @@
         "imageTooLarge": "Picha zisizidi MB 5.",
         "server": "Kuna hitilafu. Tafadhali jaribu tena.",
         "network": "Hakuna mtandao. Tafadhali jaribu tena."
-      }
+      },
+      "swMissing": "Kiswahili hakipo",
+      "swSummary": "Vipengele {count} kati ya {total} bado vinahitaji maandishi ya Kiswahili (kwa sasa wageni wa Kiswahili wanaona Kiingereza).",
+      "swNotice": "Maandishi ya Kiswahili hayapo katika sehemu hizi. Hadi yaongezwe, wageni wa Kiswahili wanaona maandishi ya Kiingereza:"
     },
     "analytics": {
       "heading": "Takwimu",
