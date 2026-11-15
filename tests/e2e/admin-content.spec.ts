@@ -140,3 +140,19 @@ test('/api/revalidate refuses requests without the secret', async ({ request }) 
   const res = await request.post('/api/revalidate');
   expect(res.status()).toBe(401);
 });
+
+test('missing Swahili is flagged in lists and the editor (FR-9)', async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto('/admin/content/services');
+  // SAMPLE services have English-only summaries, so they are flagged.
+  await expect(page.getByText('Swahili missing').first()).toBeVisible();
+  await expect(page.getByText(/items still need Swahili text/)).toBeVisible();
+
+  await page.goto('/admin/content/services/new');
+  await page.locator('#field-title-en').fill('Only English');
+  const notice = page.getByText('Swahili text is missing in these fields', { exact: false });
+  await expect(notice).toBeVisible();
+  await expect(notice.locator('xpath=following-sibling::p[1]')).toHaveText('Title');
+  await page.locator('#field-title-sw').fill('Kiswahili pia');
+  await expect(notice).toBeHidden();
+});

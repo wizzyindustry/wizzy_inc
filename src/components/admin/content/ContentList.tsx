@@ -7,8 +7,17 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { Button } from '@/components/ui/Button';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import type { ContentCollection } from '@/lib/schemas/content-admin';
+import { CONTENT_FIELDS } from './fields';
+import { missingSwahili } from './translation-status';
 
-type Row = { id: string; title: string; detail: string; published: boolean; order: number };
+type Row = {
+  id: string;
+  title: string;
+  detail: string;
+  published: boolean;
+  order: number;
+  missingSw: number; // bilingual fields with English but no Swahili
+};
 
 function toRow(kind: ContentCollection, id: string, d: Record<string, unknown>): Row {
   const en = (v: unknown) => String((v as { en?: string } | undefined)?.en ?? '');
@@ -26,6 +35,7 @@ function toRow(kind: ContentCollection, id: string, d: Record<string, unknown>):
     detail,
     published: d.published === true,
     order: typeof d.order === 'number' ? d.order : 0,
+    missingSw: missingSwahili(CONTENT_FIELDS[kind], d).length,
   };
 }
 
@@ -60,6 +70,14 @@ export function ContentList({ kind }: { kind: ContentCollection }) {
           {t('errors.load')}
         </p>
       )}
+      {rows && rows.some((r) => r.missingSw > 0) && (
+        <p className="text-sm text-muted-foreground">
+          {t('swSummary', {
+            count: rows.filter((r) => r.missingSw > 0).length,
+            total: rows.length,
+          })}
+        </p>
+      )}
       {rows === null && !error ? (
         <p role="status" className="text-muted-foreground">
           {t('loading')}
@@ -78,10 +96,17 @@ export function ContentList({ kind }: { kind: ContentCollection }) {
                   <span className="font-semibold">{row.title}</span>
                   <span className="text-sm text-muted-foreground">{row.detail}</span>
                 </span>
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${row.published ? 'bg-success text-primary-foreground' : 'border border-border bg-muted text-muted-foreground'}`}
-                >
-                  {row.published ? t('published') : t('hidden')}
+                <span className="flex flex-wrap items-center justify-end gap-2">
+                  {row.missingSw > 0 && (
+                    <span className="rounded-full border border-accent px-2.5 py-0.5 text-xs font-semibold text-accent">
+                      {t('swMissing')}
+                    </span>
+                  )}
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${row.published ? 'bg-success text-primary-foreground' : 'border border-border bg-muted text-muted-foreground'}`}
+                  >
+                    {row.published ? t('published') : t('hidden')}
+                  </span>
                 </span>
               </Link>
             </li>

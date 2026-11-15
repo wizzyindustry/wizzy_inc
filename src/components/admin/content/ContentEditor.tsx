@@ -11,8 +11,9 @@ import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import { useAdminSession } from '../AdminSession';
 import { ContentField, type Option } from './ContentField';
-import { CONTENT_FIELDS, type EditorKind } from './fields';
+import { CONTENT_FIELDS, fieldKey, type EditorKind } from './fields';
 import { getPath, setPath, toFormValues, toSaveData, type Values } from './form-values';
+import { missingSwahili } from './translation-status';
 
 type Props = { kind: EditorKind; id: string }; // id "new" creates an item
 
@@ -159,6 +160,9 @@ export function ContentEditor({ kind, id }: Props) {
       ? `/en/${kind}/${slug}`
       : null;
 
+  // Live as the owner types: which bilingual fields still have English only.
+  const missingSw = missingSwahili(fields, toSaveData(fields, values));
+
   return (
     <form onSubmit={onSave} noValidate className="flex flex-col gap-6">
       {!isSettings && (
@@ -176,6 +180,15 @@ export function ContentEditor({ kind, id }: Props) {
             ? t(`new.${kind}`)
             : titleOf(values) || t(`edit.${kind}`)}
       </h1>
+
+      {missingSw.length > 0 && (
+        <div className="rounded-md border border-accent bg-background p-3 text-sm">
+          <p className="font-semibold">{t('swNotice')}</p>
+          <p className="text-muted-foreground">
+            {missingSw.map((path) => t(`fields.${fieldKey(path)}`)).join(' · ')}
+          </p>
+        </div>
+      )}
 
       <div className="flex flex-col gap-6 rounded-lg bg-background p-5">
         {fields.map((field) => (
