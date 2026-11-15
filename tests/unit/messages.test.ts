@@ -15,18 +15,25 @@ describe('translations', () => {
     expect(keys(sw).sort()).toEqual(keys(en).sort());
   });
 
+  const actionErrors = ['invalid', 'validation', 'appCheck', 'rateLimited', 'server', 'network'];
+
   it('every error key the quote form can receive has a message', () => {
-    const errorKeys = [
-      ...FORM_ERROR_KEYS,
-      'invalid',
-      'validation',
-      'appCheck',
-      'rateLimited',
-      'server',
-      'network',
-    ];
+    const errorKeys = [...FORM_ERROR_KEYS.filter((k) => !k.startsWith('message')), ...actionErrors];
     for (const key of errorKeys) {
       expect(en.QuoteForm.errors, key).toHaveProperty(key);
+    }
+  });
+
+  it('every error key the contact form can receive has a message', () => {
+    const keys = [
+      'nameRequired',
+      'invalidPhone',
+      'invalidEmail',
+      'messageTooShort',
+      'messageTooLong',
+    ];
+    for (const key of [...keys, ...actionErrors]) {
+      expect(en.ContactForm.errors, key).toHaveProperty(key);
     }
   });
 

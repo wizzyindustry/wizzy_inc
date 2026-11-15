@@ -244,5 +244,88 @@
     "whatsappMessage": "Hello Wizzy Inc, I just sent a quote request.",
     "whatsappMessageWithRef": "Hello Wizzy Inc, I just sent a quote request. My reference number is {ref}.",
     "home": "Back to home"
+  },
+  "About": {
+    "meta": {
+      "title": "About | Wizzy Inc",
+      "description": "Who we are, our skills, the tools we use and how we work."
+    },
+    "heading": "About Wizzy Inc",
+    "intro": "TODO: real content — short introduction to Panta-wizzy: who they are, their background and what drives their work.",
+    "skills": {
+      "heading": "What we do",
+      "graphicDesign": {
+        "title": "Graphic Design",
+        "description": "TODO: real content — graphic design skills and experience."
+      },
+      "webDevelopment": {
+        "title": "Web Development",
+        "description": "TODO: real content — web development skills and experience."
+      }
+    },
+    "tools": {
+      "heading": "Tools we use",
+      "illustrator": "Adobe Illustrator",
+      "figma": "Figma",
+      "more": "TODO: real content — other tools and code stack"
+    }
+  },
+  "Contact": {
+    "meta": {
+      "title": "Contact | Wizzy Inc",
+      "description": "Send us a message, chat on WhatsApp or call us in Dodoma."
+    },
+    "heading": "Contact us",
+    "intro": "Have a question? Send a message, or chat with us directly on WhatsApp.",
+    "formHeading": "Send a message",
+    "detailsHeading": "Other ways to reach us",
+    "whatsappButton": "Chat on WhatsApp",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "workingHours": "Working hours",
+    "social": "Follow us",
+    "detailsMissing": "TODO: real content — phone, email, location and working hours are added by the owner in the admin panel."
+  },
+  "ContactForm": {
+    "optional": "optional",
+    "fields": {
+      "name": "Your name",
+      "phone": "Phone / WhatsApp number",
+      "phoneHint": "Tanzanian number, e.g. 0712 345 678 or +255 712 345 678",
+      "email": "Email",
+      "preferredContact": "How should we contact you?",
+      "message": "Your message"
+    },
+    "contactMethods": {
+      "whatsapp": "WhatsApp",
+      "phone": "Phone call",
+      "email": "Email"
+    },
+    "submit": "Send message",
+    "sending": "Sending…",
+    "privacy": "TODO: real content — privacy notice (Tanzania Personal Data Protection Act 2022) to be written and reviewed by the owner before launch.",
+    "success": {
+      "title": "Thank you — your message was sent",
+      "body": "We will get back to you soon, usually within one working day.",
+      "refLabel": "Reference number",
+      "whatsappButton": "Follow up on WhatsApp",
+      "whatsappMessage": "Hello Wizzy Inc, I just sent you a message from your website.",
+      "whatsappMessageWithRef": "Hello Wizzy Inc, I just sent you a message from your website. My reference number is {ref}.",
+      "another": "Send another message"
+    },
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "invalidPhone": "Please enter a Tanzanian number like 0712 345 678.",
+      "invalidEmail": "Please enter a valid email address or leave it empty.",
+      "messageTooShort": "Please write a message of at least 10 characters.",
+      "messageTooLong": "Please keep your message under 2,000 characters.",
+      "invalid": "Please check this field.",
+      "validation": "Please check the highlighted fields.",
+      "appCheck": "We could not verify your browser. Please refresh the page and try again.",
+      "rateLimited": "Too many messages from your connection. Please try again later or message us on WhatsApp.",
+      "server": "Something went wrong on our side. Please try again or message us on WhatsApp.",
+      "network": "Could not send your message. Check your connection and try again."
+    }
   }
 }

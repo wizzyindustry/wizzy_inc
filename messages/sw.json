@@ -244,5 +244,88 @@
     "whatsappMessage": "Habari Wizzy Inc, nimetuma ombi la makadirio ya bei.",
     "whatsappMessageWithRef": "Habari Wizzy Inc, nimetuma ombi la makadirio ya bei. Namba yangu ya kumbukumbu ni {ref}.",
     "home": "Rudi mwanzo"
+  },
+  "About": {
+    "meta": {
+      "title": "Kuhusu sisi | Wizzy Inc",
+      "description": "Sisi ni nani, ujuzi wetu, zana tunazotumia na jinsi tunavyofanya kazi."
+    },
+    "heading": "Kuhusu Wizzy Inc",
+    "intro": "TODO: real content — utangulizi mfupi wa Panta-wizzy: ni nani, historia yake na kinachomsukuma katika kazi.",
+    "skills": {
+      "heading": "Tunachofanya",
+      "graphicDesign": {
+        "title": "Usanifu wa Michoro",
+        "description": "TODO: real content — ujuzi na uzoefu wa usanifu wa michoro."
+      },
+      "webDevelopment": {
+        "title": "Utengenezaji wa Tovuti",
+        "description": "TODO: real content — ujuzi na uzoefu wa kutengeneza tovuti."
+      }
+    },
+    "tools": {
+      "heading": "Zana tunazotumia",
+      "illustrator": "Adobe Illustrator",
+      "figma": "Figma",
+      "more": "TODO: real content — zana nyingine na teknolojia za programu"
+    }
+  },
+  "Contact": {
+    "meta": {
+      "title": "Wasiliana nasi | Wizzy Inc",
+      "description": "Tutumie ujumbe, ongea nasi WhatsApp au tupigie simu Dodoma."
+    },
+    "heading": "Wasiliana nasi",
+    "intro": "Una swali? Tutumie ujumbe, au ongea nasi moja kwa moja kupitia WhatsApp.",
+    "formHeading": "Tuma ujumbe",
+    "detailsHeading": "Njia nyingine za kutufikia",
+    "whatsappButton": "Ongea nasi WhatsApp",
+    "phone": "Simu",
+    "email": "Barua pepe",
+    "location": "Mahali",
+    "workingHours": "Saa za kazi",
+    "social": "Tufuatilie",
+    "detailsMissing": "TODO: real content — simu, barua pepe, mahali na saa za kazi vitaongezwa na mmiliki kwenye paneli ya usimamizi."
+  },
+  "ContactForm": {
+    "optional": "si lazima",
+    "fields": {
+      "name": "Jina lako",
+      "phone": "Namba ya simu / WhatsApp",
+      "phoneHint": "Namba ya Tanzania, mfano 0712 345 678 au +255 712 345 678",
+      "email": "Barua pepe",
+      "preferredContact": "Tukutafute kwa njia gani?",
+      "message": "Ujumbe wako"
+    },
+    "contactMethods": {
+      "whatsapp": "WhatsApp",
+      "phone": "Simu",
+      "email": "Barua pepe"
+    },
+    "submit": "Tuma ujumbe",
+    "sending": "Inatuma…",
+    "privacy": "TODO: real content — taarifa ya faragha (Sheria ya Ulinzi wa Taarifa Binafsi ya Tanzania 2022) itaandikwa na kukaguliwa na mmiliki kabla ya kuzindua.",
+    "success": {
+      "title": "Asante — ujumbe wako umetumwa",
+      "body": "Tutakujibu hivi karibuni, kwa kawaida ndani ya siku moja ya kazi.",
+      "refLabel": "Namba ya kumbukumbu",
+      "whatsappButton": "Fuatilia kupitia WhatsApp",
+      "whatsappMessage": "Habari Wizzy Inc, nimewatumia ujumbe kupitia tovuti yenu.",
+      "whatsappMessageWithRef": "Habari Wizzy Inc, nimewatumia ujumbe kupitia tovuti yenu. Namba yangu ya kumbukumbu ni {ref}.",
+      "another": "Tuma ujumbe mwingine"
+    },
+    "errors": {
+      "nameRequired": "Tafadhali andika jina lako.",
+      "invalidPhone": "Tafadhali andika namba ya Tanzania kama 0712 345 678.",
+      "invalidEmail": "Tafadhali andika barua pepe sahihi au iache wazi.",
+      "messageTooShort": "Tafadhali andika ujumbe wa angalau herufi 10.",
+      "messageTooLong": "Tafadhali punguza ujumbe uwe chini ya herufi 2,000.",
+      "invalid": "Tafadhali kagua sehemu hii.",
+      "validation": "Tafadhali kagua sehemu zilizowekewa alama.",
+      "appCheck": "Hatukuweza kuthibitisha kivinjari chako. Tafadhali onyesha upya ukurasa ujaribu tena.",
+      "rateLimited": "Ujumbe mwingi mno kutoka kwenye mtandao wako. Tafadhali jaribu baadaye au tuandikie WhatsApp.",
+      "server": "Kuna hitilafu upande wetu. Tafadhali jaribu tena au tuandikie WhatsApp.",
+      "network": "Ujumbe wako haukutumwa. Kagua mtandao wako ujaribu tena."
+    }
   }
 }
