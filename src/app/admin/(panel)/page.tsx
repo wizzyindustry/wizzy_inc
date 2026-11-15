@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t('heading') };
 }
 
-/** Admin home. Leads inbox (slice 14) and content management (slice 15) link from here. */
+/** Admin home: shortcuts to leads and content. */
 export default async function AdminDashboardPage() {
   const t = await getTranslations('Admin.dashboard');
   return (
@@ -19,7 +19,7 @@ export default async function AdminDashboardPage() {
       <Button asChild className="self-start">
         <Link href="/admin/leads">{t('openLeads')}</Link>
       </Button>
-      <p className="text-muted-foreground">{t('comingSoon')}</p>
+      <p className="text-muted-foreground">{t('contentHint')}</p>
     </div>
   );
 }

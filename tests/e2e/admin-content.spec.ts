@@ -1,0 +1,142 @@
+import { expect as baseExpect, test, type Page } from '@playwright/test';
+
+// Sign-in and saves go through the emulators, which are slow when both browser projects
+// run in parallel. Allow 15 s per assertion here.
+const expect = baseExpect.configure({ timeout: 15_000 });
+
+test.beforeEach(() => {
+  test.skip(!process.env.FIRESTORE_EMULATOR_HOST, 'Needs the emulators and `pnpm seed`');
+});
+
+/** Unique per run and browser project, so parallel runs never touch the same item. */
+const unique = (name: string) => `e2e-${name.includes('mobile') ? 'm' : 'd'}-${Date.now()}`;
+
+/** 1×1 PNG. */
+const PNG = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',
+  'base64',
+);
+
+async function signInAsAdmin(page: Page) {
+  await page.goto('/admin/login');
+  await page.locator('#email').fill('admin@example.test');
+  await page.locator('#password').fill('emulator-only-password');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await expect(page).toHaveURL(/\/admin$/);
+}
+
+async function save(page: Page) {
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(page.getByText('Saved. The public site is updated.')).toBeVisible();
+}
+
+async function deleteItem(page: Page) {
+  page.once('dialog', (dialog) => void dialog.accept());
+  await page.getByRole('button', { name: 'Delete', exact: true }).click();
+}
+
+test('create, publish and delete a service; the public site follows (A4)', async ({
+  page,
+}, testInfo) => {
+  const slug = unique(testInfo.project.name);
+  const title = `E2E service ${slug}`;
+
+  await signInAsAdmin(page);
+  await page.goto('/admin/content/services/new');
+  await page.locator('#field-title-en').fill(title);
+  await page.locator('#field-slug').fill(slug);
+  await page.locator('#field-summary-en').fill('E2E summary');
+  await page.locator('#field-body-en').fill('E2E **body**');
+  await page.locator('#field-inclusions-en').fill('One\nTwo');
+  await page.locator('#field-startingPriceTZS').fill('12345');
+  await page.locator('#field-turnaroundDays_min').fill('2');
+  await page.locator('#field-turnaroundDays_max').fill('4');
+  await page.locator('#field-icon').fill('palette');
+  await page.locator('#field-published').check();
+  await save(page);
+  await expect(page).toHaveURL(/\/admin\/content\/services\/[\w-]+$/);
+
+  // The new page exists straight away (on-demand revalidation).
+  const publicPage = await page.context().newPage();
+  await publicPage.goto(`/en/services/${slug}`);
+  await expect(publicPage.getByRole('heading', { level: 1 })).toHaveText(title);
+
+  await deleteItem(page);
+  await expect(page).toHaveURL(/\/admin\/content\/services$/);
+  const gone = await publicPage.goto(`/en/services/${slug}`);
+  expect(gone?.status()).toBe(404);
+});
+
+test('invalid input is rejected with field errors (A4)', async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto('/admin/content/services/new');
+  await page.locator('#field-slug').fill('Not A Slug!');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(page.locator('main p[role="alert"]')).toHaveText(
+    'Please fix the highlighted fields.',
+  );
+  await expect(page.locator('#field-slug')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#field-title-en')).toHaveAttribute('aria-invalid', 'true');
+});
+
+test('portfolio item with an uploaded cover image (A5)', async ({ page }, testInfo) => {
+  const slug = unique(testInfo.project.name);
+  await signInAsAdmin(page);
+  await page.goto('/admin/content/portfolio/new');
+
+  // A fake "PNG" (wrong content) is refused by the server.
+  await page.locator('#field-coverImage').setInputFiles({
+    name: 'fake.png',
+    mimeType: 'image/png',
+    buffer: Buffer.from('not really an image'),
+  });
+  await expect(page.getByText('Only JPG, PNG or WebP images are allowed.')).toBeVisible();
+
+  await page
+    .locator('#field-coverImage')
+    .setInputFiles({ name: 'cover.png', mimeType: 'image/png', buffer: PNG });
+  await expect(page.getByRole('button', { name: 'Remove' })).toBeVisible();
+
+  await page.locator('#field-title-en').fill(`E2E work ${slug}`);
+  await page.locator('#field-slug').fill(slug);
+  await page.locator('#field-clientType').fill('E2E client type');
+  await page.locator('#field-problem-en').fill('E2E problem');
+  await page.locator('#field-solution-en').fill('E2E solution');
+  await page.locator('#field-published').check();
+  await save(page);
+
+  const publicPage = await page.context().newPage();
+  await publicPage.goto(`/en/portfolio/${slug}`);
+  await expect(publicPage.getByRole('heading', { level: 1 })).toHaveText(`E2E work ${slug}`);
+  await expect(publicPage.locator('main img').first()).toBeVisible();
+
+  await deleteItem(page);
+  await expect(page).toHaveURL(/\/admin\/content\/portfolio$/);
+});
+
+test('a testimonial cannot be saved without client consent (F11)', async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto('/admin/content/testimonials/new');
+  await page.locator('#field-name').fill('E2E client');
+  await page.locator('#field-role').fill('Owner');
+  await page.locator('#field-quote-en').fill('Great work');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(page.locator('#field-consentGiven')).toHaveAttribute('aria-invalid', 'true');
+});
+
+test('site settings update the home page', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+  const headline = `E2E headline ${Date.now()}`;
+  await signInAsAdmin(page);
+  await page.goto('/admin/settings');
+  await page.locator('#field-hero_headline-en').fill(headline);
+  await save(page);
+
+  await page.goto('/en');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(headline);
+});
+
+test('/api/revalidate refuses requests without the secret', async ({ request }) => {
+  const res = await request.post('/api/revalidate');
+  expect(res.status()).toBe(401);
+});
