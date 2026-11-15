@@ -227,7 +227,8 @@ There are three places where server logic runs:
 
 **`counters/leads`** — `{ year: number, value: number }` for reference numbers.
 **`rateLimits/{hash}`** (server only) — `{ action, count, windowStart, expiresAt }`, one doc per salted SHA-256 of action + client IP (raw IPs are never stored). Fixed window: 5 quote / 5 contact submissions per IP per hour (`src/lib/security/rate-limit-window.ts`). Set a Firestore TTL policy on `expiresAt` in each project so old docs are deleted automatically.
-**`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual).
+**`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual), FAQ list.
+**`settings/about`** — About page text: `intro`, `graphicDesign`, `webDevelopment` (bilingual) and `tools` (string list). Edited in Admin → About page; until saved, the page shows the built-in text from `messages/*.json`.
 
 ### 5.2 Indexes
 - `leads`: `status ASC, createdAt DESC`; `serviceSlug ASC, createdAt DESC`
