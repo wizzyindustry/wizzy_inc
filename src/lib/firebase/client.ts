@@ -11,10 +11,14 @@ import {
  * (ARCHITECTURE-ESSENTIAL §3.3); on public pages this is used ONLY for App Check tokens.
  * Import it dynamically (`await import(...)`) so it is not in the initial page bundle.
  */
+const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 const config = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  // The emulators accept any key; "demo-" projects never reach real Firebase.
+  apiKey:
+    process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
+    (projectId?.startsWith('demo-') ? 'demo-api-key' : undefined),
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  projectId,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };

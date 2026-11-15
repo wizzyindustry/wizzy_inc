@@ -7,6 +7,7 @@
  * `demo-` projects cannot reach real Firebase, so production data can never be touched.
  */
 import { initializeApp } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import type { z } from 'zod';
@@ -29,10 +30,31 @@ import {
 const PROJECT_ID = 'demo-wizzy';
 process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 process.env.FIREBASE_STORAGE_EMULATOR_HOST = '127.0.0.1:9199';
+process.env.FIREBASE_AUTH_EMULATOR_HOST = '127.0.0.1:9099';
 
 const app = initializeApp({ projectId: PROJECT_ID, storageBucket: `${PROJECT_ID}.appspot.com` });
 const db = getFirestore(app);
 const bucket = getStorage(app).bucket();
+
+/** Emulator-only test accounts (fake addresses, fake password). One admin, one not. */
+const SAMPLE_PASSWORD = 'emulator-only-password';
+const SAMPLE_ACCOUNTS = [
+  { email: 'admin@example.test', admin: true },
+  { email: 'not-admin@example.test', admin: false },
+];
+
+async function seedAccounts(): Promise<void> {
+  const auth = getAuth(app);
+  for (const account of SAMPLE_ACCOUNTS) {
+    const user = await auth
+      .getUserByEmail(account.email)
+      .catch(() => auth.createUser({ email: account.email, password: SAMPLE_PASSWORD }));
+    await auth.setCustomUserClaims(user.uid, account.admin ? { admin: true } : null);
+  }
+  console.log(
+    `  auth accounts: ${SAMPLE_ACCOUNTS.map((a) => a.email).join(', ')} (password: ${SAMPLE_PASSWORD})`,
+  );
+}
 
 /** Validate with the app's own schema, then store without the `id` field. */
 function check<S extends z.ZodType>(schema: S, doc: { id: string }): Record<string, unknown> {
@@ -65,6 +87,7 @@ async function main(): Promise<void> {
     await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
   }
   console.log(`  storage images: ${samplePortfolio.length}`);
+  await seedAccounts();
   console.log('Done.');
 }
 

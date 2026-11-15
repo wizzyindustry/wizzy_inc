@@ -27,6 +27,19 @@ To make `pnpm dev` read the emulators, set these in `.env.local`
 (see the note at the bottom of `.env.example`): `NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-wizzy`,
 `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080`, `FIREBASE_STORAGE_EMULATOR_HOST=127.0.0.1:9199`.
 
+## Admin panel
+
+`/admin` is for the owner only (Firebase Auth + an `admin` custom claim; no public sign-up).
+
+- **Locally:** `pnpm seed` creates two emulator-only accounts, `admin@example.test` (admin) and
+  `not-admin@example.test`, both with password `emulator-only-password`.
+- **Grant / remove admin rights:** `pnpm admin:claim <email>` (emulator) or
+  `pnpm admin:claim <email> --revoke`. For the real project the owner runs
+  `pnpm admin:claim <email> --prod` with `NEXT_PUBLIC_FIREBASE_PROJECT_ID` set and Google Cloud
+  credentials (`gcloud auth application-default login`). The account must exist first.
+- **Before launch:** enable Email/Password and/or Google sign-in in the Firebase console, and add
+  the site domain to Auth → Settings → Authorised domains.
+
 ## Lead emails (Cloud Function)
 
 `functions/` holds the Cloud Functions (separate pnpm package). `onLeadCreated` emails the owner

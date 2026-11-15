@@ -15,6 +15,11 @@ function adminApp(): App {
   if (existing) return existing;
 
   const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? 'demo-wizzy';
+  // "demo-" projects only exist in the emulators, so verify sign-ins against the Auth
+  // emulator there (its tokens are unsigned and must never be accepted in production).
+  if (projectId.startsWith('demo-')) {
+    process.env.FIREBASE_AUTH_EMULATOR_HOST ??= '127.0.0.1:9099';
+  }
   const storageBucket =
     process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || `${projectId}.appspot.com`;
   const key = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
