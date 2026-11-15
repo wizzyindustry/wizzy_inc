@@ -23,6 +23,7 @@ import {
   PLACEHOLDER_PNG,
   SAMPLE_PDF,
   sampleLeads,
+  sampleRecentLeads,
   samplePackages,
   samplePortfolio,
   sampleServices,
@@ -95,7 +96,7 @@ async function main(): Promise<void> {
   console.log(`  storage images: ${samplePortfolio.length}`);
   await seedAccounts();
 
-  await seedCollection('leads', leadSchema, sampleLeads);
+  await seedCollection('leads', leadSchema, [...sampleLeads, ...sampleRecentLeads]);
   await bucket.file('quotes/sample-lead-quote/1-sample-brief.pdf').save(SAMPLE_PDF, {
     contentType: 'application/pdf',
   });

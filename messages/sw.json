@@ -370,7 +370,8 @@
       "packages": "Vifurushi",
       "portfolio": "Kazi zetu",
       "testimonials": "Shuhuda",
-      "settings": "Mipangilio"
+      "settings": "Mipangilio",
+      "analytics": "Takwimu"
     },
     "leads": {
       "heading": "Maombi",
@@ -580,6 +581,32 @@
         "imageTooLarge": "Picha zisizidi MB 5.",
         "server": "Kuna hitilafu. Tafadhali jaribu tena.",
         "network": "Hakuna mtandao. Tafadhali jaribu tena."
+      }
+    },
+    "analytics": {
+      "heading": "Takwimu",
+      "period": "Miezi 12 iliyopita (saa za Tanzania).",
+      "loading": "Inapakia…",
+      "loadError": "Imeshindikana kupakia maombi. Kagua mtandao, au toka kisha uingie tena.",
+      "empty": "Hakuna maombi katika kipindi hiki.",
+      "tableView": "Onyesha kama jedwali",
+      "leadsCount": "{count, plural, =1 {ombi #} other {maombi #}}",
+      "table": {
+        "month": "Mwezi",
+        "leads": "Maombi"
+      },
+      "tiles": {
+        "total": "Maombi",
+        "thisMonth": "Mwezi huu",
+        "won": "Yamefanikiwa",
+        "conversion": "Kiwango cha mafanikio",
+        "conversionNote": "Yaliyofanikiwa ÷ maombi yote. Maombi yaliyo wazi yanahesabiwa pia, hivyo kiwango hupanda yanapokamilika."
+      },
+      "charts": {
+        "perMonth": "Maombi kwa mwezi",
+        "byService": "Maombi ya bei kwa huduma",
+        "byKind": "Kwa aina",
+        "byStatus": "Kwa hali"
       }
     }
   },

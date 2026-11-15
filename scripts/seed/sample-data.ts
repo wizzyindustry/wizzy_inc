@@ -231,3 +231,42 @@ export const sampleLeads = [
     createdAt: SAMPLE_DATE,
   },
 ];
+
+/**
+ * SAMPLE leads spread over recent months, so the admin analytics page has something to
+ * show locally. Fake people; references in the year 2000 range (counter untouched).
+ */
+const monthsAgo = (n: number) => {
+  const d = new Date();
+  d.setUTCDate(10);
+  d.setUTCMonth(d.getUTCMonth() - n);
+  return d;
+};
+const RECENT: { months: number; status: string; service?: string }[] = [
+  { months: 0, status: 'new', service: 'logo-design' },
+  { months: 0, status: 'contacted' },
+  { months: 1, status: 'won', service: 'logo-design' },
+  { months: 1, status: 'quoted', service: 'business-websites' },
+  { months: 2, status: 'lost', service: 'business-websites' },
+  { months: 4, status: 'won', service: 'business-websites' },
+  { months: 7, status: 'won', service: 'logo-design' },
+];
+export const sampleRecentLeads = RECENT.map((r, i) => {
+  const at = monthsAgo(r.months);
+  return {
+    id: `sample-lead-recent-${i + 1}`,
+    ref: `WZ-2000-${String(i + 3).padStart(4, '0')}`,
+    kind: r.service ? 'quote' : 'contact',
+    name: `SAMPLE Analytics ${i + 1}`,
+    phone: `+2557000001${String(i).padStart(2, '0')}`,
+    preferredContact: 'whatsapp',
+    locale: 'en',
+    ...(r.service && { serviceSlug: r.service }),
+    description: 'SAMPLE: for the analytics page. Not a real request.',
+    attachments: [],
+    status: r.status,
+    statusHistory: [{ status: r.status, at }],
+    notes: [],
+    createdAt: at,
+  };
+});

@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 const ITEMS = [
   { href: '/admin', key: 'dashboard' },
   { href: '/admin/leads', key: 'leads' },
+  { href: '/admin/analytics', key: 'analytics' },
   { href: '/admin/content/services', key: 'services' },
   { href: '/admin/content/packages', key: 'packages' },
   { href: '/admin/content/portfolio', key: 'portfolio' },

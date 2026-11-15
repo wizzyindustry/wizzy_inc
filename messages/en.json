@@ -370,7 +370,8 @@
       "packages": "Packages",
       "portfolio": "Portfolio",
       "testimonials": "Testimonials",
-      "settings": "Settings"
+      "settings": "Settings",
+      "analytics": "Analytics"
     },
     "leads": {
       "heading": "Leads",
@@ -580,6 +581,32 @@
         "imageTooLarge": "Images must be 5 MB or smaller.",
         "server": "Something went wrong. Please try again.",
         "network": "No connection. Please try again."
+      }
+    },
+    "analytics": {
+      "heading": "Analytics",
+      "period": "Last 12 months (Tanzania time).",
+      "loading": "Loading…",
+      "loadError": "Could not load leads. Check your connection, or sign out and in again.",
+      "empty": "No leads in this period.",
+      "tableView": "Show as table",
+      "leadsCount": "{count, plural, =1 {# lead} other {# leads}}",
+      "table": {
+        "month": "Month",
+        "leads": "Leads"
+      },
+      "tiles": {
+        "total": "Leads",
+        "thisMonth": "This month",
+        "won": "Won",
+        "conversion": "Conversion",
+        "conversionNote": "Won ÷ all leads. Open leads count too, so it rises as they close."
+      },
+      "charts": {
+        "perMonth": "Leads per month",
+        "byService": "Quote requests by service",
+        "byKind": "By type",
+        "byStatus": "By status"
       }
     }
   },
