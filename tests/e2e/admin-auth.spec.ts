@@ -1,4 +1,8 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect as baseExpect, test, type Page } from '@playwright/test';
+
+// Sign-in makes several calls to the Auth emulator, which is slow when both browser
+// projects run in parallel (seconds, not milliseconds). Allow 15 s per assertion here.
+const expect = baseExpect.configure({ timeout: 15_000 });
 
 // Emulator-only accounts created by `pnpm seed` (fake addresses and password).
 const PASSWORD = 'emulator-only-password';

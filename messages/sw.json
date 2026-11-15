@@ -358,7 +358,90 @@
     "dashboard": {
       "heading": "Dashibodi",
       "signedInAs": "Umeingia kama {email}",
-      "comingSoon": "Sanduku la maombi na usimamizi wa maudhui vitaonekana hapa katika masasisho yajayo."
+      "comingSoon": "Usimamizi wa maudhui (huduma, vifurushi, kazi zetu) unakuja katika sasisho lijalo.",
+      "openLeads": "Fungua sanduku la maombi"
+    },
+    "nav": {
+      "label": "Urambazaji wa usimamizi",
+      "dashboard": "Dashibodi",
+      "leads": "Maombi"
+    },
+    "leads": {
+      "heading": "Maombi",
+      "detailTitle": "Ombi",
+      "listLabel": "Maombi, mapya kwanza",
+      "loading": "Inapakia…",
+      "empty": "Hakuna maombi yanayolingana na vichujio hivi.",
+      "loadError": "Imeshindikana kupakia maombi. Kagua mtandao, au toka kisha uingie tena.",
+      "loadMore": "Pakia maombi ya zamani",
+      "notFound": "Ombi hili halipo au halikuweza kupakiwa.",
+      "backToInbox": "Rudi kwenye maombi",
+      "noService": "Ujumbe wa mawasiliano",
+      "filters": {
+        "search": "Tafuta",
+        "searchPlaceholder": "Namba ya kumbukumbu, jina, simu au barua pepe",
+        "status": "Hali",
+        "allStatuses": "Hali zote",
+        "kind": "Aina",
+        "allKinds": "Aina zote"
+      },
+      "status": {
+        "new": "Jipya",
+        "contacted": "Amewasiliana",
+        "quoted": "Bei imetolewa",
+        "won": "Limefanikiwa",
+        "lost": "Limepotea"
+      },
+      "kind": {
+        "quote": "Ombi la bei",
+        "contact": "Ujumbe wa mawasiliano"
+      },
+      "language": {
+        "en": "Kiingereza",
+        "sw": "Kiswahili"
+      },
+      "contactMethod": {
+        "whatsapp": "WhatsApp",
+        "phone": "Simu",
+        "email": "Barua pepe"
+      },
+      "client": "Mteja",
+      "details": "Ombi",
+      "fields": {
+        "kind": "Aina",
+        "received": "Limepokelewa",
+        "language": "Lugha",
+        "preferredContact": "Njia ya mawasiliano",
+        "service": "Huduma",
+        "package": "Kifurushi",
+        "budget": "Bajeti",
+        "deadline": "Muda wa mwisho",
+        "description": "Maelezo ya mradi",
+        "message": "Ujumbe"
+      },
+      "notSure": "Hana uhakika bado",
+      "notGiven": "Haijatolewa",
+      "attachments": "Viambatisho",
+      "noAttachments": "Hakuna mafaili yaliyoambatishwa.",
+      "download": "Pakua",
+      "pipeline": "Hali",
+      "history": "Historia",
+      "statusSaved": "Hali imebadilishwa kuwa {status}.",
+      "notes": "Maelezo ya ndani",
+      "noNotes": "Bado hakuna maelezo.",
+      "addNote": "Ongeza maelezo",
+      "saveNote": "Hifadhi maelezo",
+      "noteSaved": "Maelezo yamehifadhiwa.",
+      "errors": {
+        "unauthorized": "Muda wako wa kuingia umeisha. Tafadhali ingia tena.",
+        "notFound": "Ombi hili halipo tena.",
+        "validation": "Tafadhali kagua ulichoandika.",
+        "noteRequired": "Andika kitu kabla ya kuhifadhi.",
+        "noteTooLong": "Maelezo yasizidi herufi 2,000.",
+        "server": "Kuna hitilafu. Tafadhali jaribu tena.",
+        "network": "Hakuna mtandao. Tafadhali jaribu tena.",
+        "download": "Imeshindikana kupakua faili. Tafadhali jaribu tena."
+      }
     }
   }
 }

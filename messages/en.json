@@ -358,7 +358,90 @@
     "dashboard": {
       "heading": "Dashboard",
       "signedInAs": "Signed in as {email}",
-      "comingSoon": "The leads inbox and content management will appear here in the next updates."
+      "comingSoon": "Content management (services, packages, portfolio) arrives in the next update.",
+      "openLeads": "Open leads inbox"
+    },
+    "nav": {
+      "label": "Admin navigation",
+      "dashboard": "Dashboard",
+      "leads": "Leads"
+    },
+    "leads": {
+      "heading": "Leads",
+      "detailTitle": "Lead",
+      "listLabel": "Leads, newest first",
+      "loading": "Loading…",
+      "empty": "No leads match these filters.",
+      "loadError": "Could not load leads. Check your connection, or sign out and in again.",
+      "loadMore": "Load older leads",
+      "notFound": "This lead does not exist or could not be loaded.",
+      "backToInbox": "Back to leads",
+      "noService": "Contact message",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Reference, name, phone or email",
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "kind": "Type",
+        "allKinds": "All types"
+      },
+      "status": {
+        "new": "New",
+        "contacted": "Contacted",
+        "quoted": "Quoted",
+        "won": "Won",
+        "lost": "Lost"
+      },
+      "kind": {
+        "quote": "Quote request",
+        "contact": "Contact message"
+      },
+      "language": {
+        "en": "English",
+        "sw": "Swahili"
+      },
+      "contactMethod": {
+        "whatsapp": "WhatsApp",
+        "phone": "Phone call",
+        "email": "Email"
+      },
+      "client": "Client",
+      "details": "Request",
+      "fields": {
+        "kind": "Type",
+        "received": "Received",
+        "language": "Language",
+        "preferredContact": "Preferred contact",
+        "service": "Service",
+        "package": "Package",
+        "budget": "Budget",
+        "deadline": "Deadline",
+        "description": "Project description",
+        "message": "Message"
+      },
+      "notSure": "Not sure yet",
+      "notGiven": "Not given",
+      "attachments": "Attachments",
+      "noAttachments": "No files attached.",
+      "download": "Download",
+      "pipeline": "Status",
+      "history": "History",
+      "statusSaved": "Status changed to {status}.",
+      "notes": "Private notes",
+      "noNotes": "No notes yet.",
+      "addNote": "Add a note",
+      "saveNote": "Save note",
+      "noteSaved": "Note saved.",
+      "errors": {
+        "unauthorized": "Your session has expired. Please sign in again.",
+        "notFound": "This lead no longer exists.",
+        "validation": "Please check what you entered.",
+        "noteRequired": "Write something before saving the note.",
+        "noteTooLong": "Notes can be at most 2,000 characters.",
+        "server": "Something went wrong. Please try again.",
+        "network": "No connection. Please try again.",
+        "download": "Could not download the file. Please try again."
+      }
     }
   }
 }
