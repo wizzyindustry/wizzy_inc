@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { FirebaseError } from 'firebase/app';
@@ -14,6 +14,7 @@ import {
   userIsAdmin,
 } from '@/lib/firebase/client-auth';
 import type { UserCredential } from 'firebase/auth';
+import { useHydrated } from '@/lib/utils/use-hydrated';
 
 /** Firebase error codes -> message keys (never show raw Firebase errors). */
 function errorKey(error: unknown): string {
@@ -41,8 +42,10 @@ export function LoginForm() {
   const t = useTranslations('Admin.login');
   const router = useRouter();
   const params = useSearchParams();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const hydrated = useHydrated();
+  // Uncontrolled (read on submit): text typed before the page finished loading is kept.
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(
     params.get('error') === 'notAdmin' ? 'notAdmin' : null,
@@ -68,7 +71,9 @@ export function LoginForm() {
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
-    void finish(() => signInWithEmail(email.trim(), password));
+    const email = emailRef.current?.value.trim() ?? '';
+    const password = passwordRef.current?.value ?? '';
+    void finish(() => signInWithEmail(email, password));
   }
 
   return (
@@ -85,8 +90,7 @@ export function LoginForm() {
             type="email"
             autoComplete="username"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            ref={emailRef}
             className={fieldClass}
             aria-describedby={describedBy('email')}
           />
@@ -97,12 +101,12 @@ export function LoginForm() {
             type="password"
             autoComplete="current-password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordRef}
             className={fieldClass}
           />
         </FormField>
-        <Button type="submit" disabled={busy}>
+        {/* Disabled until React is ready, so the form never submits natively. */}
+        <Button type="submit" disabled={busy || !hydrated}>
           {busy ? t('signingIn') : t('submit')}
         </Button>
       </form>
@@ -114,7 +118,7 @@ export function LoginForm() {
       <Button
         type="button"
         variant="outline"
-        disabled={busy}
+        disabled={busy || !hydrated}
         onClick={() => void finish(signInWithGoogle)}
       >
         {t('google')}

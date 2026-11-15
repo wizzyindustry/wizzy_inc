@@ -9,6 +9,7 @@ import { fieldClass } from '@/components/ui/field-styles';
 import type { Locale } from '@/lib/i18n/routing';
 import type { ContactData, ContactInput } from '@/lib/schemas/contact-input';
 import { HONEYPOT_FIELD } from '@/lib/security/honeypot';
+import { useHydrated } from '@/lib/utils/use-hydrated';
 import { buildWhatsAppLink } from '@/lib/utils/whatsapp';
 import { describedBy, FormField } from './FormField';
 
@@ -31,6 +32,7 @@ type Props = { locale: Locale; whatsappNumber: string | null };
 /** Contact page form (F9). Same Zod schema as the server (validate twice). */
 export function ContactForm({ locale, whatsappNumber }: Props) {
   const t = useTranslations('ContactForm');
+  const hydrated = useHydrated();
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [sentRef, setSentRef] = useState<string | null>(null);
@@ -237,7 +239,7 @@ export function ContactForm({ locale, whatsappNumber }: Props) {
         />
       </div>
 
-      <Button type="submit" disabled={submitting} className="self-start">
+      <Button type="submit" disabled={submitting || !hydrated} className="self-start">
         {submitting ? t('sending') : t('submit')}
       </Button>
     </form>
