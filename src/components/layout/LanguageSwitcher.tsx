@@ -5,7 +5,7 @@ import { Link, usePathname } from '@/lib/i18n/navigation';
 import { routing } from '@/lib/i18n/routing';
 import { cn } from '@/lib/utils/cn';
 
-/** EN ⇄ SW switch (F10). next-intl remembers the choice in the NEXT_LOCALE cookie. */
+/** EN ⇄ SW switch (F10). The choice is remembered for a year in the NEXT_LOCALE cookie (routing.ts). */
 export function LanguageSwitcher() {
   const t = useTranslations('LanguageSwitcher');
   const current = useLocale();
