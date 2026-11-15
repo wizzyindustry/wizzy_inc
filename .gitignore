@@ -26,3 +26,7 @@ coverage/
 # misc
 .DS_Store
 *.log
+
+# cloud functions build output and local secrets
+functions/lib/
+functions/.secret.local

@@ -19,13 +19,27 @@ pnpm dev                     # http://localhost:3000 -> redirects to /en
 ## Local data (emulators)
 
 ```bash
-pnpm emulators   # terminal 1: Auth, Firestore, Storage + UI on http://localhost:4000
+pnpm emulators   # terminal 1: Auth, Firestore, Storage, Functions + UI on http://localhost:4000
 pnpm seed        # terminal 2: loads clearly-labelled SAMPLE data (never real content)
 ```
 
 To make `pnpm dev` read the emulators, set these in `.env.local`
 (see the note at the bottom of `.env.example`): `NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-wizzy`,
 `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080`, `FIREBASE_STORAGE_EMULATOR_HOST=127.0.0.1:9199`.
+
+## Lead emails (Cloud Function)
+
+`functions/` holds the Cloud Functions (separate pnpm package). `onLeadCreated` emails the owner
+when a new quote request is saved (PRD A3 / FR-5), using [Resend](https://resend.com).
+
+- **Locally** the email is built but **never sent** (dry run); the emulator log shows the reference
+  number. `pnpm emulators` creates `functions/.env.local` with fake values the first time.
+- **Before the first deploy** (owner):
+  1. Create a Resend account, verify the sending domain, create an API key.
+  2. `firebase functions:secrets:set RESEND_API_KEY`
+  3. Put `OWNER_EMAIL`, `EMAIL_FROM` and `SITE_URL` in `functions/.env.<project-id>`
+     (git-ignored), or answer the prompts during deploy.
+  4. Check `REGION` in `functions/src/config.ts` matches the Firestore location.
 
 ## Quality checks
 

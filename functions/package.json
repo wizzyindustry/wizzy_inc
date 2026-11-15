@@ -1,0 +1,22 @@
+{
+  "name": "functions",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "serve": "pnpm build && firebase emulators:start --only functions,firestore --project demo-wizzy"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.5.1",
+    "firebase-functions": "^7.4.0",
+    "resend": "^6.38.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

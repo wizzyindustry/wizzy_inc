@@ -1,13 +1,32 @@
 /**
- * `pnpm emulators` — start the Firebase emulators for local development.
+ * `pnpm emulators` — build the Cloud Functions, then start the Firebase emulators.
  * Saved data in ./.emulator-data is loaded when present and written back on exit.
+ * In the emulator, onLeadCreated builds the owner email but does not send it (dry run).
  */
-import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { execSync, spawn } from 'node:child_process';
+import { existsSync, writeFileSync } from 'node:fs';
 
 const DATA_DIR = './.emulator-data';
-// TODO(slice 10): add `functions` once the functions/ package exists.
-const ONLY = 'auth,firestore,storage';
+const ONLY = 'auth,firestore,storage,functions';
+
+// Emulator-only settings for Cloud Functions (approved by the owner). Fake values, no secrets;
+// git-ignored. Production values are set at deploy time (see functions/src/config.ts).
+const FUNCTIONS_ENV = './functions/.env.local';
+if (!existsSync(FUNCTIONS_ENV)) {
+  writeFileSync(
+    FUNCTIONS_ENV,
+    [
+      '# Created by `pnpm emulators` — emulator only, fake values. Never put real secrets here.',
+      'OWNER_EMAIL=owner@example.test',
+      'EMAIL_FROM=Wizzy Inc (emulator) <noreply@example.test>',
+      'SITE_URL=http://localhost:3000',
+      '',
+    ].join('\n'),
+  );
+}
+
+execSync('pnpm --filter functions build', { stdio: 'inherit' });
+
 const args = [
   'emulators:start',
   '--only',

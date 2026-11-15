@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && pnpm --filter functions typecheck",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:rules": "firebase emulators:exec --only firestore,storage --project demo-wizzy \"vitest run --config vitest.rules.config.ts\"",

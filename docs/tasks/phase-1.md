@@ -27,6 +27,8 @@ but full Swahili content review is Phase 1.1. Each slice is one branch/PR, aimin
   prices and portfolio items. Until provided, pages show `TODO: real content` placeholders and the
   emulator uses clearly-labelled sample data.
 - **Budget ranges** offered in the quote form (slice 9).
-- **Email provider:** Resend (default in ARCHITECTURE.md) or SMTP.
+- **Email provider:** Resend (slice 10). Needs a Resend account, verified domain and API key before launch.
+- **Firebase region:** Cloud Functions use `europe-west1` (`functions/src/config.ts`); must match the
+  Firestore location chosen when the project is created.
 - **Build-time data:** public pages read Firestore. CI has no live Firestore, so pages will render
   on first request (ISR) rather than at build time. Revisit when staging exists.
