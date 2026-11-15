@@ -1,25 +1,26 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { AdminWelcome } from '@/components/admin/AdminWelcome';
-import { Button } from '@/components/ui/Button';
+import { DashboardOverview } from '@/components/admin/DashboardOverview';
+import { getServiceTitles } from '@/lib/data/service-titles';
+
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Admin.dashboard');
   return { title: t('heading') };
 }
 
-/** Admin home: shortcuts to leads and content. */
+/** Admin home: live lead activity, shortcuts and a content summary. */
 export default async function AdminDashboardPage() {
   const t = await getTranslations('Admin.dashboard');
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="font-display text-3xl font-bold">{t('heading')}</h1>
-      <AdminWelcome />
-      <Button asChild className="self-start">
-        <Link href="/admin/leads">{t('openLeads')}</Link>
-      </Button>
-      <p className="text-muted-foreground">{t('contentHint')}</p>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="font-display text-3xl font-bold">{t('heading')}</h1>
+        <AdminWelcome />
+      </div>
+      <DashboardOverview serviceTitles={await getServiceTitles()} />
     </div>
   );
 }

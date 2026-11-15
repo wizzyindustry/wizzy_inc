@@ -176,6 +176,17 @@ export const sampleSettings = {
   ],
 };
 
+/** About page text (settings/about). Placeholder only — the owner writes the real text. */
+export const sampleAbout = {
+  intro: s(
+    'introduction to Panta-wizzy — edit this in Admin → About page.',
+    'utangulizi wa Panta-wizzy — hariri hapa: Admin → About page.',
+  ),
+  graphicDesign: s('graphic design skills and experience.'),
+  webDevelopment: s('web development skills and experience.'),
+  tools: ['Adobe Illustrator', 'Figma'],
+};
+
 /** 1×1 transparent PNG used as a stand-in cover image. */
 export const PLACEHOLDER_PNG = Buffer.from(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==',

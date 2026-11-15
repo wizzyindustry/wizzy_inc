@@ -4,6 +4,7 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePublicPages } from '@/lib/data/revalidate-public';
 import { adminDb, adminStorage } from '@/lib/firebase/admin';
 import {
+  aboutInputSchema,
   contentFieldErrors,
   contentInputSchemas,
   docIdSchema,
@@ -120,17 +121,34 @@ export async function saveSettings(
   idToken: string,
   input: { data: unknown },
 ): Promise<ActionResult<{ id: string }>> {
+  return saveSettingsDoc(idToken, 'site', settingsInputSchema, input.data);
+}
+
+/** About page text (F8) -> settings/about. */
+export async function saveAboutPage(
+  idToken: string,
+  input: { data: unknown },
+): Promise<ActionResult<{ id: string }>> {
+  return saveSettingsDoc(idToken, 'about', aboutInputSchema, input.data);
+}
+
+async function saveSettingsDoc(
+  idToken: string,
+  id: 'site' | 'about',
+  schema: typeof settingsInputSchema | typeof aboutInputSchema,
+  data: unknown,
+): Promise<ActionResult<{ id: string }>> {
   if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
-  const parsed = settingsInputSchema.safeParse(input.data);
+  const parsed = schema.safeParse(data);
   if (!parsed.success) {
     return { ok: false, error: 'validation', fieldErrors: contentFieldErrors(parsed.error) };
   }
   try {
-    await adminDb().doc('settings/site').set(withoutUndefined(parsed.data));
+    await adminDb().doc(`settings/${id}`).set(withoutUndefined(parsed.data));
     revalidatePublicPages();
-    return { ok: true, data: { id: 'site' } };
+    return { ok: true, data: { id } };
   } catch (error) {
-    logFailure('saveSettings', error);
+    logFailure(`save settings/${id}`, error);
     return { ok: false, error: 'server' };
   }
 }

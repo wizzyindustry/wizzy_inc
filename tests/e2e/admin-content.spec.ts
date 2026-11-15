@@ -124,16 +124,53 @@ test('a testimonial cannot be saved without client consent (F11)', async ({ page
   await expect(page.locator('#field-consentGiven')).toHaveAttribute('aria-invalid', 'true');
 });
 
-test('site settings update the home page', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
-  const headline = `E2E headline ${Date.now()}`;
-  await signInAsAdmin(page);
-  await page.goto('/admin/settings');
-  await page.locator('#field-hero_headline-en').fill(headline);
-  await save(page);
+// Settings and About are single shared documents, and each save refreshes every public
+// page — run these one after another so they never overlap.
+test.describe('shared site documents', () => {
+  test.describe.configure({ mode: 'serial' });
 
-  await page.goto('/en');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(headline);
+  test('site settings update the home page', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    const headline = `E2E headline ${Date.now()}`;
+    await signInAsAdmin(page);
+    await page.goto('/admin/settings');
+    const field = page.locator('#field-hero_headline-en');
+    const original = await field.inputValue();
+    await field.fill(headline);
+    await save(page);
+
+    await page.goto('/en');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(headline);
+
+    // Put the original headline back, so local review data is left as it was.
+    await page.goto('/admin/settings');
+    await page.locator('#field-hero_headline-en').fill(original);
+    await save(page);
+  });
+
+  test('the About page text is edited in admin', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    const intro = `E2E about intro ${Date.now()}`;
+    await signInAsAdmin(page);
+    await page.goto('/admin/about');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('About page');
+    const field = page.locator('#field-intro-en');
+    const original = await field.inputValue();
+    const tools = page.locator('#field-tools');
+    const originalTools = await tools.inputValue();
+    await field.fill(intro);
+    await tools.fill('Adobe Illustrator\nE2E tool');
+    await save(page);
+
+    await page.goto('/en/about');
+    await expect(page.getByText(intro)).toBeVisible();
+    await expect(page.getByText('E2E tool', { exact: true })).toBeVisible();
+
+    await page.goto('/admin/about');
+    await page.locator('#field-intro-en').fill(original);
+    await page.locator('#field-tools').fill(originalTools);
+    await save(page);
+  });
 });
 
 test('/api/revalidate refuses requests without the secret', async ({ request }) => {

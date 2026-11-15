@@ -32,7 +32,8 @@ export type FieldDef = {
   numeric?: boolean; // select whose values are numbers
 };
 
-export type EditorKind = ContentCollection | 'settings';
+/** 'settings' and 'about' are single documents in the `settings` collection. */
+export type EditorKind = ContentCollection | 'settings' | 'about';
 
 const CATEGORY = ['graphic-design', 'web-development'] as const;
 
@@ -115,6 +116,12 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'socialLinks.x', type: 'text', optional: true },
     { path: 'socialLinks.linkedin', type: 'text', optional: true },
     { path: 'socialLinks.github', type: 'text', optional: true },
+  ],
+  about: [
+    { path: 'intro', type: 'bilingualLong', hint: true },
+    { path: 'graphicDesign', type: 'bilingualLong', hint: true },
+    { path: 'webDevelopment', type: 'bilingualLong', hint: true },
+    { path: 'tools', type: 'lines', hint: true },
   ],
 };
 

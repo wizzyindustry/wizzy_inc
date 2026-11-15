@@ -5,7 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import { deleteContent, saveContent, saveSettings } from '@/app/admin/content/actions';
+import {
+  deleteContent,
+  saveAboutPage,
+  saveContent,
+  saveSettings,
+} from '@/app/admin/content/actions';
 import { Button } from '@/components/ui/Button';
 import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
@@ -20,13 +25,14 @@ type Props = { kind: EditorKind; id: string }; // id "new" creates an item
 const titleOf = (data: Values) =>
   String(getPath(data, 'title.en') ?? getPath(data, 'name.en') ?? getPath(data, 'name') ?? '');
 
-/** Generic editor for services, packages, portfolio, testimonials and site settings. */
+/** Generic editor for services, packages, portfolio, testimonials, site settings and About. */
 export function ContentEditor({ kind, id }: Props) {
   const t = useTranslations('Admin.content');
   const router = useRouter();
   const { getIdToken } = useAdminSession();
   const fields = CONTENT_FIELDS[kind];
-  const isSettings = kind === 'settings';
+  // Settings and About are single documents (settings/site, settings/about), never deleted.
+  const isSettings = kind === 'settings' || kind === 'about';
   const isNew = id === 'new';
 
   // New items get their Firestore id up front, so images can be uploaded before saving.
@@ -48,7 +54,9 @@ export function ContentEditor({ kind, id }: Props) {
     let active = true;
     const db = adminDbClient();
     (async () => {
-      const path = isSettings ? doc(db, 'settings', 'site') : doc(db, kind, docId);
+      const path = isSettings
+        ? doc(db, 'settings', kind === 'about' ? 'about' : 'site')
+        : doc(db, kind, docId);
       const snap = isNew ? null : await getDoc(path);
       if (!active) return;
       if (snap && !snap.exists() && !isSettings) {
@@ -95,9 +103,12 @@ export function ContentEditor({ kind, id }: Props) {
     try {
       const token = await getIdToken();
       const data = toSaveData(fields, values);
-      const result = isSettings
-        ? await saveSettings(token, { data })
-        : await saveContent(token, { collection: kind, id: docId, data });
+      const result =
+        kind === 'about'
+          ? await saveAboutPage(token, { data })
+          : kind === 'settings'
+            ? await saveSettings(token, { data })
+            : await saveContent(token, { collection: kind, id: docId, data });
       if (result.ok) {
         setMessage({ kind: 'ok', text: t('saved') });
         if (unsaved) {
@@ -156,9 +167,14 @@ export function ContentEditor({ kind, id }: Props) {
 
   const slug = getPath(values, 'slug');
   const publicPath =
-    !unsaved && typeof slug === 'string' && slug && (kind === 'services' || kind === 'portfolio')
-      ? `/en/${kind}/${slug}`
-      : null;
+    kind === 'about'
+      ? '/en/about'
+      : !unsaved &&
+          typeof slug === 'string' &&
+          slug &&
+          (kind === 'services' || kind === 'portfolio')
+        ? `/en/${kind}/${slug}`
+        : null;
 
   // Live as the owner types: which bilingual fields still have English only.
   const missingSw = missingSwahili(fields, toSaveData(fields, values));
@@ -175,7 +191,7 @@ export function ContentEditor({ kind, id }: Props) {
       )}
       <h1 className="font-display text-2xl font-bold">
         {isSettings
-          ? t('settingsHeading')
+          ? t(kind === 'about' ? 'aboutHeading' : 'settingsHeading')
           : unsaved
             ? t(`new.${kind}`)
             : titleOf(values) || t(`edit.${kind}`)}

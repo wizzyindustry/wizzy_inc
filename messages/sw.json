@@ -360,7 +360,28 @@
       "heading": "Dashibodi",
       "signedInAs": "Umeingia kama {email}",
       "openLeads": "Fungua sanduku la maombi",
-      "contentHint": "Tumia menyu kuhariri huduma, vifurushi, kazi zetu, shuhuda na mipangilio ya tovuti. Mabadiliko yanaonekana kwenye tovuti mara baada ya kuhifadhi."
+      "attention": "Yanayohitaji kushughulikiwa",
+      "tiles": {
+        "new": "Maombi mapya",
+        "newNote": "Bado hayajajibiwa",
+        "inProgress": "Yanayoendelea",
+        "thisMonth": "Maombi ya mwezi huu"
+      },
+      "recent": "Maombi ya karibuni",
+      "noLeads": "Bado hakuna maombi. Yataonekana hapa mara mtu anapotuma ombi la makadirio ya bei au ujumbe.",
+      "loading": "Inapakia…",
+      "loadError": "Imeshindwa kupakia shughuli za karibuni. Angalia mtandao kisha pakia upya ukurasa.",
+      "quickActions": "Vitendo vya haraka",
+      "actions": {
+        "addService": "Ongeza huduma",
+        "addPortfolio": "Ongeza kazi kwenye Kazi zetu",
+        "addTestimonial": "Ongeza ushuhuda",
+        "editAbout": "Hariri ukurasa wa Kuhusu",
+        "editSettings": "Hariri mawasiliano na Maswali"
+      },
+      "content": "Maudhui ya tovuti",
+      "contentCounts": "{total, plural, one {Kipengele #} other {Vipengele #}} · {published} vimechapishwa",
+      "contentMissingSw": "{count, plural, one {# kinahitaji Kiswahili} other {# vinahitaji Kiswahili}}"
     },
     "nav": {
       "label": "Urambazaji wa usimamizi",
@@ -371,7 +392,13 @@
       "portfolio": "Kazi zetu",
       "testimonials": "Shuhuda",
       "settings": "Mipangilio",
-      "analytics": "Takwimu"
+      "analytics": "Takwimu",
+      "about": "Ukurasa wa Kuhusu",
+      "groups": {
+        "work": "Kazi",
+        "content": "Maudhui ya tovuti",
+        "site": "Tovuti"
+      }
     },
     "leads": {
       "heading": "Maombi",
@@ -551,7 +578,10 @@
         "socialLinks_tiktok": "Kiungo cha TikTok",
         "socialLinks_x": "Kiungo cha X (Twitter)",
         "socialLinks_linkedin": "Kiungo cha LinkedIn",
-        "socialLinks_github": "Kiungo cha GitHub"
+        "socialLinks_github": "Kiungo cha GitHub",
+        "intro": "Utangulizi",
+        "graphicDesign": "Usanifu wa michoro — ujuzi na uzoefu",
+        "webDevelopment": "Utengenezaji wa tovuti — ujuzi na uzoefu"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -569,7 +599,10 @@
         "consentGiven": "Lazima. Usichapishe ushuhuda bila ruhusa ya mteja.",
         "phone": "Kama inavyopaswa kuonekana, mfano +255 7XX XXX XXX.",
         "whatsappNumber": "255 ikifuatiwa na tarakimu 9, bila + wala nafasi, mfano 2557XXXXXXXX.",
-        "faq": "Maswali ya ukurasa wa Maswali: masharti ya malipo, marekebisho, muda wa kazi, aina za mafaili, uhifadhi wa tovuti."
+        "faq": "Maswali ya ukurasa wa Maswali: masharti ya malipo, marekebisho, muda wa kazi, aina za mafaili, uhifadhi wa tovuti.",
+        "intro": "Panta-wizzy ni nani, historia yake na kinachochochea kazi. Acha mstari mtupu kati ya aya.",
+        "graphicDesign": "Huonyeshwa chini ya \"Usanifu wa michoro\" kwenye ukurasa wa Kuhusu.",
+        "webDevelopment": "Huonyeshwa chini ya \"Utengenezaji wa tovuti\" kwenye ukurasa wa Kuhusu."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -584,7 +617,8 @@
       },
       "swMissing": "Kiswahili hakipo",
       "swSummary": "Vipengele {count} kati ya {total} bado vinahitaji maandishi ya Kiswahili (kwa sasa wageni wa Kiswahili wanaona Kiingereza).",
-      "swNotice": "Maandishi ya Kiswahili hayapo katika sehemu hizi. Hadi yaongezwe, wageni wa Kiswahili wanaona maandishi ya Kiingereza:"
+      "swNotice": "Maandishi ya Kiswahili hayapo katika sehemu hizi. Hadi yaongezwe, wageni wa Kiswahili wanaona maandishi ya Kiingereza:",
+      "aboutHeading": "Ukurasa wa Kuhusu"
     },
     "analytics": {
       "heading": "Takwimu",
@@ -611,7 +645,9 @@
         "byKind": "Kwa aina",
         "byStatus": "Kwa hali"
       }
-    }
+    },
+    "menu": "Menyu",
+    "viewSite": "Tazama tovuti"
   },
   "Faq": {
     "meta": {

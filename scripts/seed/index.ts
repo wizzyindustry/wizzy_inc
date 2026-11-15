@@ -12,6 +12,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import type { z } from 'zod';
 import {
+  aboutPageSchema,
   packageSchema,
   portfolioItemSchema,
   serviceSchema,
@@ -20,6 +21,7 @@ import {
 } from '@/lib/schemas/content';
 import { leadSchema } from '@/lib/schemas/lead';
 import {
+  sampleAbout,
   PLACEHOLDER_PNG,
   SAMPLE_PDF,
   sampleLeads,
@@ -89,6 +91,8 @@ async function main(): Promise<void> {
   await seedCollection('testimonials', testimonialSchema, sampleTestimonials);
   await db.doc('settings/site').set(siteSettingsSchema.parse(sampleSettings));
   console.log('  settings/site: 1');
+  await db.doc('settings/about').set(aboutPageSchema.parse(sampleAbout));
+  console.log('  settings/about: 1');
 
   for (const item of samplePortfolio) {
     await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
@@ -96,6 +100,8 @@ async function main(): Promise<void> {
   console.log(`  storage images: ${samplePortfolio.length}`);
   await seedAccounts();
 
+  // Start from the SAMPLE leads only (removes leads left by local tests and form tries).
+  await db.recursiveDelete(db.collection('leads'));
   await seedCollection('leads', leadSchema, [...sampleLeads, ...sampleRecentLeads]);
   await bucket.file('quotes/sample-lead-quote/1-sample-brief.pdf').save(SAMPLE_PDF, {
     contentType: 'application/pdf',

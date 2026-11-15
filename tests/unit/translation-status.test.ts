@@ -37,4 +37,14 @@ describe('missingSwahili (FR-9 / translation drift)', () => {
       'workingHours',
     ]);
   });
+
+  it('flags About page text that has English only', () => {
+    const about = {
+      intro: { en: 'Hello', sw: 'Habari' },
+      graphicDesign: { en: 'Logos', sw: '' },
+      webDevelopment: { en: 'Sites', sw: 'Tovuti' },
+      tools: ['Figma'],
+    };
+    expect(missingSwahili(CONTENT_FIELDS.about, about)).toEqual(['graphicDesign']);
+  });
 });

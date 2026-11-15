@@ -24,12 +24,16 @@ test('admin pages are not indexed and the dashboard needs sign-in (A1)', async (
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
 });
 
-test('an admin can sign in and out (A1, FR-8)', async ({ page }) => {
+test('an admin can sign in and out (A1, FR-8)', async ({ page }, testInfo) => {
   needsEmulator();
   await signIn(page, 'admin@example.test');
   await expect(page).toHaveURL(/\/admin$/);
   await expect(page.getByText('Signed in as admin@example.test')).toBeVisible();
 
+  // On phones, Sign out is inside the sidebar menu.
+  if (testInfo.project.name.includes('mobile')) {
+    await page.getByRole('button', { name: 'Menu' }).click();
+  }
   await page.getByRole('button', { name: 'Sign out' }).click();
   await expect(page).toHaveURL(/\/admin\/login$/);
   await page.goto('/admin');

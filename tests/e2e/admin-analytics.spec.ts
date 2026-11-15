@@ -3,7 +3,9 @@ import { expect as baseExpect, test } from '@playwright/test';
 // Sign-in goes through the Auth emulator, which is slow when both projects run at once.
 const expect = baseExpect.configure({ timeout: 15_000 });
 
-test('analytics shows headline numbers, 12 months and breakdowns (A7)', async ({ page }) => {
+test('analytics shows headline numbers, 12 months and breakdowns (A7)', async ({
+  page,
+}, testInfo) => {
   test.skip(!process.env.FIRESTORE_EMULATOR_HOST, 'Needs the emulators and `pnpm seed`');
   await page.goto('/admin/login');
   await page.locator('#email').fill('admin@example.test');
@@ -11,6 +13,10 @@ test('analytics shows headline numbers, 12 months and breakdowns (A7)', async ({
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page).toHaveURL(/\/admin$/);
 
+  // On phones the sidebar menu is closed until "Menu" is pressed.
+  if (testInfo.project.name.includes('mobile')) {
+    await page.getByRole('button', { name: 'Menu' }).click();
+  }
   await page
     .getByRole('navigation', { name: 'Admin navigation' })
     .getByRole('link', { name: 'Analytics' })

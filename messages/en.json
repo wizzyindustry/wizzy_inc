@@ -360,7 +360,28 @@
       "heading": "Dashboard",
       "signedInAs": "Signed in as {email}",
       "openLeads": "Open leads inbox",
-      "contentHint": "Use the menu to edit services, packages, portfolio, testimonials and site settings. Changes appear on the public site straight after saving."
+      "attention": "Needs attention",
+      "tiles": {
+        "new": "New leads",
+        "newNote": "Not replied to yet",
+        "inProgress": "In progress",
+        "thisMonth": "Leads this month"
+      },
+      "recent": "Latest leads",
+      "noLeads": "No leads yet. They appear here as soon as someone sends a quote request or message.",
+      "loading": "Loading…",
+      "loadError": "Could not load the latest activity. Check your connection and reload the page.",
+      "quickActions": "Quick actions",
+      "actions": {
+        "addService": "Add a service",
+        "addPortfolio": "Add a portfolio item",
+        "addTestimonial": "Add a testimonial",
+        "editAbout": "Edit the About page",
+        "editSettings": "Edit contact details & FAQ"
+      },
+      "content": "Website content",
+      "contentCounts": "{total, plural, one {# item} other {# items}} · {published} published",
+      "contentMissingSw": "{count, plural, one {# needs Swahili} other {# need Swahili}}"
     },
     "nav": {
       "label": "Admin navigation",
@@ -371,7 +392,13 @@
       "portfolio": "Portfolio",
       "testimonials": "Testimonials",
       "settings": "Settings",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "about": "About page",
+      "groups": {
+        "work": "Work",
+        "content": "Website content",
+        "site": "Site"
+      }
     },
     "leads": {
       "heading": "Leads",
@@ -551,7 +578,10 @@
         "socialLinks_tiktok": "TikTok link",
         "socialLinks_x": "X (Twitter) link",
         "socialLinks_linkedin": "LinkedIn link",
-        "socialLinks_github": "GitHub link"
+        "socialLinks_github": "GitHub link",
+        "intro": "Introduction",
+        "graphicDesign": "Graphic design — skills and experience",
+        "webDevelopment": "Web development — skills and experience"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -569,7 +599,10 @@
         "consentGiven": "Required. Never publish a testimonial without the client’s permission.",
         "phone": "As it should be shown, e.g. +255 7XX XXX XXX.",
         "whatsappNumber": "255 followed by 9 digits, no + or spaces, e.g. 2557XXXXXXXX.",
-        "faq": "Questions for the public FAQ page: payment terms, revisions, timelines, file formats, hosting."
+        "faq": "Questions for the public FAQ page: payment terms, revisions, timelines, file formats, hosting.",
+        "intro": "Who Panta-wizzy is, background and what drives the work. Leave a blank line between paragraphs.",
+        "graphicDesign": "Shown under \"Graphic Design\" on the About page.",
+        "webDevelopment": "Shown under \"Web Development\" on the About page."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -584,7 +617,8 @@
       },
       "swMissing": "Swahili missing",
       "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
-      "swNotice": "Swahili text is missing in these fields. Until it is added, Swahili visitors see the English text:"
+      "swNotice": "Swahili text is missing in these fields. Until it is added, Swahili visitors see the English text:",
+      "aboutHeading": "About page"
     },
     "analytics": {
       "heading": "Analytics",
@@ -611,7 +645,9 @@
         "byKind": "By type",
         "byStatus": "By status"
       }
-    }
+    },
+    "menu": "Menu",
+    "viewSite": "View website"
   },
   "Faq": {
     "meta": {

@@ -101,3 +101,15 @@ export const siteSettingsSchema = z.object({
   faq: z.array(faqItemSchema).default([]),
 });
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;
+
+/**
+ * About page text (F8), edited in admin (Firestore `settings/about`). Until it is saved,
+ * the page shows the built-in text from messages/*.json.
+ */
+export const aboutPageSchema = z.object({
+  intro: bilingualTextSchema,
+  graphicDesign: bilingualTextSchema,
+  webDevelopment: bilingualTextSchema,
+  tools: z.array(z.string().min(1)).default([]),
+});
+export type AboutPage = z.infer<typeof aboutPageSchema>;
