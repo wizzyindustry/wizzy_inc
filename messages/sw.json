@@ -333,5 +333,32 @@
       "headline": "Usanifu wa michoro na tovuti Dodoma",
       "subline": "Nembo, vipeperushi, utambulisho wa chapa na tovuti kwa biashara za Tanzania"
     }
+  },
+  "Admin": {
+    "title": "Usimamizi wa Wizzy Inc",
+    "checking": "Tunakagua ruhusa yako…",
+    "signOut": "Ondoka",
+    "login": {
+      "heading": "Ingia kama msimamizi",
+      "email": "Barua pepe",
+      "password": "Nenosiri",
+      "submit": "Ingia",
+      "signingIn": "Inaingia…",
+      "or": "au",
+      "google": "Ingia kwa Google",
+      "errors": {
+        "invalidCredentials": "Barua pepe au nenosiri si sahihi.",
+        "notAdmin": "Akaunti hii haina ruhusa ya usimamizi.",
+        "tooManyAttempts": "Majaribio mengi mno. Tafadhali subiri dakika chache ujaribu tena.",
+        "popupClosed": "Dirisha la kuingia kwa Google lilifungwa kabla ya kumaliza.",
+        "network": "Hakuna mtandao. Kagua intaneti yako ujaribu tena.",
+        "generic": "Imeshindikana kuingia. Tafadhali jaribu tena."
+      }
+    },
+    "dashboard": {
+      "heading": "Dashibodi",
+      "signedInAs": "Umeingia kama {email}",
+      "comingSoon": "Sanduku la maombi na usimamizi wa maudhui vitaonekana hapa katika masasisho yajayo."
+    }
   }
 }

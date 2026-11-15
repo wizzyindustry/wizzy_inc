@@ -333,5 +333,32 @@
       "headline": "Graphic design and websites in Dodoma",
       "subline": "Logos, flyers, branding and websites for businesses in Tanzania"
     }
+  },
+  "Admin": {
+    "title": "Wizzy Inc Admin",
+    "checking": "Checking your access…",
+    "signOut": "Sign out",
+    "login": {
+      "heading": "Admin sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "signingIn": "Signing in…",
+      "or": "or",
+      "google": "Sign in with Google",
+      "errors": {
+        "invalidCredentials": "Wrong email or password.",
+        "notAdmin": "This account does not have admin access.",
+        "tooManyAttempts": "Too many attempts. Please wait a few minutes and try again.",
+        "popupClosed": "The Google sign-in window was closed before finishing.",
+        "network": "No connection. Check your internet and try again.",
+        "generic": "Could not sign in. Please try again."
+      }
+    },
+    "dashboard": {
+      "heading": "Dashboard",
+      "signedInAs": "Signed in as {email}",
+      "comingSoon": "The leads inbox and content management will appear here in the next updates."
+    }
   }
 }
