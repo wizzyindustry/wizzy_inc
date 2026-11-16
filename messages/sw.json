@@ -132,7 +132,8 @@
     },
     "visit": {
       "heading": "Tembelea ofisi yetu",
-      "intro": "Karibu uzungumze nasi ana kwa ana — hapa ndipo utatupata."
+      "intro": "Karibu uzungumze nasi ana kwa ana — hapa ndipo utatupata.",
+      "all": "Tazama ofisi zote"
     },
     "contact": {
       "heading": "Wasiliana nasi",
@@ -853,5 +854,17 @@
     "directions": "Fungua ramani na maelekezo",
     "opensInNewTab": "inafunguka kwenye kichupo kipya",
     "mapTitle": "Ramani: {name}"
+  },
+  "OfficesPage": {
+    "meta": {
+      "title": "Ofisi zetu",
+      "description": "Mahali pa kuipata Wizzy Inc: anwani za ofisi, saa za kufungua na ramani."
+    },
+    "heading": "Ofisi zetu",
+    "intro": "Tutembelee ana kwa ana. Chagua ofisi uione kwenye ramani, au fungua ramani upate maelekezo.",
+    "empty": "Taarifa za ofisi zinakuja hivi karibuni. Kwa sasa, wasiliana nasi tupange mkutano.",
+    "contactHeading": "Unapanga kututembelea?",
+    "contactText": "Tujulishe utakapokuja, ili mtu sahihi awepo kukupokea.",
+    "contactButton": "Wasiliana nasi"
   }
 }

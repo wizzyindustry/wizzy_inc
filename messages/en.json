@@ -132,7 +132,8 @@
     },
     "visit": {
       "heading": "Visit our office",
-      "intro": "Come and talk to us in person — here is where to find us."
+      "intro": "Come and talk to us in person — here is where to find us.",
+      "all": "See all offices"
     },
     "contact": {
       "heading": "Get in touch",
@@ -853,5 +854,17 @@
     "directions": "Open map and directions",
     "opensInNewTab": "opens in a new tab",
     "mapTitle": "Map: {name}"
+  },
+  "OfficesPage": {
+    "meta": {
+      "title": "Our offices",
+      "description": "Where to find Wizzy Inc: office addresses, opening hours and maps."
+    },
+    "heading": "Our offices",
+    "intro": "Visit us in person. Choose an office to see it on the map, or open the map for directions.",
+    "empty": "Office details are coming soon. Until then, contact us and we will arrange a meeting.",
+    "contactHeading": "Planning a visit?",
+    "contactText": "Let us know when you are coming, so the right person is there to meet you.",
+    "contactButton": "Contact us"
   }
 }

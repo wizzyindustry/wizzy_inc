@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { Link } from '@/lib/i18n/navigation';
 import { OfficeMap, type OfficeView } from './OfficeMap';
 
 /** Home page "Visit our office": office addresses with the map beside them. */
@@ -16,6 +17,12 @@ export async function VisitOffice({ offices }: { offices: OfficeView[] }) {
         <div className="mt-8">
           <OfficeMap offices={offices} />
         </div>
+        <Link
+          href="/offices"
+          className="mt-6 inline-block font-medium text-primary underline-offset-4 hover:underline"
+        >
+          {t('all')}
+        </Link>
       </div>
     </section>
   );
