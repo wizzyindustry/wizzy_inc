@@ -7,7 +7,8 @@ const W_PATH = 'M10 22 L30 80 L50 36 L70 80 L90 22';
 
 /**
  * Brand loading animation: a big "W" drawn in the primary colour. Shown only while a page is
- * still loading (see app/[locale]/loading.tsx) — never as a forced splash screen.
+ * still loading (see NavigationLoader) — never as a forced splash screen. There is no
+ * loading.tsx on purpose: it would make missing pages answer "200" instead of "404".
  */
 export function LoadingW() {
   const t = useTranslations('Loading');
