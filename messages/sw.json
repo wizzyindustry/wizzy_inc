@@ -29,7 +29,13 @@
     "tagline": "Usanifu wa michoro na utengenezaji wa tovuti, Dodoma, Tanzania.",
     "linksLabel": "Viungo vya chini",
     "contactHeading": "Mawasiliano",
-    "copyright": "© {year} Wizzy Inc. Haki zote zimehifadhiwa."
+    "copyright": "© {year} Wizzy Inc. Haki zote zimehifadhiwa.",
+    "legalLabel": "Kisheria",
+    "legal": {
+      "privacy": "Sera ya Faragha",
+      "terms": "Vigezo na Masharti",
+      "cookies": "Sera ya Vidakuzi"
+    }
   },
   "HomePage": {
     "meta": {
@@ -402,7 +408,8 @@
         "work": "Kazi",
         "content": "Maudhui ya tovuti",
         "site": "Tovuti"
-      }
+      },
+      "legal": "Kurasa za kisheria"
     },
     "leads": {
       "heading": "Maombi",
@@ -589,7 +596,11 @@
         "repoUrl": "Kiungo cha \"Tazama hazina ya Git\"",
         "designUrl": "Kiungo cha \"Tazama usanifu\"",
         "hero_image": "Picha ya nyuma ya sehemu ya juu",
-        "aboutTools": "Zana tunazotumia"
+        "aboutTools": "Zana tunazotumia",
+        "lastUpdated": "Ilisasishwa (huonyeshwa kwenye kurasa)",
+        "privacy": "Sera ya Faragha",
+        "terms": "Vigezo na Masharti",
+        "cookies": "Sera ya Vidakuzi"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -615,7 +626,11 @@
         "repoUrl": "Mfano https://github.com/jina-lako/mradi. Acha tupu kwa msimbo wa siri.",
         "designUrl": "Mfano ukurasa wa Behance au Dribbble, au PDF ya Google Drive. Huanza na https://.",
         "hero_image": "Si lazima: picha pana nyuma ya kichwa (JPG, PNG au WebP, upana angalau pikseli 1600, hadi MB 5). Maandishi hupata kivuli cheusi ili yasomeke.",
-        "aboutTools": "Kadi moja kwa kila zana, kwa mpangilio huu. Pakia nembo rasmi (SVG au PNG yenye mandharinyuma angavu ni bora). Bila nembo kadi huonyesha herufi ya kwanza."
+        "aboutTools": "Kadi moja kwa kila zana, kwa mpangilio huu. Pakia nembo rasmi (SVG au PNG yenye mandharinyuma angavu ni bora). Bila nembo kadi huonyesha herufi ya kwanza.",
+        "lastUpdated": "Badilisha tarehe hii kila unapofanya mabadiliko halisi ya maandishi.",
+        "privacy": "Markdown: \"## \" huanza kichwa, \"- \" kitone, **herufi nzito**, [maandishi ya kiungo](https://…). Jaza kila [TODO] na uondoe mstari wa RASIMU baada ya mwanasheria kukagua.",
+        "terms": "Mpangilio sawa na hapo juu. Jaza masharti ya malipo, marekebisho, umiliki na kughairi.",
+        "cookies": "Sasisha orodha hii ukiongeza vidakuzi, kwa mfano takwimu za wageni."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -642,7 +657,8 @@
         "moveDown": "Sogeza {name} chini"
       },
       "uploadLogo": "Pakia nembo (SVG, PNG, JPG au WebP, hadi MB 5)",
-      "replaceLogo": "Badilisha nembo (SVG, PNG, JPG au WebP, hadi MB 5)"
+      "replaceLogo": "Badilisha nembo (SVG, PNG, JPG au WebP, hadi MB 5)",
+      "legalHeading": "Kurasa za kisheria"
     },
     "analytics": {
       "heading": "Takwimu",
@@ -688,5 +704,24 @@
   },
   "Loading": {
     "label": "Inapakia…"
+  },
+  "Legal": {
+    "lastUpdated": "Ilisasishwa: {date}",
+    "englishOnly": "Toleo la Kiswahili la ukurasa huu linaandaliwa. Maandishi ya Kiingereza yanaonyeshwa hapa chini.",
+    "privacy": {
+      "heading": "Sera ya Faragha",
+      "metaTitle": "Sera ya Faragha | Wizzy Inc",
+      "metaDescription": "Taarifa binafsi ambazo Wizzy Inc hukusanya kupitia tovuti hii, kwa nini, na haki zako chini ya Sheria ya Ulinzi wa Taarifa Binafsi ya Tanzania."
+    },
+    "terms": {
+      "heading": "Vigezo na Masharti",
+      "metaTitle": "Vigezo na Masharti | Wizzy Inc",
+      "metaDescription": "Masharti ya kutumia tovuti hii na huduma za usanifu na utengenezaji wa tovuti za Wizzy Inc."
+    },
+    "cookies": {
+      "heading": "Sera ya Vidakuzi",
+      "metaTitle": "Sera ya Vidakuzi | Wizzy Inc",
+      "metaDescription": "Vidakuzi ambavyo tovuti hii hutumia na jinsi ya kubadilisha chaguo lako."
+    }
   }
 }

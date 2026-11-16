@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { localized } from '@/lib/i18n/localized';
 import { Link } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
-import type { SiteSettings } from '@/lib/schemas/content';
+import { LEGAL_PAGES, type SiteSettings } from '@/lib/schemas/content';
 import { formatPhone } from '@/lib/utils/format-phone';
 import { ALL_NAV_ITEMS } from './nav-items';
 
@@ -72,9 +72,23 @@ export async function Footer({ settings }: { settings: SiteSettings | null }) {
           </address>
         )}
       </div>
-      <p className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground">
-        {t('copyright', { year: new Date().getFullYear() })}
-      </p>
+      <div className="flex flex-col items-center gap-3 border-t border-border px-4 py-4 text-xs text-muted-foreground sm:flex-row sm:justify-center sm:gap-6">
+        <p>{t('copyright', { year: new Date().getFullYear() })}</p>
+        <nav aria-label={t('legalLabel')}>
+          <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            {LEGAL_PAGES.map((page) => (
+              <li key={page}>
+                <Link
+                  href={`/${page}`}
+                  className="underline-offset-4 hover:text-primary hover:underline"
+                >
+                  {t(`legal.${page}`)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </footer>
   );
 }

@@ -29,7 +29,13 @@
     "tagline": "Graphic design and web development in Dodoma, Tanzania.",
     "linksLabel": "Footer links",
     "contactHeading": "Contact",
-    "copyright": "© {year} Wizzy Inc. All rights reserved."
+    "copyright": "© {year} Wizzy Inc. All rights reserved.",
+    "legalLabel": "Legal",
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "cookies": "Cookie Policy"
+    }
   },
   "HomePage": {
     "meta": {
@@ -402,7 +408,8 @@
         "work": "Work",
         "content": "Website content",
         "site": "Site"
-      }
+      },
+      "legal": "Legal pages"
     },
     "leads": {
       "heading": "Leads",
@@ -589,7 +596,11 @@
         "repoUrl": "\"View Git repo\" link",
         "designUrl": "\"View design\" link",
         "hero_image": "Hero background image",
-        "aboutTools": "Tools we use"
+        "aboutTools": "Tools we use",
+        "lastUpdated": "Last updated (shown on the pages)",
+        "privacy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "cookies": "Cookie Policy"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -615,7 +626,11 @@
         "repoUrl": "e.g. https://github.com/your-name/project. Leave empty for private code.",
         "designUrl": "e.g. a Behance or Dribbble page, or a shared Google Drive PDF. Starts with https://.",
         "hero_image": "Optional wide photo behind the headline (JPG, PNG or WebP, at least 1600 px wide, max 5 MB). The text gets a dark overlay so it stays readable.",
-        "aboutTools": "One card per tool, shown in this order. Upload the official logo (SVG or PNG with a transparent background works best). Without a logo the card shows the first letter."
+        "aboutTools": "One card per tool, shown in this order. Upload the official logo (SVG or PNG with a transparent background works best). Without a logo the card shows the first letter.",
+        "lastUpdated": "Change this date whenever you make a real change to the text.",
+        "privacy": "Markdown: \"## \" starts a heading, \"- \" a bullet point, **bold**, [link text](https://…). Replace every [TODO] and remove the DRAFT line once a lawyer has checked it.",
+        "terms": "Same formatting as above. Fill in payment, revisions, ownership and cancellation rules.",
+        "cookies": "Update this list if you ever add cookies, for example visitor statistics."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -642,7 +657,8 @@
         "moveDown": "Move {name} down"
       },
       "uploadLogo": "Upload a logo (SVG, PNG, JPG or WebP, max 5 MB)",
-      "replaceLogo": "Replace the logo (SVG, PNG, JPG or WebP, max 5 MB)"
+      "replaceLogo": "Replace the logo (SVG, PNG, JPG or WebP, max 5 MB)",
+      "legalHeading": "Legal pages"
     },
     "analytics": {
       "heading": "Analytics",
@@ -688,5 +704,24 @@
   },
   "Loading": {
     "label": "Loading…"
+  },
+  "Legal": {
+    "lastUpdated": "Last updated: {date}",
+    "englishOnly": "The Swahili version of this page is being prepared. The English text is shown below.",
+    "privacy": {
+      "heading": "Privacy Policy",
+      "metaTitle": "Privacy Policy | Wizzy Inc",
+      "metaDescription": "What personal data Wizzy Inc collects through this website, why, and your rights under the Tanzania Personal Data Protection Act."
+    },
+    "terms": {
+      "heading": "Terms & Conditions",
+      "metaTitle": "Terms & Conditions | Wizzy Inc",
+      "metaDescription": "The terms for using this website and for Wizzy Inc design and web development services."
+    },
+    "cookies": {
+      "heading": "Cookie Policy",
+      "metaTitle": "Cookie Policy | Wizzy Inc",
+      "metaDescription": "Which cookies this website uses and how to change your choice."
+    }
   }
 }

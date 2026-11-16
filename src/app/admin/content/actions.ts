@@ -6,6 +6,7 @@ import { adminDb, adminStorage } from '@/lib/firebase/admin';
 import {
   aboutInputSchema,
   contentFieldErrors,
+  legalInputSchema,
   contentInputSchemas,
   docIdSchema,
   isContentCollection,
@@ -117,29 +118,21 @@ export async function deleteContent(
 }
 
 /** Site settings (contact details, hero text) — the single settings/site document. */
-export async function saveSettings(
-  idToken: string,
-  input: { data: unknown },
-): Promise<ActionResult<{ id: string }>> {
-  return saveSettingsDoc(idToken, 'site', settingsInputSchema, input.data);
-}
+const SITE_DOCUMENTS = {
+  site: settingsInputSchema, // contact details, hero, FAQ, …
+  about: aboutInputSchema, // About page (F8)
+  legal: legalInputSchema, // Privacy, Terms, Cookie Policy
+} as const;
 
-/** About page text (F8) -> settings/about. */
-export async function saveAboutPage(
+/** Save one of the single site documents: settings/site, settings/about or settings/legal. */
+export async function saveSiteDocument(
   idToken: string,
-  input: { data: unknown },
-): Promise<ActionResult<{ id: string }>> {
-  return saveSettingsDoc(idToken, 'about', aboutInputSchema, input.data);
-}
-
-async function saveSettingsDoc(
-  idToken: string,
-  id: 'site' | 'about',
-  schema: typeof settingsInputSchema | typeof aboutInputSchema,
-  data: unknown,
+  input: { id: string; data: unknown },
 ): Promise<ActionResult<{ id: string }>> {
   if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
-  const parsed = schema.safeParse(data);
+  const id = input.id;
+  if (id !== 'site' && id !== 'about' && id !== 'legal') return { ok: false, error: 'validation' };
+  const parsed = SITE_DOCUMENTS[id].safeParse(input.data);
   if (!parsed.success) {
     return { ok: false, error: 'validation', fieldErrors: contentFieldErrors(parsed.error) };
   }

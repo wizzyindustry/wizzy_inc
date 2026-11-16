@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   MessageSquareQuote,
   Package,
+  Scale,
   Settings,
   type LucideIcon,
 } from 'lucide-react';
@@ -40,7 +41,10 @@ const GROUPS: { key: string; items: Item[] }[] = [
   },
   {
     key: 'site',
-    items: [{ href: '/admin/settings', key: 'settings', icon: Settings }],
+    items: [
+      { href: '/admin/settings', key: 'settings', icon: Settings },
+      { href: '/admin/legal', key: 'legal', icon: Scale },
+    ],
   },
 ];
 

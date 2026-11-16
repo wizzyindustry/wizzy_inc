@@ -12,6 +12,9 @@ export const STATIC_PATHS = [
   '/contact',
   '/faq',
   '/quote',
+  '/privacy',
+  '/terms',
+  '/cookies',
 ] as const;
 
 export type SitemapPath = { path: string; lastModified?: Date };

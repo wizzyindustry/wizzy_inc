@@ -116,6 +116,18 @@ export const siteSettingsSchema = z.object({
 });
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;
 
+/** Privacy Policy, Terms & Conditions and Cookie Policy (markdown), edited in admin. */
+export const legalPagesSchema = z.object({
+  privacy: bilingualTextSchema,
+  terms: bilingualTextSchema,
+  cookies: bilingualTextSchema,
+  /** "Last updated" shown on the pages, YYYY-MM-DD. */
+  lastUpdated: z.iso.date(),
+});
+export type LegalPages = z.infer<typeof legalPagesSchema>;
+export const LEGAL_PAGES = ['privacy', 'terms', 'cookies'] as const;
+export type LegalPage = (typeof LEGAL_PAGES)[number];
+
 /** One "Tools we use" card. Older documents stored just the name, so a plain string is accepted. */
 export const aboutToolSchema = z.union([
   z

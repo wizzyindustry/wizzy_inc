@@ -26,3 +26,13 @@ export function formatMonthYear(date: Date, locale: Locale): string {
     timeZone: 'Africa/Dar_es_Salaam',
   }).format(date);
 }
+
+/** "16 November 2026" / "16 Novemba 2026" in Tanzania time. */
+export function formatLongDate(date: Date, locale: Locale): string {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Africa/Dar_es_Salaam',
+  }).format(date);
+}

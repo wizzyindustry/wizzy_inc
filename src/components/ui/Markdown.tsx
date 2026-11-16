@@ -5,6 +5,11 @@ const components: Components = {
   h3: ({ children }) => <h3 className="mt-6 mb-2 text-lg font-semibold">{children}</h3>,
   p: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
   ul: ({ children }) => <ul className="mb-4 list-disc space-y-1 pl-6">{children}</ul>,
+  blockquote: ({ children }) => (
+    <blockquote className="mb-6 rounded-md border-l-4 border-accent bg-muted px-4 pt-4 pb-0">
+      {children}
+    </blockquote>
+  ),
   ol: ({ children }) => <ol className="mb-4 list-decimal space-y-1 pl-6">{children}</ol>,
   a: ({ href, children }) => (
     <a

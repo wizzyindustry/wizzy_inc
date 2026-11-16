@@ -39,8 +39,16 @@ export type FieldDef = {
   showWhen?: { path: string; values: readonly string[] };
 };
 
-/** 'settings' and 'about' are single documents in the `settings` collection. */
-export type EditorKind = ContentCollection | 'settings' | 'about';
+/** Single documents in the `settings` collection (one editor page each, never deleted). */
+export const SINGLE_DOCS = {
+  settings: { id: 'site', heading: 'settingsHeading', publicPath: null },
+  about: { id: 'about', heading: 'aboutHeading', publicPath: '/en/about' },
+  legal: { id: 'legal', heading: 'legalHeading', publicPath: '/en/privacy' },
+} as const;
+export type SingleDocKind = keyof typeof SINGLE_DOCS;
+export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
+
+export type EditorKind = ContentCollection | SingleDocKind;
 
 const CATEGORY = ['graphic-design', 'web-development'] as const;
 const WEB_ONLY = { path: 'category', values: ['web-development'] } as const;
@@ -134,6 +142,12 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'graphicDesign', type: 'bilingualLong', hint: true },
     { path: 'webDevelopment', type: 'bilingualLong', hint: true },
     { path: 'tools', type: 'tools', hint: true, labelKey: 'aboutTools' },
+  ],
+  legal: [
+    { path: 'lastUpdated', type: 'date', hint: true },
+    { path: 'privacy', type: 'bilingualLong', hint: true },
+    { path: 'terms', type: 'bilingualLong', hint: true },
+    { path: 'cookies', type: 'bilingualLong', hint: true },
   ],
 };
 

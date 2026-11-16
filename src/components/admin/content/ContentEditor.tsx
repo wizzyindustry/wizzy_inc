@@ -5,18 +5,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import {
-  deleteContent,
-  saveAboutPage,
-  saveContent,
-  saveSettings,
-} from '@/app/admin/content/actions';
+import { deleteContent, saveContent, saveSiteDocument } from '@/app/admin/content/actions';
 import { Button } from '@/components/ui/Button';
 import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import { useAdminSession } from '../AdminSession';
 import { ContentField, type Option } from './ContentField';
-import { CONTENT_FIELDS, fieldKey, fieldTextKey, fieldVisible, type EditorKind } from './fields';
+import {
+  CONTENT_FIELDS,
+  fieldKey,
+  fieldTextKey,
+  fieldVisible,
+  isSingleDoc,
+  SINGLE_DOCS,
+  type EditorKind,
+} from './fields';
+import { DEFAULT_DOCS } from './default-docs';
 import { getPath, setPath, toFormValues, toSaveData, type Values } from './form-values';
 import { missingSwahili } from './translation-status';
 
@@ -25,14 +29,15 @@ type Props = { kind: EditorKind; id: string }; // id "new" creates an item
 const titleOf = (data: Values) =>
   String(getPath(data, 'title.en') ?? getPath(data, 'name.en') ?? getPath(data, 'name') ?? '');
 
-/** Generic editor for services, packages, portfolio, testimonials, site settings and About. */
+/** Generic editor for content items and the single site documents (settings, About, legal). */
 export function ContentEditor({ kind, id }: Props) {
   const t = useTranslations('Admin.content');
   const router = useRouter();
   const { getIdToken } = useAdminSession();
   const fields = CONTENT_FIELDS[kind];
-  // Settings and About are single documents (settings/site, settings/about), never deleted.
-  const isSettings = kind === 'settings' || kind === 'about';
+  // Settings, About and legal pages are single documents in `settings/…`, never deleted.
+  const single = isSingleDoc(kind) ? SINGLE_DOCS[kind] : null;
+  const isSettings = single !== null;
   const isNew = id === 'new';
 
   // New items get their Firestore id up front, so images can be uploaded before saving.
@@ -54,16 +59,16 @@ export function ContentEditor({ kind, id }: Props) {
     let active = true;
     const db = adminDbClient();
     (async () => {
-      const path = isSettings
-        ? doc(db, 'settings', kind === 'about' ? 'about' : 'site')
-        : doc(db, kind, docId);
+      const path = single ? doc(db, 'settings', single.id) : doc(db, kind, docId);
       const snap = isNew ? null : await getDoc(path);
       if (!active) return;
       if (snap && !snap.exists() && !isSettings) {
         setMissing(true);
         return;
       }
-      setValues(toFormValues(fields, snap?.exists() ? (toPlain(snap.data()) as Values) : null));
+      // Never saved yet: start from built-in defaults where there are some (legal drafts).
+      const stored = snap?.exists() ? (toPlain(snap.data()) as Values) : null;
+      setValues(toFormValues(fields, stored ?? DEFAULT_DOCS[kind] ?? null));
 
       const needs = new Set(fields.map((f) => f.type));
       const options = async (
@@ -87,7 +92,7 @@ export function ContentEditor({ kind, id }: Props) {
     return () => {
       active = false;
     };
-  }, [docId, fields, isNew, isSettings, kind, t]);
+  }, [docId, fields, isNew, isSettings, kind, single, t]);
 
   const errorFor = (path: string) => {
     const hit = Object.entries(errors).find(([p]) => p === path || p.startsWith(`${path}.`));
@@ -103,12 +108,9 @@ export function ContentEditor({ kind, id }: Props) {
     try {
       const token = await getIdToken();
       const data = toSaveData(fields, values);
-      const result =
-        kind === 'about'
-          ? await saveAboutPage(token, { data })
-          : kind === 'settings'
-            ? await saveSettings(token, { data })
-            : await saveContent(token, { collection: kind, id: docId, data });
+      const result = isSingleDoc(kind)
+        ? await saveSiteDocument(token, { id: SINGLE_DOCS[kind].id, data })
+        : await saveContent(token, { collection: kind, id: docId, data });
       if (result.ok) {
         setMessage({ kind: 'ok', text: t('saved') });
         if (unsaved) {
@@ -166,15 +168,11 @@ export function ContentEditor({ kind, id }: Props) {
   }
 
   const slug = getPath(values, 'slug');
-  const publicPath =
-    kind === 'about'
-      ? '/en/about'
-      : !unsaved &&
-          typeof slug === 'string' &&
-          slug &&
-          (kind === 'services' || kind === 'portfolio')
-        ? `/en/${kind}/${slug}`
-        : null;
+  const publicPath = single
+    ? single.publicPath
+    : !unsaved && typeof slug === 'string' && slug && (kind === 'services' || kind === 'portfolio')
+      ? `/en/${kind}/${slug}`
+      : null;
 
   // Live as the owner types: which bilingual fields still have English only.
   const missingSw = missingSwahili(fields, toSaveData(fields, values));
@@ -191,7 +189,7 @@ export function ContentEditor({ kind, id }: Props) {
       )}
       <h1 className="font-display text-2xl font-bold">
         {isSettings
-          ? t(kind === 'about' ? 'aboutHeading' : 'settingsHeading')
+          ? t(single.heading)
           : unsaved
             ? t(`new.${kind}`)
             : titleOf(values) || t(`edit.${kind}`)}

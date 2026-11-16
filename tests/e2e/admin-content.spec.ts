@@ -229,6 +229,27 @@ test.describe('shared site documents', () => {
     await expect(rows).toHaveCount(before);
     await save(page);
   });
+
+  test('legal pages are edited in admin (starting from the drafts)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    const marker = `E2E privacy line ${Date.now()}`;
+    await signInAsAdmin(page);
+    await page.goto('/admin/legal');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Legal pages');
+    const privacy = page.locator('#field-privacy-en');
+    await expect(privacy).toHaveValue(/DRAFT – review before launch/);
+    const original = await privacy.inputValue();
+    await privacy.fill(`${original}\n\n${marker}`);
+    await save(page);
+
+    await page.goto('/en/privacy');
+    await expect(page.getByText(marker)).toBeVisible();
+
+    // Put the text back, so local review data is left as it was.
+    await page.goto('/admin/legal');
+    await page.locator('#field-privacy-en').fill(original);
+    await save(page);
+  });
 });
 
 test('/api/revalidate refuses requests without the secret', async ({ request }) => {
