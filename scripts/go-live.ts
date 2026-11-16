@@ -25,7 +25,17 @@ import { getStorage } from 'firebase-admin/storage';
 
 const rl = createInterface({ input: stdin, output: stdout });
 const ask = async (question: string) => (await rl.question(question)).trim();
-const yes = async (question: string) => /^(y|yes|ndio)$/i.test(await ask(`${question} (yes/no) `));
+// Optional answers up front: `pnpm go-live --yes --email you@example.com`.
+const cliArgs = process.argv.slice(2);
+const autoYes = cliArgs.includes('--yes');
+const cliEmail = cliArgs[cliArgs.indexOf('--email') + 1];
+const yes = async (question: string) => {
+  if (autoYes) {
+    console.log(`${question} (yes/no) yes`);
+    return true;
+  }
+  return /^(y|yes|ndio)$/i.test(await ask(`${question} (yes/no) `));
+};
 
 function stop(message: string): never {
   console.error(`\n✖ ${message}\n`);
@@ -159,7 +169,11 @@ async function main(): Promise<void> {
 
   // ---- Admin account ----
   step(4, 'Make yourself the admin');
-  const email = (await ask('Your email for signing in to the admin panel: ')).toLowerCase();
+  const email = (
+    cliArgs.includes('--email') && cliEmail
+      ? cliEmail
+      : await ask('Your email for signing in to the admin panel: ')
+  ).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) stop('That does not look like an email address.');
   const auth = getAuth(app);
   let user = await auth.getUserByEmail(email).catch(() => null);
