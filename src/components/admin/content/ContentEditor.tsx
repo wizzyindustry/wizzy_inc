@@ -24,7 +24,10 @@ import { DEFAULT_DOCS } from './default-docs';
 import { getPath, setPath, toFormValues, toSaveData, type Values } from './form-values';
 import { missingSwahili } from './translation-status';
 
-type Props = { kind: EditorKind; id: string }; // id "new" creates an item
+type Props = { kind: EditorKind; id: string };
+
+/** Public address of items that have their own page: /en/<base>/<slug>. */
+const PUBLIC_BASE = { services: 'services', portfolio: 'portfolio', posts: 'blog' } as const; // id "new" creates an item
 
 const titleOf = (data: Values) =>
   String(getPath(data, 'title.en') ?? getPath(data, 'name.en') ?? getPath(data, 'name') ?? '');
@@ -170,8 +173,8 @@ export function ContentEditor({ kind, id }: Props) {
   const slug = getPath(values, 'slug');
   const publicPath = single
     ? single.publicPath
-    : !unsaved && typeof slug === 'string' && slug && (kind === 'services' || kind === 'portfolio')
-      ? `/en/${kind}/${slug}`
+    : !unsaved && typeof slug === 'string' && slug && kind in PUBLIC_BASE
+      ? `/en/${PUBLIC_BASE[kind as keyof typeof PUBLIC_BASE]}/${slug}`
       : null;
 
   // Live as the owner types: which bilingual fields still have English only.

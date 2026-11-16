@@ -12,6 +12,7 @@ export const STATIC_PATHS = [
   '/contact',
   '/faq',
   '/offices',
+  '/blog',
   '/quote',
   '/privacy',
   '/terms',

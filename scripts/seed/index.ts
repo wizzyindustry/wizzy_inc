@@ -13,6 +13,7 @@ import { getStorage } from 'firebase-admin/storage';
 import type { z } from 'zod';
 import {
   aboutPageSchema,
+  blogPostSchema,
   companySchema,
   packageSchema,
   portfolioItemSchema,
@@ -24,6 +25,7 @@ import { leadSchema } from '@/lib/schemas/lead';
 import {
   sampleAbout,
   sampleCompany,
+  samplePosts,
   SAMPLE_PARTNER_LOGO_PATH,
   SAMPLE_LOGO,
   SAMPLE_LOGO_PATH,
@@ -94,6 +96,7 @@ async function main(): Promise<void> {
   await seedCollection('packages', packageSchema, samplePackages);
   await seedCollection('portfolio', portfolioItemSchema, samplePortfolio);
   await seedCollection('testimonials', testimonialSchema, sampleTestimonials);
+  await seedCollection('posts', blogPostSchema, samplePosts);
   await db.doc('settings/site').set(siteSettingsSchema.parse(sampleSettings));
   console.log('  settings/site: 1');
   await db.doc('settings/about').set(aboutPageSchema.parse(sampleAbout));

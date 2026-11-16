@@ -93,6 +93,20 @@ export const testimonialSchema = z.object({
 });
 export type Testimonial = z.infer<typeof testimonialSchema>;
 
+/** Blog post (Company → Blog). Body is markdown, like service pages. */
+export const blogPostSchema = z.object({
+  id: z.string(),
+  slug: slugSchema,
+  title: bilingualTextSchema,
+  excerpt: bilingualTextSchema,
+  body: bilingualTextSchema, // markdown
+  coverImage: siteImagePathSchema('site/blog').optional(),
+  author: z.string().trim().optional(),
+  publishedAt: z.date(),
+  published: z.boolean(),
+});
+export type BlogPost = z.infer<typeof blogPostSchema>;
+
 export const siteSettingsSchema = z.object({
   phone: z.string(),
   whatsappNumber: z.string().regex(/^255\d{9}$/, 'Use 255XXXXXXXXX (no +)'),

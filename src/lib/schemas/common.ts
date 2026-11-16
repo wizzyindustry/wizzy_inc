@@ -29,6 +29,7 @@ export const SITE_IMAGE_KINDS = {
   tool: { folder: 'site/tools', logo: true },
   partner: { folder: 'site/partners', logo: true },
   person: { folder: 'site/people', logo: false },
+  blog: { folder: 'site/blog', logo: false },
 } as const;
 export type SiteImageKind = keyof typeof SITE_IMAGE_KINDS;
 export type SiteImageFolder = (typeof SITE_IMAGE_KINDS)[SiteImageKind]['folder'];

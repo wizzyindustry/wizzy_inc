@@ -473,7 +473,8 @@
       },
       "legal": "Legal pages",
       "company": "Company info",
-      "subscribers": "Subscribers"
+      "subscribers": "Subscribers",
+      "posts": "Blog posts"
     },
     "leads": {
       "heading": "Leads",
@@ -586,13 +587,15 @@
         "services": "New service",
         "packages": "New package",
         "portfolio": "New portfolio item",
-        "testimonials": "New testimonial"
+        "testimonials": "New testimonial",
+        "posts": "New blog post"
       },
       "edit": {
         "services": "Edit service",
         "packages": "Edit package",
         "portfolio": "Edit portfolio item",
-        "testimonials": "Edit testimonial"
+        "testimonials": "Edit testimonial",
+        "posts": "Edit blog post"
       },
       "options": {
         "graphic-design": "Graphic Design",
@@ -683,7 +686,12 @@
         "offices_hours": "Opening hours",
         "offices_phone": "Phone",
         "offices_latitude": "Latitude",
-        "offices_longitude": "Longitude"
+        "offices_longitude": "Longitude",
+        "postExcerpt": "Short summary",
+        "postBody": "Post text",
+        "postCover": "Cover image",
+        "author": "Author",
+        "publishedAt": "Date"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -723,7 +731,10 @@
         "impact_value": "For example 25+, 99.9% or 40. The number counts up on the page.",
         "partners": "Brands you have worked with (ask them first). Logos: PNG, WebP or SVG. With no partners the section is hidden.",
         "offices": "Shown on the home page (\"Visit our office\") and the Offices page, each with a map.",
-        "offices_latitude": "On openstreetmap.org, right-click your office and choose \"Show address\". Copy the two numbers: the first is the latitude (e.g. -6.17221), the second the longitude (e.g. 35.73947)."
+        "offices_latitude": "On openstreetmap.org, right-click your office and choose \"Show address\". Copy the two numbers: the first is the latitude (e.g. -6.17221), the second the longitude (e.g. 35.73947).",
+        "postExcerpt": "One or two sentences, shown on the blog list and in search results.",
+        "postBody": "Markdown: ## for headings, - for bullet points, [text](https://…) for links. Leave an empty line between paragraphs.",
+        "publishedAt": "Shown on the post; newest posts are listed first."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -919,5 +930,18 @@
     "notFound": "This link is no longer valid — you may already be unsubscribed.",
     "noToken": "This page needs the link from one of our emails.",
     "error": "Something went wrong. Please try again in a moment."
+  },
+  "Blog": {
+    "meta": {
+      "title": "Blog",
+      "description": "News, tips and stories about graphic design and websites from Wizzy Inc."
+    },
+    "heading": "Blog",
+    "intro": "News, tips and behind-the-scenes stories from our design and web work.",
+    "empty": "No posts yet — check back soon.",
+    "back": "All posts",
+    "by": "by {author}",
+    "ctaHeading": "Have a project in mind?",
+    "ctaButton": "Request a quote"
   }
 }

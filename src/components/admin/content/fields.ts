@@ -128,6 +128,16 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'consentGiven', type: 'checkbox', hint: true },
     { path: 'published', type: 'checkbox' },
   ],
+  posts: [
+    { path: 'title', type: 'bilingual' },
+    { path: 'slug', type: 'text', hint: true },
+    { path: 'excerpt', type: 'bilingual', hint: true, labelKey: 'postExcerpt' },
+    { path: 'body', type: 'bilingualLong', hint: true, labelKey: 'postBody' },
+    { path: 'coverImage', type: 'image', optional: true, siteImage: 'blog', labelKey: 'postCover' },
+    { path: 'author', type: 'text', optional: true },
+    { path: 'publishedAt', type: 'date', hint: true },
+    { path: 'published', type: 'checkbox' },
+  ],
   settings: [
     { path: 'hero.headline', type: 'bilingual' },
     { path: 'hero.subheadline', type: 'bilingual' },

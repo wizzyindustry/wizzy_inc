@@ -193,6 +193,22 @@ export const sampleAbout = {
   tools: [{ name: 'Adobe Illustrator', logo: SAMPLE_LOGO_PATH }, { name: 'Figma' }],
 };
 
+/** One SAMPLE blog post (no cover image), so the blog pages can be tried locally. */
+export const samplePosts = [
+  {
+    id: 'sample-post',
+    slug: 'sample-post',
+    title: s('first blog post', 'chapisho la kwanza la blogu'),
+    excerpt: s('short summary of the post.', 'muhtasari mfupi wa chapisho.'),
+    body: s(
+      'placeholder text — write real posts in Admin → Blog posts.\n\n## A heading\n\n- a point\n- another point',
+    ),
+    author: 'SAMPLE: Author',
+    publishedAt: new Date('2000-01-15T09:00:00Z'),
+    published: true,
+  },
+];
+
 export const SAMPLE_PARTNER_LOGO_PATH = 'site/partners/sample-partner.svg';
 
 /**

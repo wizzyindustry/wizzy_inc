@@ -5,10 +5,17 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { Button } from '@/components/ui/Button';
+import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import type { ContentCollection } from '@/lib/schemas/content-admin';
 import { CONTENT_FIELDS } from './fields';
 import { missingSwahili } from './translation-status';
+
+/** Firestore Timestamp -> YYYY-MM-DD (list detail only). */
+function toPlainDate(value: unknown): string {
+  const date = toPlain(value);
+  return date instanceof Date ? date.toISOString().slice(0, 10) : '';
+}
 
 type Row = {
   id: string;
@@ -28,7 +35,9 @@ function toRow(kind: ContentCollection, id: string, d: Record<string, unknown>):
       ? `${String(d.category)} · ${String(d.tier)}`
       : kind === 'testimonials'
         ? String(d.role ?? '')
-        : String(d.slug ?? '');
+        : kind === 'posts' && d.publishedAt
+          ? `${String(d.slug ?? '')} · ${toPlainDate(d.publishedAt)}`
+          : String(d.slug ?? '');
   return {
     id,
     title: title || id,

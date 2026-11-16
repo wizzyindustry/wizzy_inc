@@ -38,7 +38,7 @@ const userDb = () => env.authenticatedContext('user1').firestore();
 const adminDb = () => env.authenticatedContext('admin1', { admin: true }).firestore();
 
 describe('public content collections', () => {
-  for (const col of ['services', 'packages', 'portfolio', 'testimonials']) {
+  for (const col of ['services', 'packages', 'portfolio', 'testimonials', 'posts']) {
     it(`${col}: public can read published docs only`, async () => {
       await env.withSecurityRulesDisabled(async (ctx) => {
         await setDoc(doc(ctx.firestore(), `${col}/p`), { published: true });

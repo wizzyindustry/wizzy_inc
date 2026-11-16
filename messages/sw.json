@@ -473,7 +473,8 @@
       },
       "legal": "Kurasa za kisheria",
       "company": "Taarifa za kampuni",
-      "subscribers": "Waliojiandikisha"
+      "subscribers": "Waliojiandikisha",
+      "posts": "Machapisho ya blogu"
     },
     "leads": {
       "heading": "Maombi",
@@ -586,13 +587,15 @@
         "services": "Huduma mpya",
         "packages": "Kifurushi kipya",
         "portfolio": "Kazi mpya",
-        "testimonials": "Ushuhuda mpya"
+        "testimonials": "Ushuhuda mpya",
+        "posts": "Chapisho jipya la blogu"
       },
       "edit": {
         "services": "Hariri huduma",
         "packages": "Hariri kifurushi",
         "portfolio": "Hariri kazi",
-        "testimonials": "Hariri ushuhuda"
+        "testimonials": "Hariri ushuhuda",
+        "posts": "Hariri chapisho la blogu"
       },
       "options": {
         "graphic-design": "Usanifu wa Michoro",
@@ -683,7 +686,12 @@
         "offices_hours": "Saa za kufungua",
         "offices_phone": "Simu",
         "offices_latitude": "Latitudo",
-        "offices_longitude": "Longitudo"
+        "offices_longitude": "Longitudo",
+        "postExcerpt": "Muhtasari mfupi",
+        "postBody": "Maandishi ya chapisho",
+        "postCover": "Picha ya juu",
+        "author": "Mwandishi",
+        "publishedAt": "Tarehe"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -723,7 +731,10 @@
         "impact_value": "Kwa mfano 25+, 99.9% au 40. Namba inahesabika kwenye ukurasa.",
         "partners": "Chapa ulizofanya nazo kazi (waombe ruhusa kwanza). Nembo: PNG, WebP au SVG. Bila washirika sehemu hii haionyeshwi.",
         "offices": "Zinaonyeshwa kwenye ukurasa wa mwanzo (\"Tembelea ofisi yetu\") na ukurasa wa Ofisi, kila moja na ramani.",
-        "offices_latitude": "Kwenye openstreetmap.org, bofya kulia ofisi yako na uchague \"Show address\". Nakili namba mbili: ya kwanza ni latitudo (mf. -6.17221), ya pili longitudo (mf. 35.73947)."
+        "offices_latitude": "Kwenye openstreetmap.org, bofya kulia ofisi yako na uchague \"Show address\". Nakili namba mbili: ya kwanza ni latitudo (mf. -6.17221), ya pili longitudo (mf. 35.73947).",
+        "postExcerpt": "Sentensi moja au mbili, zinaonyeshwa kwenye orodha ya blogu na kwenye matokeo ya utafutaji.",
+        "postBody": "Markdown: ## kwa vichwa, - kwa vitone, [maandishi](https://…) kwa viungo. Acha mstari mtupu kati ya aya.",
+        "publishedAt": "Inaonyeshwa kwenye chapisho; machapisho mapya yanaonyeshwa kwanza."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -919,5 +930,18 @@
     "notFound": "Kiungo hiki hakifanyi kazi tena — huenda tayari umejiondoa.",
     "noToken": "Ukurasa huu unahitaji kiungo kutoka kwenye mojawapo ya barua pepe zetu.",
     "error": "Kuna hitilafu. Tafadhali jaribu tena baadaye kidogo."
+  },
+  "Blog": {
+    "meta": {
+      "title": "Blogu",
+      "description": "Habari, vidokezo na hadithi kuhusu usanifu wa michoro na tovuti kutoka Wizzy Inc."
+    },
+    "heading": "Blogu",
+    "intro": "Habari, vidokezo na hadithi za nyuma ya pazia kutoka kazi zetu za usanifu na tovuti.",
+    "empty": "Bado hakuna machapisho — rudi hivi karibuni.",
+    "back": "Machapisho yote",
+    "by": "na {author}",
+    "ctaHeading": "Una mradi akilini?",
+    "ctaButton": "Omba makadirio"
   }
 }

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { tanzaniaDateToUtc } from '@/lib/utils/format-date';
 import {
   aboutPageSchema,
+  blogPostSchema,
   companySchema,
   legalPagesSchema,
   packageSchema,
@@ -17,7 +18,13 @@ import {
  * fields are removed by the editor before sending.
  */
 
-export const CONTENT_COLLECTIONS = ['services', 'packages', 'portfolio', 'testimonials'] as const;
+export const CONTENT_COLLECTIONS = [
+  'services',
+  'packages',
+  'portfolio',
+  'testimonials',
+  'posts',
+] as const;
 export type ContentCollection = (typeof CONTENT_COLLECTIONS)[number];
 
 export function isContentCollection(value: string): value is ContentCollection {
@@ -34,6 +41,9 @@ export const contentInputSchemas = {
     .omit({ id: true })
     .extend({ completedAt: z.iso.date().transform(tanzaniaDateToUtc) }), // YYYY-MM-DD in the form
   testimonials: testimonialSchema.omit({ id: true }),
+  posts: blogPostSchema
+    .omit({ id: true })
+    .extend({ publishedAt: z.iso.date().transform(tanzaniaDateToUtc) }), // YYYY-MM-DD in the form
 } satisfies Record<ContentCollection, z.ZodType>;
 
 export const settingsInputSchema = siteSettingsSchema;
@@ -42,7 +52,7 @@ export const legalInputSchema = legalPagesSchema;
 export const companyInputSchema = companySchema;
 
 /** Collections whose `slug` must be unique (it is the public URL). */
-export const SLUG_COLLECTIONS: readonly ContentCollection[] = ['services', 'portfolio'];
+export const SLUG_COLLECTIONS: readonly ContentCollection[] = ['services', 'portfolio', 'posts'];
 
 /** Portfolio images must live in the item's own folder (no pointing at other files). */
 export function portfolioPathsValid(itemId: string, paths: string[]): boolean {

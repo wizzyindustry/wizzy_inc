@@ -209,6 +209,13 @@ There are three places where server logic runs:
   portfolioId?, consentGiven: true, published: boolean }
 ```
 
+**`posts`** (blog, Phase 1.3)
+```ts
+{ id, slug, title: {en, sw}, excerpt: {en, sw}, body: {en, sw} /* markdown */,
+  coverImage?: "site/blog/…", author?, publishedAt: Timestamp, published: boolean }
+```
+Public read when published (like services). Listed newest first, sorted in code (no extra index).
+
 **`leads`** (private)
 ```ts
 {

@@ -30,6 +30,10 @@ service cloud.firestore {
       allow read: if isPublished() || isAdmin();
       allow write: if isAdmin();
     }
+    match /posts/{id} {
+      allow read: if isPublished() || isAdmin();
+      allow write: if isAdmin();
+    }
 
     // Site settings (contact details etc.) are public read-only.
     match /settings/{id} {
