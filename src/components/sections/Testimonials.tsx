@@ -18,7 +18,7 @@ export async function Testimonials({ testimonials, locale }: Props) {
       <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((item) => (
           <li key={item.id}>
-            <figure className="flex h-full flex-col gap-4 rounded-lg border border-border p-6">
+            <figure className="lift flex h-full flex-col gap-4 rounded-lg border border-border p-6">
               {item.rating && (
                 <p aria-label={t('rating', { rating: item.rating })} className="text-accent">
                   {'★'.repeat(item.rating)}

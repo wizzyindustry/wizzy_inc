@@ -14,7 +14,7 @@ export async function PortfolioCard({ item, locale }: Props) {
   const title = localized(item.title, locale);
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-border">
+    <article className="lift group overflow-hidden rounded-lg border border-border">
       <Link href={`/portfolio/${item.slug}`} className="block">
         <div className="relative aspect-[4/3] bg-muted">
           <Image

@@ -29,7 +29,7 @@ export async function ServiceCategoryCards({ services, locale }: Props) {
           const items = services.filter((s) => s.category === id);
           const minPrice = items.length ? Math.min(...items.map((s) => s.startingPriceTZS)) : null;
           return (
-            <article key={id} className="flex flex-col gap-4 rounded-lg border border-border p-6">
+            <article key={id} className="lift flex flex-col gap-4 rounded-lg border border-border p-6">
               <Icon aria-hidden="true" className="size-8 text-primary" />
               <h3 className="text-xl font-semibold">{tCat(`${id}.title`)}</h3>
               <p className="text-muted-foreground">{tCat(`${id}.description`)}</p>

@@ -15,7 +15,10 @@ export async function Hero({ headline, subheadline, image }: Props) {
   const t = await getTranslations('HomePage.hero');
 
   return (
-    <section className={`relative isolate overflow-hidden ${image ? 'bg-foreground' : 'bg-muted'}`}>
+    <section
+      data-no-reveal
+      className={`relative isolate overflow-hidden ${image ? 'bg-foreground' : 'bg-muted'}`}
+    >
       {image && (
         <>
           <Image
@@ -30,7 +33,7 @@ export async function Hero({ headline, subheadline, image }: Props) {
         </>
       )}
       <div
-        className={`mx-auto flex max-w-6xl flex-col gap-6 px-4 py-14 sm:py-24 ${image ? 'text-background' : ''}`}
+        className={`hero-enter mx-auto flex max-w-6xl flex-col gap-6 px-4 py-14 sm:py-24 ${image ? 'text-background' : ''}`}
       >
         <h1 className="max-w-3xl font-display text-3xl leading-tight font-bold sm:text-5xl">
           {headline}

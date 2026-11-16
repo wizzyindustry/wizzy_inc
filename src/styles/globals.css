@@ -63,6 +63,58 @@
     }
   }
 
+  /* Scroll animations (ScrollReveal): parts of the page fade up as they come into view. */
+  .reveal-ready main section:not([data-no-reveal], .is-visible),
+  .reveal-ready main [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+
+  .reveal-ready main section:not([data-no-reveal]),
+  .reveal-ready main [data-reveal] {
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms ease-out;
+  }
+
+  /* Cards rise slightly on hover / keyboard focus. */
+  .lift {
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out;
+  }
+
+  .lift:hover,
+  .lift:focus-within {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 10px 24px -12px color-mix(in oklab, var(--color-foreground) 35%, transparent);
+  }
+
+  /* Hero text slides in on first view. */
+  .hero-enter {
+    animation: hero-enter 600ms ease-out 450ms both; /* as the splash fades */
+  }
+
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lift,
+    .lift:hover,
+    .lift:focus-within {
+      transform: none;
+      transition: none;
+    }
+
+    .hero-enter {
+      animation: none;
+    }
+  }
+
   /* Reduced motion: no drawing, just a slow fade. */
   @media (prefers-reduced-motion: reduce) {
     .loading-w-stroke {

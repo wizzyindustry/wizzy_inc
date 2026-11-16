@@ -25,3 +25,21 @@ test('Swahili home page has the same sections', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Kwa nini utuchague' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Nani yuko nyuma ya Wizzy Inc' })).toBeVisible();
 });
+
+test('sections fade in as they scroll into view', async ({ page }) => {
+  await page.goto('/en');
+  await expect(page.locator('html')).toHaveClass(/reveal-ready/);
+  const last = page.getByRole('main').locator('section').last();
+  await last.scrollIntoViewIfNeeded();
+  await expect(last).toHaveClass(/is-visible/);
+  await expect(last).toHaveCSS('opacity', '1');
+});
+
+test('with "reduce motion" nothing is hidden for animations', async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: 'reduce' });
+  const page = await context.newPage();
+  await page.goto('/en');
+  await expect(page.locator('html')).not.toHaveClass(/reveal-ready/);
+  await expect(page.getByRole('main').locator('section').last()).toHaveCSS('opacity', '1');
+  await context.close();
+});
