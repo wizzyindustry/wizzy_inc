@@ -287,6 +287,38 @@ test.describe('shared site documents', () => {
     await page.locator('#field-privacy-en').fill(original);
     await save(page);
   });
+
+  test('company info: impact numbers are edited in admin', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    const label = `E2E projects ${Date.now()}`;
+    await signInAsAdmin(page);
+    await page.goto('/admin/company');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Company info');
+    const impact = page.getByRole('group', { name: 'Impact numbers' });
+    await impact.getByRole('button', { name: 'Add: Number' }).click();
+    const item = impact.locator('ol > li').last();
+    await item.getByRole('textbox', { name: 'Number' }).fill('42+');
+    await item.getByLabel('English', { exact: true }).fill(label);
+    await save(page);
+
+    await openUntil(page, '/en', () =>
+      quick(
+        page.getByRole('region', { name: 'Our impact in numbers' }).getByText(label),
+      ).toBeVisible(),
+    );
+    await expect(
+      page.getByRole('region', { name: 'Our impact in numbers' }).getByText('42+').first(),
+    ).toBeVisible();
+
+    // Remove it again, so local review data is left as it was.
+    await page.goto('/admin/company');
+    await impact
+      .locator('ol > li')
+      .last()
+      .getByRole('button', { name: /^Remove Number/ })
+      .click();
+    await save(page);
+  });
 });
 
 test('/api/revalidate refuses requests without the secret', async ({ request }) => {

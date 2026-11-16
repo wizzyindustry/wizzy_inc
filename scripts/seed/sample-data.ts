@@ -193,6 +193,37 @@ export const sampleAbout = {
   tools: [{ name: 'Adobe Illustrator', logo: SAMPLE_LOGO_PATH }, { name: 'Figma' }],
 };
 
+export const SAMPLE_PARTNER_LOGO_PATH = 'site/partners/sample-partner.svg';
+
+/**
+ * Company facts (settings/company). Placeholders only — no real partners, numbers or names.
+ * No founding year: a bare year cannot be marked SAMPLE, so that card stays hidden.
+ */
+export const sampleCompany = {
+  story: s(
+    'the story of how Wizzy Inc began — edit this in Admin → Company info.',
+    'historia ya jinsi Wizzy Inc ilivyoanza — hariri hapa: Admin → Company info.',
+  ),
+  headquarters: s('city, Tanzania', 'mji, Tanzania'),
+  founderName: 'SAMPLE: Founder name',
+  partners: [
+    { name: 'SAMPLE: Partner A', logo: SAMPLE_PARTNER_LOGO_PATH },
+    { name: 'SAMPLE: Partner B' },
+  ],
+  impact: [
+    { value: '10+', label: s('placeholder number', 'namba ya mfano') },
+    { value: '99.9%', label: s('placeholder uptime', 'uptime ya mfano') },
+  ],
+  offices: [
+    {
+      name: s('Main office', 'Ofisi kuu'),
+      address: s('street address, Dodoma', 'anwani, Dodoma'),
+      latitude: -6.163,
+      longitude: 35.7516,
+    },
+  ],
+};
+
 /** Placeholder logo (a plain circle) for the first sample tool card. */
 export const SAMPLE_LOGO = Buffer.from(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#1d4ed8"/></svg>',

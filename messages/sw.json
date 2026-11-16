@@ -49,12 +49,12 @@
       "secondaryCta": "Tazama kazi zetu"
     },
     "services": {
-      "heading": "Tunachofanya",
+      "heading": "Huduma zetu",
       "fromPrice": "Kuanzia {price}",
-      "links": {
-        "graphic-design": "Tazama huduma za usanifu",
-        "web-development": "Tazama huduma za tovuti"
-      }
+      "flipHint": "Weka kipanya juu ya kadi au iguse ili kujua zaidi.",
+      "learnMore": "Jifunze zaidi",
+      "learnMoreAbout": "Jifunze zaidi kuhusu {name}",
+      "all": "Tazama huduma zote"
     },
     "featured": {
       "heading": "Kazi zilizochaguliwa",
@@ -88,11 +88,6 @@
       "description": "Tueleze kuhusu mradi wako upate bei iliyo wazi — bila mazungumzo marefu.",
       "button": "Omba makadirio ya bei"
     },
-    "about": {
-      "eyebrow": "Kuhusu sisi",
-      "heading": "Nani yuko nyuma ya Wizzy Inc",
-      "more": "Zaidi kuhusu sisi"
-    },
     "why": {
       "heading": "Kwa nini utuchague",
       "defaults": {
@@ -118,6 +113,41 @@
       "heading": "Maswali ambayo wateja huuliza",
       "more": "Tazama maswali yote",
       "seeAll": "Tazama maswali yote {count}"
+    },
+    "story": {
+      "eyebrow": "Kuhusu sisi",
+      "heading": "Historia yetu",
+      "more": "Zaidi kuhusu sisi",
+      "facts": {
+        "founded": "Ilianzishwa",
+        "headquarters": "Makao makuu",
+        "founder": "Mwanzilishi na Mkurugenzi Mtendaji"
+      }
+    },
+    "partners": {
+      "heading": "Chapa tunazofanya nazo kazi"
+    },
+    "impact": {
+      "heading": "Matokeo yetu kwa takwimu"
+    },
+    "visit": {
+      "heading": "Tembelea ofisi yetu",
+      "intro": "Karibu uzungumze nasi ana kwa ana — hapa ndipo utatupata."
+    },
+    "contact": {
+      "heading": "Wasiliana nasi",
+      "intro": "Una swali au mradi akilini? Wasiliana nasi kwa njia inayokufaa.",
+      "channels": {
+        "phone": "Simu",
+        "email": "Barua pepe",
+        "whatsapp": "WhatsApp",
+        "location": "Mahali",
+        "hours": "Saa za kazi"
+      },
+      "whatsappValue": "Ongea nasi",
+      "whatsappMessage": "Habari Wizzy Inc, nina swali.",
+      "quote": "Omba makadirio",
+      "message": "Tuma ujumbe"
     }
   },
   "Portfolio": {
@@ -440,7 +470,8 @@
         "content": "Maudhui ya tovuti",
         "site": "Tovuti"
       },
-      "legal": "Kurasa za kisheria"
+      "legal": "Kurasa za kisheria",
+      "company": "Taarifa za kampuni"
     },
     "leads": {
       "heading": "Maombi",
@@ -632,7 +663,25 @@
         "privacy": "Sera ya Faragha",
         "terms": "Vigezo na Masharti",
         "cookies": "Sera ya Vidakuzi",
-        "whyChooseUs": "Ukurasa wa nyumbani: hoja za \"Kwa nini utuchague\""
+        "whyChooseUs": "Ukurasa wa nyumbani: hoja za \"Kwa nini utuchague\"",
+        "story": "Historia yetu",
+        "foundedYear": "Mwaka ilipoanzishwa",
+        "headquarters": "Makao makuu",
+        "founderName": "Mwanzilishi na Mkurugenzi Mtendaji",
+        "impact": "Takwimu za matokeo",
+        "impact_value": "Namba",
+        "impact_label": "Inahesabu nini",
+        "partners": "Chapa washirika (mstari wa nembo)",
+        "partners_name": "Jina",
+        "partners_logo": "Nembo",
+        "partners_url": "Tovuti",
+        "offices": "Ofisi",
+        "offices_name": "Jina la ofisi",
+        "offices_address": "Anwani",
+        "offices_hours": "Saa za kufungua",
+        "offices_phone": "Simu",
+        "offices_latitude": "Latitudo",
+        "offices_longitude": "Longitudo"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -663,7 +712,16 @@
         "privacy": "Markdown: \"## \" huanza kichwa, \"- \" kitone, **herufi nzito**, [maandishi ya kiungo](https://…). Jaza kila [TODO] na uondoe mstari wa RASIMU baada ya mwanasheria kukagua.",
         "terms": "Mpangilio sawa na hapo juu. Jaza masharti ya malipo, marekebisho, umiliki na kughairi.",
         "cookies": "Sasisha orodha hii ukiongeza vidakuzi, kwa mfano takwimu za wageni.",
-        "whyChooseUs": "Kichwa kifupi na sentensi moja au mbili kila moja (hoja 4 zinapendeza zaidi). Orodha ikiwa tupu, ukurasa wa nyumbani huonyesha hoja 4 zilizojengwa ndani."
+        "whyChooseUs": "Kichwa kifupi na sentensi moja au mbili kila moja (hoja 4 zinapendeza zaidi). Orodha ikiwa tupu, ukurasa wa nyumbani huonyesha hoja 4 zilizojengwa ndani.",
+        "story": "Historia ya Wizzy Inc, inaonyeshwa kwenye ukurasa wa mwanzo baada ya sehemu ya juu. Acha mstari mtupu kati ya aya. Ikiwa tupu, utangulizi wa ukurasa wa Kuhusu unaonyeshwa.",
+        "foundedYear": "Kwa mfano 2023. Ikiwa tupu, kadi hii haionyeshwi.",
+        "headquarters": "Mji na nchi, kwa mfano Dodoma, Tanzania. Ikiwa tupu, kadi hii haionyeshwi.",
+        "founderName": "Jina la mwanzilishi. Ikiwa tupu, kadi hii haionyeshwi.",
+        "impact": "Takwimu zako halisi tu — kwa mfano wateja 25+, uptime 99.9%, miradi 40 iliyokamilika. Bila takwimu sehemu hii haionyeshwi.",
+        "impact_value": "Kwa mfano 25+, 99.9% au 40. Namba inahesabika kwenye ukurasa.",
+        "partners": "Chapa ulizofanya nazo kazi (waombe ruhusa kwanza). Nembo: PNG, WebP au SVG. Bila washirika sehemu hii haionyeshwi.",
+        "offices": "Zinaonyeshwa kwenye ukurasa wa mwanzo (\"Tembelea ofisi yetu\") na ukurasa wa Ofisi, kila moja na ramani.",
+        "offices_latitude": "Kwenye openstreetmap.org, bofya kulia ofisi yako na uchague \"Show address\". Nakili namba mbili: ya kwanza ni latitudo (mf. -6.17221), ya pili longitudo (mf. 35.73947)."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -697,6 +755,20 @@
         "text": "Maandishi",
         "add": "Ongeza hoja",
         "remove": "Ondoa hoja hii"
+      },
+      "companyHeading": "Taarifa za kampuni",
+      "listItem": {
+        "impact": "Namba",
+        "partners": "Mshirika",
+        "offices": "Ofisi"
+      },
+      "listField": {
+        "itemTitle": "{item} {number}",
+        "moveUp": "Sogeza {name} juu",
+        "moveDown": "Sogeza {name} chini",
+        "remove": "Ondoa {name}",
+        "removeShort": "Ondoa",
+        "add": "Ongeza: {item}"
       }
     },
     "analytics": {
@@ -775,5 +847,11 @@
       "all": "Chaguo lako la sasa: Kubali vyote.",
       "essential": "Chaguo lako la sasa: Muhimu pekee."
     }
+  },
+  "Offices": {
+    "showOnMap": "Onyesha kwenye ramani",
+    "directions": "Fungua ramani na maelekezo",
+    "opensInNewTab": "inafunguka kwenye kichupo kipya",
+    "mapTitle": "Ramani: {name}"
   }
 }

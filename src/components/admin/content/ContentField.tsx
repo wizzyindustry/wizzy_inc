@@ -5,7 +5,9 @@ import { describedBy, FormField } from '@/components/forms/FormField';
 import { fieldClass } from '@/components/ui/field-styles';
 import { FaqField, type FaqItem, type PointItem } from './FaqField';
 import { fieldKey, fieldTextKey, type FieldDef } from './fields';
+import type { Values } from './form-values';
 import { ImageField } from './ImageField';
+import { ListField } from './ListField';
 import { ToolsField, type ToolItem } from './ToolsField';
 
 export type Option = { value: string; label: string };
@@ -17,6 +19,8 @@ type Props = {
   itemId: string;
   serviceOptions: Option[];
   portfolioOptions: Option[];
+  /** Errors of fields inside a list item ("offices.0.latitude"). */
+  errorFor?: (path: string) => string | undefined;
   onChange: (value: unknown) => void;
 };
 
@@ -28,6 +32,7 @@ export function ContentField({
   itemId,
   serviceOptions,
   portfolioOptions,
+  errorFor,
   onChange,
 }: Props) {
   const t = useTranslations('Admin.content');
@@ -170,6 +175,22 @@ export function ContentField({
         />
       );
 
+    case 'list':
+      return (
+        <ListField
+          field={field}
+          label={label}
+          hint={hint}
+          items={(value as Values[]) ?? []}
+          error={error}
+          itemId={itemId}
+          serviceOptions={serviceOptions}
+          portfolioOptions={portfolioOptions}
+          errorFor={errorFor}
+          onChange={onChange}
+        />
+      );
+
     case 'image':
     case 'gallery': {
       const paths =
@@ -221,7 +242,12 @@ export function ContentField({
       } else {
         const type = field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : 'text';
         control = (
-          <input type={type} inputMode={type === 'number' ? 'numeric' : undefined} {...common} />
+          <input
+            type={type}
+            inputMode={type === 'number' ? (field.decimal ? 'decimal' : 'numeric') : undefined}
+            step={field.decimal ? 'any' : undefined}
+            {...common}
+          />
         );
       }
       return (

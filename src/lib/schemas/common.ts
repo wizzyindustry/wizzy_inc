@@ -20,7 +20,20 @@ export type BilingualList = z.infer<typeof bilingualListSchema>;
 export const webUrlSchema = z.httpUrl();
 
 /** A Storage path of an uploaded site image, e.g. "site/hero/1700000000-bg.webp". */
-export const siteImagePathSchema = (folder: 'site/hero' | 'site/tools') =>
+/**
+ * Admin uploads outside the portfolio (Storage `site/…`, public read). `logo` kinds accept SVG
+ * and are shown whole (object-contain); the others are photos.
+ */
+export const SITE_IMAGE_KINDS = {
+  hero: { folder: 'site/hero', logo: false },
+  tool: { folder: 'site/tools', logo: true },
+  partner: { folder: 'site/partners', logo: true },
+  person: { folder: 'site/people', logo: false },
+} as const;
+export type SiteImageKind = keyof typeof SITE_IMAGE_KINDS;
+export type SiteImageFolder = (typeof SITE_IMAGE_KINDS)[SiteImageKind]['folder'];
+
+export const siteImagePathSchema = (folder: SiteImageFolder) =>
   z.string().regex(new RegExp(`^${folder}/[A-Za-z0-9._-]+$`), 'Invalid image');
 
 export const localeSchema = z.enum(['en', 'sw']);

@@ -53,6 +53,7 @@ function blank(field: FieldDef): unknown {
     case 'faq':
     case 'points':
     case 'tools':
+    case 'list':
       return [];
     case 'number':
       return field.path === 'order' ? '0' : ''; // sort order defaults to 0
@@ -88,6 +89,8 @@ export function toFormValues(fields: FieldDef[], doc: Values | null): Values {
             ? { name: tool, logo: '' }
             : { name: tool.name, logo: tool.logo ?? '' },
         );
+      } else if (field.type === 'list') {
+        value = (stored as Values[]).map((item) => toFormValues(field.itemFields ?? [], item));
       }
     }
     values = setPath(values, field.path, value);
@@ -136,6 +139,11 @@ export function toSaveData(fields: FieldDef[], values: Values): Values {
           .map((tool) => ({ name: String(tool.name ?? '').trim(), logo: tool.logo ?? '' }))
           .filter((tool) => tool.name !== '')
           .map((tool) => (tool.logo ? tool : { name: tool.name }));
+        break;
+      case 'list':
+        value = ((raw as Values[] | undefined) ?? []).map((item) =>
+          toSaveData(field.itemFields ?? [], item),
+        );
         break;
     }
     const isEmpty =

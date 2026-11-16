@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { tanzaniaDateToUtc } from '@/lib/utils/format-date';
 import {
   aboutPageSchema,
+  companySchema,
   legalPagesSchema,
   packageSchema,
   portfolioItemSchema,
@@ -38,6 +39,7 @@ export const contentInputSchemas = {
 export const settingsInputSchema = siteSettingsSchema;
 export const aboutInputSchema = aboutPageSchema;
 export const legalInputSchema = legalPagesSchema;
+export const companyInputSchema = companySchema;
 
 /** Collections whose `slug` must be unique (it is the public URL). */
 export const SLUG_COLLECTIONS: readonly ContentCollection[] = ['services', 'portfolio'];

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import {
   BarChart3,
+  Building2,
   Briefcase,
   FileText,
   Images,
@@ -37,6 +38,7 @@ const GROUPS: { key: string; items: Item[] }[] = [
       { href: '/admin/content/portfolio', key: 'portfolio', icon: Images },
       { href: '/admin/content/testimonials', key: 'testimonials', icon: MessageSquareQuote },
       { href: '/admin/about', key: 'about', icon: FileText },
+      { href: '/admin/company', key: 'company', icon: Building2 },
     ],
   },
   {

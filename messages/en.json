@@ -49,12 +49,12 @@
       "secondaryCta": "See our work"
     },
     "services": {
-      "heading": "What we do",
+      "heading": "Our services",
       "fromPrice": "From {price}",
-      "links": {
-        "graphic-design": "View design services",
-        "web-development": "View web services"
-      }
+      "flipHint": "Hover over or tap a card to learn more.",
+      "learnMore": "Learn more",
+      "learnMoreAbout": "Learn more about {name}",
+      "all": "See all services"
     },
     "featured": {
       "heading": "Featured work",
@@ -88,11 +88,6 @@
       "description": "Tell us about your project and get a clear price — no long chats needed.",
       "button": "Request a quote"
     },
-    "about": {
-      "eyebrow": "About us",
-      "heading": "Who is behind Wizzy Inc",
-      "more": "More about us"
-    },
     "why": {
       "heading": "Why choose us",
       "defaults": {
@@ -118,6 +113,41 @@
       "heading": "Questions clients ask",
       "more": "See all questions",
       "seeAll": "See all {count} questions"
+    },
+    "story": {
+      "eyebrow": "About us",
+      "heading": "Our story",
+      "more": "More about us",
+      "facts": {
+        "founded": "Founded",
+        "headquarters": "Headquarters",
+        "founder": "Founder & CEO"
+      }
+    },
+    "partners": {
+      "heading": "Brands we work with"
+    },
+    "impact": {
+      "heading": "Our impact in numbers"
+    },
+    "visit": {
+      "heading": "Visit our office",
+      "intro": "Come and talk to us in person — here is where to find us."
+    },
+    "contact": {
+      "heading": "Get in touch",
+      "intro": "A question or a project in mind? Reach us the way that suits you.",
+      "channels": {
+        "phone": "Phone",
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "location": "Location",
+        "hours": "Working hours"
+      },
+      "whatsappValue": "Chat with us",
+      "whatsappMessage": "Hello Wizzy Inc, I have a question.",
+      "quote": "Request a quote",
+      "message": "Send a message"
     }
   },
   "Portfolio": {
@@ -440,7 +470,8 @@
         "content": "Website content",
         "site": "Site"
       },
-      "legal": "Legal pages"
+      "legal": "Legal pages",
+      "company": "Company info"
     },
     "leads": {
       "heading": "Leads",
@@ -632,7 +663,25 @@
         "privacy": "Privacy Policy",
         "terms": "Terms & Conditions",
         "cookies": "Cookie Policy",
-        "whyChooseUs": "Home page: \"Why choose us\" points"
+        "whyChooseUs": "Home page: \"Why choose us\" points",
+        "story": "Our story",
+        "foundedYear": "Year founded",
+        "headquarters": "Headquarters",
+        "founderName": "Founder & CEO",
+        "impact": "Impact numbers",
+        "impact_value": "Number",
+        "impact_label": "What it counts",
+        "partners": "Partner brands (logo strip)",
+        "partners_name": "Name",
+        "partners_logo": "Logo",
+        "partners_url": "Website",
+        "offices": "Offices",
+        "offices_name": "Office name",
+        "offices_address": "Address",
+        "offices_hours": "Opening hours",
+        "offices_phone": "Phone",
+        "offices_latitude": "Latitude",
+        "offices_longitude": "Longitude"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -663,7 +712,16 @@
         "privacy": "Markdown: \"## \" starts a heading, \"- \" a bullet point, **bold**, [link text](https://…). Replace every [TODO] and remove the DRAFT line once a lawyer has checked it.",
         "terms": "Same formatting as above. Fill in payment, revisions, ownership and cancellation rules.",
         "cookies": "Update this list if you ever add cookies, for example visitor statistics.",
-        "whyChooseUs": "Short title and one or two sentences each (4 points look best). While this list is empty, the home page shows 4 built-in points."
+        "whyChooseUs": "Short title and one or two sentences each (4 points look best). While this list is empty, the home page shows 4 built-in points.",
+        "story": "The history of Wizzy Inc, shown on the home page right after the hero. Leave an empty line between paragraphs. While empty, the About page introduction is shown.",
+        "foundedYear": "For example 2023. While empty, this card is hidden.",
+        "headquarters": "City and country, for example Dodoma, Tanzania. While empty, this card is hidden.",
+        "founderName": "The founder's name. While empty, this card is hidden.",
+        "impact": "Your real numbers only — for example 25+ happy clients, 99.9% uptime, 40 projects completed. With no numbers the section is hidden.",
+        "impact_value": "For example 25+, 99.9% or 40. The number counts up on the page.",
+        "partners": "Brands you have worked with (ask them first). Logos: PNG, WebP or SVG. With no partners the section is hidden.",
+        "offices": "Shown on the home page (\"Visit our office\") and the Offices page, each with a map.",
+        "offices_latitude": "On openstreetmap.org, right-click your office and choose \"Show address\". Copy the two numbers: the first is the latitude (e.g. -6.17221), the second the longitude (e.g. 35.73947)."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -697,6 +755,20 @@
         "text": "Text",
         "add": "Add a point",
         "remove": "Remove this point"
+      },
+      "companyHeading": "Company info",
+      "listItem": {
+        "impact": "Number",
+        "partners": "Partner",
+        "offices": "Office"
+      },
+      "listField": {
+        "itemTitle": "{item} {number}",
+        "moveUp": "Move {name} up",
+        "moveDown": "Move {name} down",
+        "remove": "Remove {name}",
+        "removeShort": "Remove",
+        "add": "Add: {item}"
       }
     },
     "analytics": {
@@ -775,5 +847,11 @@
       "all": "Your current choice: Accept all.",
       "essential": "Your current choice: Essential only."
     }
+  },
+  "Offices": {
+    "showOnMap": "Show on map",
+    "directions": "Open map and directions",
+    "opensInNewTab": "opens in a new tab",
+    "mapTitle": "Map: {name}"
   }
 }

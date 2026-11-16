@@ -1,16 +1,20 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { AboutTeaser } from '@/components/sections/AboutTeaser';
-import { CtaBanner } from '@/components/sections/CtaBanner';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
+import { GetInTouch } from '@/components/sections/GetInTouch';
 import { Hero } from '@/components/sections/Hero';
 import { HomeFaq } from '@/components/sections/HomeFaq';
+import { ImpactNumbers } from '@/components/sections/ImpactNumbers';
+import { OurStory } from '@/components/sections/OurStory';
+import { PartnersMarquee } from '@/components/sections/PartnersMarquee';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
-import { ServiceCategoryCards } from '@/components/sections/ServiceCategoryCards';
+import { ServiceFlipCards } from '@/components/sections/ServiceFlipCards';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { VisitOffice } from '@/components/sections/VisitOffice';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { getAboutPage } from '@/lib/data/about';
+import { getCompany } from '@/lib/data/company';
 import { getFeaturedPortfolio } from '@/lib/data/portfolio';
 import { orFallback } from '@/lib/data/read';
 import { getPublishedServices } from '@/lib/data/services';
@@ -19,6 +23,7 @@ import { getPublishedTestimonials } from '@/lib/data/testimonials';
 import { localized } from '@/lib/i18n/localized';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 import { businessJsonLd } from '@/lib/seo/json-ld';
+import { resolveWhatsAppNumber } from '@/lib/utils/whatsapp';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -36,13 +41,18 @@ export default async function HomePage({ params }: Props) {
   const tMeta = await getTranslations('HomePage.meta');
   const tAbout = await getTranslations('About');
 
-  const [settings, about, services, featured, testimonials] = await Promise.all([
+  const [settings, about, company, services, featured, testimonials] = await Promise.all([
     getSiteSettings(),
     getAboutPage(),
+    getCompany(),
     orFallback(getPublishedServices(), [], 'services'),
     orFallback(getFeaturedPortfolio(), [], 'featured portfolio'),
     orFallback(getPublishedTestimonials(), [], 'testimonials'),
   ]);
+  const text = (value: { en: string; sw: string } | undefined) =>
+    value ? localized(value, locale) || undefined : undefined;
+  // "Our story" until the owner writes it: the About introduction.
+  const story = text(company?.story) ?? (about ? localized(about.intro, locale) : tAbout('intro'));
 
   return (
     <>
@@ -52,8 +62,20 @@ export default async function HomePage({ params }: Props) {
         subheadline={settings ? localized(settings.hero.subheadline, locale) : t('subheadline')}
         image={settings?.hero.image}
       />
-      <ServiceCategoryCards services={services} locale={locale} />
-      <AboutTeaser intro={about ? localized(about.intro, locale) : tAbout('intro')} />
+      <OurStory
+        story={story}
+        foundedYear={company?.foundedYear}
+        headquarters={text(company?.headquarters)}
+        founderName={company?.founderName || undefined}
+      />
+      <ServiceFlipCards services={services} locale={locale} />
+      <PartnersMarquee partners={company?.partners ?? []} />
+      <ImpactNumbers
+        stats={(company?.impact ?? []).map((s) => ({
+          value: s.value,
+          label: localized(s.label, locale),
+        }))}
+      />
       <WhyChooseUs
         points={(settings?.whyChooseUs ?? []).map((p) => ({
           title: localized(p.title, locale),
@@ -69,7 +91,26 @@ export default async function HomePage({ params }: Props) {
           a: localized(item.a, locale),
         }))}
       />
-      <CtaBanner />
+      <VisitOffice
+        offices={(company?.offices ?? []).map((o) => ({
+          name: localized(o.name, locale),
+          address: localized(o.address, locale),
+          hours: text(o.hours),
+          phone: o.phone || undefined,
+          latitude: o.latitude,
+          longitude: o.longitude,
+        }))}
+      />
+      <GetInTouch
+        phone={settings?.phone || undefined}
+        email={settings?.email || undefined}
+        whatsappNumber={resolveWhatsAppNumber(
+          settings?.whatsappNumber,
+          process.env.NEXT_PUBLIC_WHATSAPP_NUMBER,
+        )}
+        location={text(settings?.location)}
+        workingHours={text(settings?.workingHours)}
+      />
     </>
   );
 }

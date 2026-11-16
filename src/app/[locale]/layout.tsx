@@ -35,8 +35,14 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const t = await getTranslations('Layout');
   // Only ship the namespaces client components use, to keep public-page JS small.
-  const { Nav, LanguageSwitcher, Loading, CookieBanner: cookieMessages } = await getMessages();
-  const clientMessages = { Nav, LanguageSwitcher, Loading, CookieBanner: cookieMessages };
+  const {
+    Nav,
+    LanguageSwitcher,
+    Loading,
+    Offices,
+    CookieBanner: cookieMessages,
+  } = await getMessages();
+  const clientMessages = { Nav, LanguageSwitcher, Loading, Offices, CookieBanner: cookieMessages };
   const settings = await getSiteSettings();
   const whatsappNumber = resolveWhatsAppNumber(
     settings?.whatsappNumber,

@@ -13,6 +13,7 @@ import { getStorage } from 'firebase-admin/storage';
 import type { z } from 'zod';
 import {
   aboutPageSchema,
+  companySchema,
   packageSchema,
   portfolioItemSchema,
   serviceSchema,
@@ -22,6 +23,8 @@ import {
 import { leadSchema } from '@/lib/schemas/lead';
 import {
   sampleAbout,
+  sampleCompany,
+  SAMPLE_PARTNER_LOGO_PATH,
   SAMPLE_LOGO,
   SAMPLE_LOGO_PATH,
   PLACEHOLDER_PNG,
@@ -95,12 +98,16 @@ async function main(): Promise<void> {
   console.log('  settings/site: 1');
   await db.doc('settings/about').set(aboutPageSchema.parse(sampleAbout));
   console.log('  settings/about: 1');
+  await db.doc('settings/company').set(companySchema.parse(sampleCompany));
+  console.log('  settings/company: 1');
 
   for (const item of samplePortfolio) {
     await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
   }
-  await bucket.file(SAMPLE_LOGO_PATH).save(SAMPLE_LOGO, { contentType: 'image/svg+xml' });
-  console.log(`  storage images: ${samplePortfolio.length} + 1 logo`);
+  for (const path of [SAMPLE_LOGO_PATH, SAMPLE_PARTNER_LOGO_PATH]) {
+    await bucket.file(path).save(SAMPLE_LOGO, { contentType: 'image/svg+xml' });
+  }
+  console.log(`  storage images: ${samplePortfolio.length} + 2 logos`);
   await seedAccounts();
 
   // Start from the SAMPLE leads only (removes leads left by local tests and form tries).

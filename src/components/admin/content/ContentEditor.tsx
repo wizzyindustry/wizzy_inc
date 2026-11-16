@@ -221,6 +221,7 @@ export function ContentEditor({ kind, id }: Props) {
               itemId={docId}
               serviceOptions={serviceOptions}
               portfolioOptions={portfolioOptions}
+              errorFor={errorFor}
               onChange={(v) => setValues((current) => setPath(current ?? {}, field.path, v))}
             />
           ))}

@@ -5,6 +5,7 @@ import { revalidatePublicPages } from '@/lib/data/revalidate-public';
 import { adminDb, adminStorage } from '@/lib/firebase/admin';
 import {
   aboutInputSchema,
+  companyInputSchema,
   contentFieldErrors,
   legalInputSchema,
   contentInputSchemas,
@@ -14,6 +15,7 @@ import {
   settingsInputSchema,
   SLUG_COLLECTIONS,
 } from '@/lib/schemas/content-admin';
+import { SITE_IMAGE_KINDS } from '@/lib/schemas/common';
 import { contentMatchesType } from '@/lib/security/file-type';
 import { requireAdmin } from '@/lib/security/require-admin';
 import type { ActionResult } from '@/lib/utils/action-result';
@@ -122,16 +124,19 @@ const SITE_DOCUMENTS = {
   site: settingsInputSchema, // contact details, hero, FAQ, …
   about: aboutInputSchema, // About page (F8)
   legal: legalInputSchema, // Privacy, Terms, Cookie Policy
+  company: companyInputSchema, // story, fact cards, partners, impact, offices
 } as const;
+type SiteDocumentId = keyof typeof SITE_DOCUMENTS;
+const isSiteDocumentId = (id: string): id is SiteDocumentId => Object.hasOwn(SITE_DOCUMENTS, id);
 
-/** Save one of the single site documents: settings/site, settings/about or settings/legal. */
+/** Save one of the single site documents (settings/site, about, legal, company). */
 export async function saveSiteDocument(
   idToken: string,
   input: { id: string; data: unknown },
 ): Promise<ActionResult<{ id: string }>> {
   if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
   const id = input.id;
-  if (id !== 'site' && id !== 'about' && id !== 'legal') return { ok: false, error: 'validation' };
+  if (!isSiteDocumentId(id)) return { ok: false, error: 'validation' };
   const parsed = SITE_DOCUMENTS[id].safeParse(input.data);
   if (!parsed.success) {
     return { ok: false, error: 'validation', fieldErrors: contentFieldErrors(parsed.error) };
@@ -180,14 +185,7 @@ export async function uploadPortfolioImage(
   }
 }
 
-/** Where each kind of site image goes, and which types it accepts (storage.rules: site/**). */
-const SITE_IMAGES = {
-  hero: { folder: 'site/hero', types: IMAGE_TYPES },
-  tool: { folder: 'site/tools', types: [...IMAGE_TYPES, 'image/svg+xml'] }, // logos are often SVG
-} as const;
-export type SiteImageKind = keyof typeof SITE_IMAGES;
-
-/** Upload a hero background or a tool logo (≤ 5 MB, checked by content) -> Storage path. */
+/** Upload a site image — hero, tool/partner logo, person photo (≤ 5 MB, checked by content). */
 export async function uploadSiteImage(
   idToken: string,
   formData: FormData,
@@ -195,11 +193,14 @@ export async function uploadSiteImage(
   if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
   const kind = formData.get('kind');
   const file = formData.get('file');
-  if (kind !== 'hero' && kind !== 'tool') return { ok: false, error: 'validation' };
+  if (typeof kind !== 'string' || !Object.hasOwn(SITE_IMAGE_KINDS, kind)) {
+    return { ok: false, error: 'validation' };
+  }
   if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'validation' };
-  const { folder, types } = SITE_IMAGES[kind];
-  const typeError = kind === 'tool' ? 'logoType' : 'imageType';
-  if (!(types as readonly string[]).includes(file.type)) return { ok: false, error: typeError };
+  const { folder, logo } = SITE_IMAGE_KINDS[kind as keyof typeof SITE_IMAGE_KINDS];
+  const types = logo ? [...IMAGE_TYPES, 'image/svg+xml'] : IMAGE_TYPES; // logos are often SVG
+  const typeError = logo ? 'logoType' : 'imageType';
+  if (!types.includes(file.type)) return { ok: false, error: typeError };
   if (file.size > MAX_IMAGE_BYTES) return { ok: false, error: 'imageTooLarge' };
 
   try {

@@ -28,6 +28,11 @@ export function missingSwahili(fields: FieldDef[], data: Values): string[] {
         Object.values(item).some((part) => filled(part?.en) && !filled(part?.sw)),
       );
       if (gap) missing.push(field.path);
+    } else if (field.type === 'list' && Array.isArray(value)) {
+      const items = value as Values[];
+      if (items.some((item) => missingSwahili(field.itemFields ?? [], item).length > 0)) {
+        missing.push(field.path);
+      }
     }
   }
   return missing;

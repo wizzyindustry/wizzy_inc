@@ -1,3 +1,4 @@
+import type { SiteImageKind } from '@/lib/schemas/common';
 import type { ContentCollection } from '@/lib/schemas/content-admin';
 
 /*
@@ -23,7 +24,8 @@ export type FieldType =
   | 'gallery' // Storage paths
   | 'faq' // { q: {en,sw}, a: {en,sw} }[]
   | 'points' // { title: {en,sw}, text: {en,sw} }[] — home "Why choose us"
-  | 'tools'; // { name, logo? }[] — About page "Tools we use" cards
+  | 'tools' // { name, logo? }[] — About page "Tools we use" cards
+  | 'list'; // object[] — each item edited with `itemFields` (partners, offices, …)
 
 export type FieldDef = {
   path: string;
@@ -34,8 +36,12 @@ export type FieldDef = {
   numeric?: boolean; // select whose values are numbers
   /** Label/hint translation key when two editors use the same path differently. */
   labelKey?: string;
-  /** Image fields outside the portfolio: where the upload goes (Storage site/hero, site/tools). */
-  siteImage?: 'hero' | 'tool';
+  /** Image fields outside the portfolio: where the upload goes (Storage site/…). */
+  siteImage?: SiteImageKind;
+  /** Number with decimals and minus sign (map coordinates). */
+  decimal?: boolean;
+  /** `list` fields: the fields of one item (paths relative to the item). */
+  itemFields?: FieldDef[];
   /** Only shown (and saved) when another field has one of these values. */
   showWhen?: { path: string; values: readonly string[] };
 };
@@ -45,6 +51,7 @@ export const SINGLE_DOCS = {
   settings: { id: 'site', heading: 'settingsHeading', publicPath: null },
   about: { id: 'about', heading: 'aboutHeading', publicPath: '/en/about' },
   legal: { id: 'legal', heading: 'legalHeading', publicPath: '/en/privacy' },
+  company: { id: 'company', heading: 'companyHeading', publicPath: '/en' },
 } as const;
 export type SingleDocKind = keyof typeof SINGLE_DOCS;
 export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
@@ -144,6 +151,44 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'graphicDesign', type: 'bilingualLong', hint: true },
     { path: 'webDevelopment', type: 'bilingualLong', hint: true },
     { path: 'tools', type: 'tools', hint: true, labelKey: 'aboutTools' },
+  ],
+  company: [
+    { path: 'story', type: 'bilingualLong', optional: true, hint: true },
+    { path: 'foundedYear', type: 'number', optional: true, hint: true },
+    { path: 'headquarters', type: 'bilingual', optional: true, hint: true },
+    { path: 'founderName', type: 'text', optional: true, hint: true },
+    {
+      path: 'impact',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'value', type: 'text', hint: true },
+        { path: 'label', type: 'bilingual' },
+      ],
+    },
+    {
+      path: 'partners',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'name', type: 'text' },
+        { path: 'logo', type: 'image', optional: true, siteImage: 'partner' },
+        { path: 'url', type: 'text', optional: true },
+      ],
+    },
+    {
+      path: 'offices',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'name', type: 'bilingual' },
+        { path: 'address', type: 'bilingual' },
+        { path: 'hours', type: 'bilingual', optional: true },
+        { path: 'phone', type: 'text', optional: true },
+        { path: 'latitude', type: 'number', decimal: true, hint: true },
+        { path: 'longitude', type: 'number', decimal: true },
+      ],
+    },
   ],
   legal: [
     { path: 'lastUpdated', type: 'date', hint: true },

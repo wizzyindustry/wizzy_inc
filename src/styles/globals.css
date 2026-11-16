@@ -115,6 +115,81 @@
     }
   }
 
+  /* Service flip cards: turn over on hover, tap (focus) or keyboard focus. */
+  .flip-card {
+    perspective: 1000px;
+  }
+
+  .flip-inner {
+    display: grid;
+    transform-style: preserve-3d;
+    transition: transform 600ms ease-in-out;
+  }
+
+  .flip-card:hover .flip-inner,
+  .flip-card:focus-within .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-face {
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+  }
+
+  .flip-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Partner logos sliding sideways in a loop (two copies, move by one copy). */
+  .marquee-track {
+    animation: marquee 35s linear infinite;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Cards swap faces without turning; logos wrap instead of moving. */
+    .flip-inner,
+    .flip-card:hover .flip-inner,
+    .flip-card:focus-within .flip-inner {
+      transform: none;
+      transition: none;
+    }
+
+    .flip-back {
+      transform: none;
+      opacity: 0;
+    }
+
+    .flip-card:hover .flip-back,
+    .flip-card:focus-within .flip-back {
+      opacity: 1;
+    }
+
+    .marquee-track {
+      animation: none;
+      width: auto;
+    }
+
+    .marquee-track > ul:first-child {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .marquee-copy {
+      display: none;
+    }
+  }
+
   /* Reduced motion: no drawing, just a slow fade. */
   @media (prefers-reduced-motion: reduce) {
     .loading-w-stroke {

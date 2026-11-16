@@ -132,6 +132,46 @@ export type LegalPages = z.infer<typeof legalPagesSchema>;
 export const LEGAL_PAGES = ['privacy', 'terms', 'cookies'] as const;
 export type LegalPage = (typeof LEGAL_PAGES)[number];
 
+/** Home page "Our impact" number, e.g. value "120+" with label "Happy clients". */
+export const impactStatSchema = z.object({
+  value: z.string().trim().min(1).max(12),
+  label: bilingualTextSchema,
+});
+
+/** A brand we work with (home page logo strip). */
+export const partnerSchema = z.object({
+  name: z.string().trim().min(1),
+  logo: siteImagePathSchema('site/partners').optional(),
+  url: webUrlSchema.optional(),
+});
+
+/** An office (home page "Visit our office" and the Offices page). Map = OpenStreetMap. */
+export const officeSchema = z.object({
+  name: bilingualTextSchema,
+  address: bilingualTextSchema,
+  hours: bilingualTextSchema.optional(),
+  phone: z.string().trim().optional(),
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
+export type Office = z.infer<typeof officeSchema>;
+
+/**
+ * Company facts (Firestore `settings/company`, Admin → Company info): "Our story", the fact
+ * cards, partners, impact numbers and offices. Every part is optional — an empty part is
+ * simply not shown (no invented numbers or names).
+ */
+export const companySchema = z.object({
+  story: bilingualTextSchema.optional(),
+  foundedYear: z.number().int().min(1900).max(2100).optional(),
+  headquarters: bilingualTextSchema.optional(),
+  founderName: z.string().trim().optional(),
+  partners: z.array(partnerSchema).default([]),
+  impact: z.array(impactStatSchema).default([]),
+  offices: z.array(officeSchema).default([]),
+});
+export type Company = z.infer<typeof companySchema>;
+
 /** One "Tools we use" card. Older documents stored just the name, so a plain string is accepted. */
 export const aboutToolSchema = z.union([
   z

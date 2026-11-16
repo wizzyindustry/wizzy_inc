@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { uploadPortfolioImage, uploadSiteImage } from '@/app/admin/content/actions';
 import { Button } from '@/components/ui/Button';
+import { SITE_IMAGE_KINDS, type SiteImageKind } from '@/lib/schemas/common';
 import { storageUrl } from '@/lib/utils/storage-url';
 import { useAdminSession } from '../AdminSession';
 
@@ -24,8 +25,8 @@ type Props = {
   label: string;
   paths: string[];
   multiple: boolean;
-  /** Hero background or tool logo (Storage site/…); otherwise a portfolio image. */
-  siteImage?: 'hero' | 'tool';
+  /** Site image (Storage site/…: hero, logos, people); otherwise a portfolio image. */
+  siteImage?: SiteImageKind;
   hint?: string;
   error?: string;
   onChange: (paths: string[]) => void;
@@ -50,6 +51,7 @@ export function ImageField({
   const { getIdToken } = useAdminSession();
   const [busy, setBusy] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const isLogo = siteImage ? SITE_IMAGE_KINDS[siteImage].logo : false;
 
   async function upload(files: FileList | null) {
     if (!files?.length) return;
@@ -99,7 +101,7 @@ export function ImageField({
                 width={120}
                 height={90}
                 unoptimized
-                className={`h-[90px] w-[120px] rounded-md border border-border ${siteImage === 'tool' ? 'object-contain p-2' : 'object-cover'}`}
+                className={`h-[90px] w-[120px] rounded-md border border-border ${isLogo ? 'object-contain p-2' : 'object-cover'}`}
               />
               <Button
                 type="button"
@@ -116,7 +118,7 @@ export function ImageField({
       <label htmlFor={id} className="text-sm text-muted-foreground">
         {multiple
           ? t('uploadImages')
-          : siteImage === 'tool'
+          : isLogo
             ? t(paths.length ? 'replaceLogo' : 'uploadLogo')
             : t(paths.length ? 'replaceImage' : 'uploadImage')}
       </label>
@@ -124,7 +126,7 @@ export function ImageField({
         id={id}
         type="file"
         accept={
-          siteImage === 'tool'
+          isLogo
             ? 'image/jpeg,image/png,image/webp,image/svg+xml'
             : 'image/jpeg,image/png,image/webp'
         }
