@@ -53,6 +53,7 @@ export const SINGLE_DOCS = {
   legal: { id: 'legal', heading: 'legalHeading', publicPath: '/en/privacy' },
   company: { id: 'company', heading: 'companyHeading', publicPath: '/en' },
   support: { id: 'support', heading: 'supportHeading', publicPath: '/en/support' },
+  press: { id: 'press', heading: 'pressHeading', publicPath: '/en/press' },
 } as const;
 export type SingleDocKind = keyof typeof SINGLE_DOCS;
 export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
@@ -60,6 +61,21 @@ export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SING
 export type EditorKind = ContentCollection | SingleDocKind;
 
 const CATEGORY = ['graphic-design', 'web-development'] as const;
+
+/** Leadership: one optional web link per network (shown as icons on the Press page). */
+const SOCIAL_LINK_FIELDS: FieldDef[] = [
+  'website',
+  'linkedin',
+  'x',
+  'instagram',
+  'facebook',
+  'tiktok',
+  'youtube',
+  'pinterest',
+  'behance',
+  'dribbble',
+  'github',
+].map((path) => ({ path, type: 'text', optional: true }));
 const WEB_ONLY = { path: 'category', values: ['web-development'] } as const;
 const DESIGN_ONLY = { path: 'category', values: ['graphic-design'] } as const;
 
@@ -204,6 +220,42 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
   support: [
     { path: 'intro', type: 'bilingualLong', optional: true, hint: true, labelKey: 'supportIntro' },
     { path: 'topics', type: 'points', hint: true, labelKey: 'supportTopics' },
+  ],
+  press: [
+    {
+      path: 'leaders',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'name', type: 'text' },
+        { path: 'role', type: 'bilingual' },
+        { path: 'bio', type: 'bilingualLong', optional: true },
+        { path: 'photo', type: 'image', optional: true, siteImage: 'person' },
+        { path: 'email', type: 'text', optional: true },
+        ...SOCIAL_LINK_FIELDS,
+      ],
+    },
+    {
+      path: 'media',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'title', type: 'bilingual' },
+        { path: 'kind', type: 'select', options: ['logo', 'document', 'photo'] },
+        { path: 'file', type: 'image', siteImage: 'press', hint: true },
+        { path: 'description', type: 'bilingual', optional: true },
+      ],
+    },
+    {
+      path: 'colors',
+      type: 'list',
+      hint: true,
+      itemFields: [
+        { path: 'name', type: 'text' },
+        { path: 'hex', type: 'text', hint: true },
+        { path: 'usage', type: 'bilingual', optional: true },
+      ],
+    },
   ],
   legal: [
     { path: 'lastUpdated', type: 'date', hint: true },

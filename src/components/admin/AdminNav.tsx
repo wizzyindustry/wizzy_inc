@@ -12,6 +12,7 @@ import {
   Inbox,
   LayoutDashboard,
   LifeBuoy,
+  Megaphone,
   Mail,
   Newspaper,
   MessageSquareQuote,
@@ -45,6 +46,7 @@ const GROUPS: { key: string; items: Item[] }[] = [
       { href: '/admin/about', key: 'about', icon: FileText },
       { href: '/admin/company', key: 'company', icon: Building2 },
       { href: '/admin/support', key: 'support', icon: LifeBuoy },
+      { href: '/admin/press', key: 'press', icon: Megaphone },
     ],
   },
   {

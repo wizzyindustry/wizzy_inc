@@ -196,6 +196,57 @@ export const supportPageSchema = z.object({
 });
 export type SupportPage = z.infer<typeof supportPageSchema>;
 
+/** Press page: one person in "Leadership". Social links are shown as icons. */
+export const leaderSchema = z.object({
+  name: z.string().trim().min(1),
+  role: bilingualTextSchema,
+  bio: bilingualTextSchema.optional(),
+  photo: siteImagePathSchema('site/people').optional(),
+  email: z.email().optional(),
+  website: webUrlSchema.optional(),
+  linkedin: webUrlSchema.optional(),
+  x: webUrlSchema.optional(),
+  instagram: webUrlSchema.optional(),
+  facebook: webUrlSchema.optional(),
+  tiktok: webUrlSchema.optional(),
+  youtube: webUrlSchema.optional(),
+  pinterest: webUrlSchema.optional(),
+  behance: webUrlSchema.optional(),
+  dribbble: webUrlSchema.optional(),
+  github: webUrlSchema.optional(),
+});
+export type Leader = z.infer<typeof leaderSchema>;
+
+/** Press page "Media resources": a logo, a document (e.g. licence PDF) or a photo. */
+export const MEDIA_KINDS = ['logo', 'document', 'photo'] as const;
+export const mediaResourceSchema = z.object({
+  title: bilingualTextSchema,
+  kind: z.enum(MEDIA_KINDS),
+  file: siteImagePathSchema('site/press'),
+  description: bilingualTextSchema.optional(),
+});
+export type MediaResource = z.infer<typeof mediaResourceSchema>;
+
+/** Press page "Brand colours": the RGB value is worked out from the HEX code. */
+export const brandColorSchema = z.object({
+  name: z.string().trim().min(1),
+  hex: z
+    .string()
+    .trim()
+    .regex(/^#[0-9A-Fa-f]{6}$/, 'Use #RRGGBB')
+    .transform((hex) => hex.toUpperCase()),
+  usage: bilingualTextSchema.optional(),
+});
+export type BrandColor = z.infer<typeof brandColorSchema>;
+
+/** Press page (Company → Press), Firestore `settings/press`. Empty parts are hidden. */
+export const pressPageSchema = z.object({
+  leaders: z.array(leaderSchema).default([]),
+  media: z.array(mediaResourceSchema).default([]),
+  colors: z.array(brandColorSchema).default([]),
+});
+export type PressPage = z.infer<typeof pressPageSchema>;
+
 /** One "Tools we use" card. Older documents stored just the name, so a plain string is accepted. */
 export const aboutToolSchema = z.union([
   z

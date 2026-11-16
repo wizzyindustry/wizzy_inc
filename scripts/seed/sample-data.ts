@@ -209,6 +209,36 @@ export const samplePosts = [
   },
 ];
 
+/** Press page (settings/press). Placeholders only: no real people, documents or brand colours. */
+export const samplePress = {
+  leaders: [
+    {
+      name: 'SAMPLE: Founder name',
+      role: s('Founder & CEO', 'Mwanzilishi na Mkurugenzi Mtendaji'),
+      bio: s('short biography — edit in Admin → Press page.'),
+      email: 'founder@example.test',
+      linkedin: 'https://example.com/linkedin',
+      pinterest: 'https://example.com/pinterest',
+    },
+  ],
+  media: [
+    {
+      title: s('logo (placeholder)', 'nembo (mfano)'),
+      kind: 'logo',
+      file: 'site/press/sample-logo.svg',
+    },
+    {
+      title: s('business licence (placeholder)', 'leseni ya biashara (mfano)'),
+      kind: 'document',
+      file: 'site/press/sample-licence.pdf',
+    },
+  ],
+  colors: [
+    { name: 'SAMPLE: Primary blue', hex: '#1D4ED8', usage: s('buttons and links') },
+    { name: 'SAMPLE: Ink', hex: '#111827' },
+  ],
+};
+
 export const SAMPLE_PARTNER_LOGO_PATH = 'site/partners/sample-partner.svg';
 
 /**

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { FileText } from 'lucide-react';
 import { uploadPortfolioImage, uploadSiteImage } from '@/app/admin/content/actions';
 import { Button } from '@/components/ui/Button';
 import { SITE_IMAGE_KINDS, type SiteImageKind } from '@/lib/schemas/common';
@@ -52,6 +53,7 @@ export function ImageField({
   const [busy, setBusy] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const isLogo = siteImage ? SITE_IMAGE_KINDS[siteImage].logo : false;
+  const allowsPdf = siteImage ? SITE_IMAGE_KINDS[siteImage].pdf : false;
 
   async function upload(files: FileList | null) {
     if (!files?.length) return;
@@ -95,21 +97,33 @@ export function ImageField({
         <ul className="flex flex-wrap gap-3">
           {paths.map((path) => (
             <li key={path} className="flex flex-col items-start gap-1">
-              <Image
-                src={previewUrl(path)}
-                alt=""
-                width={120}
-                height={90}
-                unoptimized
-                className={`h-[90px] w-[120px] rounded-md border border-border ${isLogo ? 'object-contain p-2' : 'object-cover'}`}
-              />
+              {path.endsWith('.pdf') ? (
+                <a
+                  href={previewUrl(path)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-[90px] w-[120px] flex-col items-center justify-center gap-1 rounded-md border border-border text-xs text-primary"
+                >
+                  <FileText aria-hidden="true" className="size-8" />
+                  {t('openPdf')}
+                </a>
+              ) : (
+                <Image
+                  src={previewUrl(path)}
+                  alt=""
+                  width={120}
+                  height={90}
+                  unoptimized
+                  className={`h-[90px] w-[120px] rounded-md border border-border ${isLogo ? 'object-contain p-2' : 'object-cover'}`}
+                />
+              )}
               <Button
                 type="button"
                 size="sm"
                 variant="ghost"
                 onClick={() => onChange(paths.filter((p) => p !== path))}
               >
-                {t('removeImage')}
+                {t(allowsPdf ? 'removeFile' : 'removeImage')}
               </Button>
             </li>
           ))}
@@ -118,18 +132,20 @@ export function ImageField({
       <label htmlFor={id} className="text-sm text-muted-foreground">
         {multiple
           ? t('uploadImages')
-          : isLogo
-            ? t(paths.length ? 'replaceLogo' : 'uploadLogo')
-            : t(paths.length ? 'replaceImage' : 'uploadImage')}
+          : allowsPdf
+            ? t(paths.length ? 'replaceFile' : 'uploadFile')
+            : isLogo
+              ? t(paths.length ? 'replaceLogo' : 'uploadLogo')
+              : t(paths.length ? 'replaceImage' : 'uploadImage')}
       </label>
       <input
         id={id}
         type="file"
-        accept={
-          isLogo
-            ? 'image/jpeg,image/png,image/webp,image/svg+xml'
-            : 'image/jpeg,image/png,image/webp'
-        }
+        accept={[
+          'image/jpeg,image/png,image/webp',
+          ...(isLogo ? ['image/svg+xml'] : []),
+          ...(allowsPdf ? ['application/pdf'] : []),
+        ].join(',')}
         multiple={multiple}
         disabled={busy}
         onChange={(e) => {

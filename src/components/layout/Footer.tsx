@@ -5,6 +5,7 @@ import type { Locale } from '@/lib/i18n/routing';
 import { LEGAL_PAGES, type SiteSettings } from '@/lib/schemas/content';
 import { formatPhone } from '@/lib/utils/format-phone';
 import { SubscribeForm } from '@/components/forms/SubscribeForm';
+import { SocialIcon, type SocialNetwork } from '@/components/ui/SocialIcon';
 import { CookieSettingsButton } from './CookieSettingsButton';
 import { ALL_NAV_ITEMS } from './nav-items';
 
@@ -12,6 +13,7 @@ import { ALL_NAV_ITEMS } from './nav-items';
 export async function Footer({ settings }: { settings: SiteSettings | null }) {
   const t = await getTranslations('Footer');
   const tNav = await getTranslations('Nav');
+  const tNetworks = await getTranslations('Press.networks');
   const locale = (await getLocale()) as Locale;
   const socials = Object.entries(settings?.socialLinks ?? {});
 
@@ -56,16 +58,18 @@ export async function Footer({ settings }: { settings: SiteSettings | null }) {
             </p>
             <p className="text-muted-foreground">{localized(settings.workingHours, locale)}</p>
             {socials.length > 0 && (
-              <ul className="flex flex-wrap gap-3 pt-1">
+              <ul className="flex flex-wrap gap-2 pt-1">
                 {socials.map(([network, url]) => (
                   <li key={network}>
                     <a
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="capitalize hover:text-primary"
+                      aria-label={tNetworks(network)}
+                      title={tNetworks(network)}
+                      className="inline-flex size-9 items-center justify-center rounded-full border border-border hover:border-primary hover:text-primary"
                     >
-                      {network}
+                      <SocialIcon network={network as SocialNetwork} />
                     </a>
                   </li>
                 ))}

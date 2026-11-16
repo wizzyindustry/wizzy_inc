@@ -475,7 +475,8 @@
       "company": "Taarifa za kampuni",
       "subscribers": "Waliojiandikisha",
       "posts": "Machapisho ya blogu",
-      "support": "Ukurasa wa msaada"
+      "support": "Ukurasa wa msaada",
+      "press": "Ukurasa wa habari"
     },
     "leads": {
       "heading": "Maombi",
@@ -603,7 +604,10 @@
         "web-development": "Utengenezaji wa Tovuti",
         "basic": "Msingi",
         "standard": "Kawaida",
-        "premium": "Premium"
+        "premium": "Premium",
+        "logo": "Nembo",
+        "document": "Hati",
+        "photo": "Picha"
       },
       "fields": {
         "title": "Kichwa",
@@ -694,7 +698,33 @@
         "author": "Mwandishi",
         "publishedAt": "Tarehe",
         "supportIntro": "Utangulizi",
-        "supportTopics": "Mada za msaada"
+        "supportTopics": "Mada za msaada",
+        "leaders": "Uongozi",
+        "leaders_name": "Jina",
+        "leaders_role": "Wadhifa",
+        "leaders_bio": "Wasifu mfupi",
+        "leaders_photo": "Picha",
+        "leaders_email": "Barua pepe",
+        "leaders_website": "Tovuti",
+        "leaders_linkedin": "Kiungo cha LinkedIn",
+        "leaders_x": "Kiungo cha X (Twitter)",
+        "leaders_instagram": "Kiungo cha Instagram",
+        "leaders_facebook": "Kiungo cha Facebook",
+        "leaders_tiktok": "Kiungo cha TikTok",
+        "leaders_youtube": "Kiungo cha YouTube",
+        "leaders_pinterest": "Kiungo cha Pinterest",
+        "leaders_behance": "Kiungo cha Behance",
+        "leaders_dribbble": "Kiungo cha Dribbble",
+        "leaders_github": "Kiungo cha GitHub",
+        "media": "Nyenzo za habari",
+        "media_title": "Kichwa",
+        "media_kind": "Aina",
+        "media_file": "Faili",
+        "media_description": "Maelezo",
+        "colors": "Rangi za chapa",
+        "colors_name": "Jina la rangi",
+        "colors_hex": "Msimbo wa HEX",
+        "colors_usage": "Inatumika wapi"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -739,7 +769,12 @@
         "postBody": "Markdown: ## kwa vichwa, - kwa vitone, [maandishi](https://…) kwa viungo. Acha mstari mtupu kati ya aya.",
         "publishedAt": "Inaonyeshwa kwenye chapisho; machapisho mapya yanaonyeshwa kwanza.",
         "supportIntro": "Unaonyeshwa juu ya ukurasa wa Msaada. Ikiwa tupu, maandishi yaliyopo yanaonyeshwa.",
-        "supportTopics": "Mambo ambayo wateja wanaweza kusaidiwa. Ikiwa tupu, mada nne zilizopo zinaonyeshwa."
+        "supportTopics": "Mambo ambayo wateja wanaweza kusaidiwa. Ikiwa tupu, mada nne zilizopo zinaonyeshwa.",
+        "leaders": "Waanzilishi na viongozi wanaoonyeshwa kwenye ukurasa wa habari. Viungo vinaonyeshwa kama aikoni; acha visivyotumika vikiwa tupu.",
+        "media": "Nembo, nyaraka (mf. leseni ya biashara kama PDF) na picha ambazo watu wanaweza kupakua.",
+        "media_file": "JPG, PNG, WebP, SVG au PDF, hadi MB 5.",
+        "colors": "Rangi za chapa yako. Thamani ya RGB inakokotolewa yenyewe.",
+        "colors_hex": "Msimbo wa tarakimu sita wenye #, mf. #1D4ED8."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -751,7 +786,8 @@
         "imageTooLarge": "Picha zisizidi MB 5.",
         "server": "Kuna hitilafu. Tafadhali jaribu tena.",
         "network": "Hakuna mtandao. Tafadhali jaribu tena.",
-        "logoType": "Picha za JPG, PNG, WebP au SVG pekee zinaruhusiwa. Faili za SVG zisiwe na hati (script) wala viungo."
+        "logoType": "Picha za JPG, PNG, WebP au SVG pekee zinaruhusiwa. Faili za SVG zisiwe na hati (script) wala viungo.",
+        "pressFileType": "Tumia faili la JPG, PNG, WebP, SVG au PDF."
       },
       "swMissing": "Kiswahili hakipo",
       "swSummary": "Vipengele {count} kati ya {total} bado vinahitaji maandishi ya Kiswahili (kwa sasa wageni wa Kiswahili wanaona Kiingereza).",
@@ -778,7 +814,10 @@
       "listItem": {
         "impact": "Namba",
         "partners": "Mshirika",
-        "offices": "Ofisi"
+        "offices": "Ofisi",
+        "leaders": "Mtu",
+        "media": "Nyenzo",
+        "colors": "Rangi"
       },
       "listField": {
         "itemTitle": "{item} {number}",
@@ -788,7 +827,12 @@
         "removeShort": "Ondoa",
         "add": "Ongeza: {item}"
       },
-      "supportHeading": "Ukurasa wa msaada"
+      "supportHeading": "Ukurasa wa msaada",
+      "pressHeading": "Ukurasa wa habari",
+      "uploadFile": "Pakia faili (picha au PDF)",
+      "replaceFile": "Badilisha faili",
+      "removeFile": "Ondoa faili",
+      "openPdf": "Fungua PDF"
     },
     "analytics": {
       "heading": "Takwimu",
@@ -979,5 +1023,44 @@
     "faqHeading": "Unatafuta jibu la haraka?",
     "faqText": "Malipo, marekebisho, muda na miundo ya mafaili vimeelezwa kwenye Maswali Yanayoulizwa Mara kwa Mara.",
     "faqButton": "Soma maswali"
+  },
+  "Press": {
+    "meta": {
+      "title": "Vyombo vya habari",
+      "description": "Wizzy Inc kwa waandishi wa habari na washirika: uongozi, nembo, nyaraka, picha na rangi za chapa."
+    },
+    "heading": "Vyombo vya habari",
+    "intro": "Kila kitu ambacho waandishi wa habari na washirika wanahitaji: viongozi wa Wizzy Inc, nembo zetu rasmi, nyaraka na picha, na rangi za chapa yetu.",
+    "empty": "Nyenzo za vyombo vya habari zinakuja hivi karibuni.",
+    "leadership": "Uongozi",
+    "photoOf": "Picha ya {name}",
+    "socialLink": "{name} kwenye {network}",
+    "media": "Nyenzo za habari",
+    "mediaIntro": "Tafadhali tumia nembo na picha zetu kama zilivyo, bila kubadilisha rangi au maumbo.",
+    "kinds": {
+      "logo": "Nembo",
+      "document": "Hati",
+      "photo": "Picha"
+    },
+    "download": "Pakua",
+    "openDocument": "Fungua hati",
+    "opensInNewTab": "inafunguka kwenye kichupo kipya",
+    "colours": "Rangi za chapa",
+    "copy": "Nakili {value}",
+    "copied": "Imenakiliwa",
+    "networks": {
+      "email": "Barua pepe",
+      "website": "Tovuti",
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "pinterest": "Pinterest",
+      "behance": "Behance",
+      "dribbble": "Dribbble",
+      "github": "GitHub"
+    }
   }
 }

@@ -85,6 +85,21 @@ describe('site/**', () => {
     await assertFails(deleteObject(ref(userStorage(), 'site/hero/bg.webp')));
     await assertSucceeds(deleteObject(ref(adminStorage(), 'site/hero/bg.webp')));
   });
+
+  it('PDFs (press documents) only by admins and only in site/press', async () => {
+    const pdf = { contentType: 'application/pdf' };
+    await assertFails(uploadBytes(ref(publicStorage(), 'site/press/licence.pdf'), small, pdf));
+    await assertFails(uploadBytes(ref(userStorage(), 'site/press/licence.pdf'), small, pdf));
+    await assertSucceeds(uploadBytes(ref(adminStorage(), 'site/press/licence.pdf'), small, pdf));
+    await assertSucceeds(getBytes(ref(publicStorage(), 'site/press/licence.pdf')));
+    await assertFails(uploadBytes(ref(adminStorage(), 'site/hero/licence.pdf'), small, pdf));
+    await assertFails(uploadBytes(ref(adminStorage(), 'site/press/sub/x.pdf'), small, pdf));
+    await assertFails(
+      uploadBytes(ref(adminStorage(), 'site/press/big.pdf'), tooBig, {
+        contentType: 'application/pdf',
+      }),
+    );
+  });
 });
 
 describe('quotes/**', () => {

@@ -475,7 +475,8 @@
       "company": "Company info",
       "subscribers": "Subscribers",
       "posts": "Blog posts",
-      "support": "Support page"
+      "support": "Support page",
+      "press": "Press page"
     },
     "leads": {
       "heading": "Leads",
@@ -603,7 +604,10 @@
         "web-development": "Web Development",
         "basic": "Basic",
         "standard": "Standard",
-        "premium": "Premium"
+        "premium": "Premium",
+        "logo": "Logo",
+        "document": "Document",
+        "photo": "Photo"
       },
       "fields": {
         "title": "Title",
@@ -694,7 +698,33 @@
         "author": "Author",
         "publishedAt": "Date",
         "supportIntro": "Introduction",
-        "supportTopics": "Help topics"
+        "supportTopics": "Help topics",
+        "leaders": "Leadership",
+        "leaders_name": "Name",
+        "leaders_role": "Role",
+        "leaders_bio": "Short biography",
+        "leaders_photo": "Photo",
+        "leaders_email": "Email",
+        "leaders_website": "Website",
+        "leaders_linkedin": "LinkedIn link",
+        "leaders_x": "X (Twitter) link",
+        "leaders_instagram": "Instagram link",
+        "leaders_facebook": "Facebook link",
+        "leaders_tiktok": "TikTok link",
+        "leaders_youtube": "YouTube link",
+        "leaders_pinterest": "Pinterest link",
+        "leaders_behance": "Behance link",
+        "leaders_dribbble": "Dribbble link",
+        "leaders_github": "GitHub link",
+        "media": "Media resources",
+        "media_title": "Title",
+        "media_kind": "Type",
+        "media_file": "File",
+        "media_description": "Description",
+        "colors": "Brand colours",
+        "colors_name": "Colour name",
+        "colors_hex": "HEX code",
+        "colors_usage": "Where it is used"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -739,7 +769,12 @@
         "postBody": "Markdown: ## for headings, - for bullet points, [text](https://…) for links. Leave an empty line between paragraphs.",
         "publishedAt": "Shown on the post; newest posts are listed first.",
         "supportIntro": "Shown at the top of the Support page. While empty, the built-in text is shown.",
-        "supportTopics": "What clients can get help with. While empty, four built-in topics are shown."
+        "supportTopics": "What clients can get help with. While empty, four built-in topics are shown.",
+        "leaders": "The founders and leaders shown on the Press page. Links show as icons; leave unused ones empty.",
+        "media": "Logos, documents (e.g. business licence as PDF) and photos people may download.",
+        "media_file": "JPG, PNG, WebP, SVG or PDF, up to 5 MB.",
+        "colors": "Your brand palette. The RGB value is worked out automatically.",
+        "colors_hex": "Six-digit code with #, e.g. #1D4ED8."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -751,7 +786,8 @@
         "imageTooLarge": "Images must be 5 MB or smaller.",
         "server": "Something went wrong. Please try again.",
         "network": "No connection. Please try again.",
-        "logoType": "Only JPG, PNG, WebP or SVG images are allowed. SVG files must not contain scripts or links."
+        "logoType": "Only JPG, PNG, WebP or SVG images are allowed. SVG files must not contain scripts or links.",
+        "pressFileType": "Use a JPG, PNG, WebP, SVG or PDF file."
       },
       "swMissing": "Swahili missing",
       "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
@@ -778,7 +814,10 @@
       "listItem": {
         "impact": "Number",
         "partners": "Partner",
-        "offices": "Office"
+        "offices": "Office",
+        "leaders": "Person",
+        "media": "Resource",
+        "colors": "Colour"
       },
       "listField": {
         "itemTitle": "{item} {number}",
@@ -788,7 +827,12 @@
         "removeShort": "Remove",
         "add": "Add: {item}"
       },
-      "supportHeading": "Support page"
+      "supportHeading": "Support page",
+      "pressHeading": "Press page",
+      "uploadFile": "Upload a file (image or PDF)",
+      "replaceFile": "Replace the file",
+      "removeFile": "Remove file",
+      "openPdf": "Open PDF"
     },
     "analytics": {
       "heading": "Analytics",
@@ -979,5 +1023,44 @@
     "faqHeading": "Looking for a quick answer?",
     "faqText": "Payment, revisions, timelines and file formats are explained in our FAQ.",
     "faqButton": "Read the FAQ"
+  },
+  "Press": {
+    "meta": {
+      "title": "Press",
+      "description": "Wizzy Inc for press and partners: leadership, logos, documents, photos and brand colours."
+    },
+    "heading": "Press",
+    "intro": "Everything journalists and partners need: who leads Wizzy Inc, our official logos, documents and photos, and our brand colours.",
+    "empty": "Press materials are coming soon.",
+    "leadership": "Leadership",
+    "photoOf": "Photo of {name}",
+    "socialLink": "{name} on {network}",
+    "media": "Media resources",
+    "mediaIntro": "Please use our logos and photos as they are, without changing colours or shapes.",
+    "kinds": {
+      "logo": "Logo",
+      "document": "Document",
+      "photo": "Photo"
+    },
+    "download": "Download",
+    "openDocument": "Open document",
+    "opensInNewTab": "opens in a new tab",
+    "colours": "Brand colours",
+    "copy": "Copy {value}",
+    "copied": "Copied",
+    "networks": {
+      "email": "Email",
+      "website": "Website",
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "tiktok": "TikTok",
+      "youtube": "YouTube",
+      "pinterest": "Pinterest",
+      "behance": "Behance",
+      "dribbble": "Dribbble",
+      "github": "GitHub"
+    }
   }
 }

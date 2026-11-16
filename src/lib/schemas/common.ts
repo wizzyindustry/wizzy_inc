@@ -25,11 +25,13 @@ export const webUrlSchema = z.httpUrl();
  * and are shown whole (object-contain); the others are photos.
  */
 export const SITE_IMAGE_KINDS = {
-  hero: { folder: 'site/hero', logo: false },
-  tool: { folder: 'site/tools', logo: true },
-  partner: { folder: 'site/partners', logo: true },
-  person: { folder: 'site/people', logo: false },
-  blog: { folder: 'site/blog', logo: false },
+  hero: { folder: 'site/hero', logo: false, pdf: false },
+  tool: { folder: 'site/tools', logo: true, pdf: false },
+  partner: { folder: 'site/partners', logo: true, pdf: false },
+  person: { folder: 'site/people', logo: false, pdf: false },
+  blog: { folder: 'site/blog', logo: false, pdf: false },
+  /** Press page media: logos, photos and documents such as licences (PDF). */
+  press: { folder: 'site/press', logo: true, pdf: true },
 } as const;
 export type SiteImageKind = keyof typeof SITE_IMAGE_KINDS;
 export type SiteImageFolder = (typeof SITE_IMAGE_KINDS)[SiteImageKind]['folder'];

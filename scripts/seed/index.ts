@@ -17,6 +17,7 @@ import {
   companySchema,
   packageSchema,
   portfolioItemSchema,
+  pressPageSchema,
   serviceSchema,
   siteSettingsSchema,
   testimonialSchema,
@@ -26,6 +27,7 @@ import {
   sampleAbout,
   sampleCompany,
   samplePosts,
+  samplePress,
   SAMPLE_PARTNER_LOGO_PATH,
   SAMPLE_LOGO,
   SAMPLE_LOGO_PATH,
@@ -103,13 +105,18 @@ async function main(): Promise<void> {
   console.log('  settings/about: 1');
   await db.doc('settings/company').set(companySchema.parse(sampleCompany));
   console.log('  settings/company: 1');
+  await db.doc('settings/press').set(pressPageSchema.parse(samplePress));
+  console.log('  settings/press: 1');
 
   for (const item of samplePortfolio) {
     await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
   }
-  for (const path of [SAMPLE_LOGO_PATH, SAMPLE_PARTNER_LOGO_PATH]) {
+  for (const path of [SAMPLE_LOGO_PATH, SAMPLE_PARTNER_LOGO_PATH, 'site/press/sample-logo.svg']) {
     await bucket.file(path).save(SAMPLE_LOGO, { contentType: 'image/svg+xml' });
   }
+  await bucket.file('site/press/sample-licence.pdf').save(SAMPLE_PDF, {
+    contentType: 'application/pdf',
+  });
   console.log(`  storage images: ${samplePortfolio.length} + 2 logos`);
   await seedAccounts();
 

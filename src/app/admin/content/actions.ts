@@ -12,6 +12,7 @@ import {
   docIdSchema,
   isContentCollection,
   portfolioPathsValid,
+  pressInputSchema,
   settingsInputSchema,
   supportInputSchema,
   SLUG_COLLECTIONS,
@@ -127,6 +128,7 @@ const SITE_DOCUMENTS = {
   legal: legalInputSchema, // Privacy, Terms, Cookie Policy
   company: companyInputSchema, // story, fact cards, partners, impact, offices
   support: supportInputSchema, // Support page
+  press: pressInputSchema, // Press page: leadership, media, brand colours
 } as const;
 type SiteDocumentId = keyof typeof SITE_DOCUMENTS;
 const isSiteDocumentId = (id: string): id is SiteDocumentId => Object.hasOwn(SITE_DOCUMENTS, id);
@@ -199,9 +201,13 @@ export async function uploadSiteImage(
     return { ok: false, error: 'validation' };
   }
   if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'validation' };
-  const { folder, logo } = SITE_IMAGE_KINDS[kind as keyof typeof SITE_IMAGE_KINDS];
-  const types = logo ? [...IMAGE_TYPES, 'image/svg+xml'] : IMAGE_TYPES; // logos are often SVG
-  const typeError = logo ? 'logoType' : 'imageType';
+  const { folder, logo, pdf } = SITE_IMAGE_KINDS[kind as keyof typeof SITE_IMAGE_KINDS];
+  const types = [
+    ...IMAGE_TYPES,
+    ...(logo ? ['image/svg+xml'] : []), // logos are often SVG
+    ...(pdf ? ['application/pdf'] : []), // press documents, e.g. licences
+  ];
+  const typeError = pdf ? 'pressFileType' : logo ? 'logoType' : 'imageType';
   if (!types.includes(file.type)) return { ok: false, error: typeError };
   if (file.size > MAX_IMAGE_BYTES) return { ok: false, error: 'imageTooLarge' };
 
