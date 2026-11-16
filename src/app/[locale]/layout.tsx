@@ -14,6 +14,17 @@ import { routing } from '@/lib/i18n/routing';
 import { resolveWhatsAppNumber } from '@/lib/utils/whatsapp';
 import '@/styles/globals.css';
 
+/** Only ship the namespaces client components use, to keep public-page JS small. */
+const CLIENT_NAMESPACES = [
+  'Nav',
+  'LanguageSwitcher',
+  'Loading',
+  'Offices',
+  'CookieBanner',
+  'Subscribe',
+  'Unsubscribe',
+] as const;
+
 // ISR fallback: refresh at least hourly; admin saves trigger /api/revalidate sooner.
 export const revalidate = 3600;
 
@@ -34,15 +45,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   const t = await getTranslations('Layout');
-  // Only ship the namespaces client components use, to keep public-page JS small.
-  const {
-    Nav,
-    LanguageSwitcher,
-    Loading,
-    Offices,
-    CookieBanner: cookieMessages,
-  } = await getMessages();
-  const clientMessages = { Nav, LanguageSwitcher, Loading, Offices, CookieBanner: cookieMessages };
+  const messages = await getMessages();
+  const clientMessages = Object.fromEntries(
+    CLIENT_NAMESPACES.map((namespace) => [namespace, messages[namespace]]),
+  );
   const settings = await getSiteSettings();
   const whatsappNumber = resolveWhatsAppNumber(
     settings?.whatsappNumber,

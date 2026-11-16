@@ -4,6 +4,7 @@ import { Link } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
 import { LEGAL_PAGES, type SiteSettings } from '@/lib/schemas/content';
 import { formatPhone } from '@/lib/utils/format-phone';
+import { SubscribeForm } from '@/components/forms/SubscribeForm';
 import { CookieSettingsButton } from './CookieSettingsButton';
 import { ALL_NAV_ITEMS } from './nav-items';
 
@@ -16,7 +17,7 @@ export async function Footer({ settings }: { settings: SiteSettings | null }) {
 
   return (
     <footer className="mt-16 border-t border-border bg-muted">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-display text-lg font-bold">{tNav('brand')}</p>
           <p className="mt-2 text-sm text-muted-foreground">{t('tagline')}</p>
@@ -72,6 +73,8 @@ export async function Footer({ settings }: { settings: SiteSettings | null }) {
             )}
           </address>
         )}
+
+        <SubscribeForm source="footer" variant="compact" />
       </div>
       <div className="flex flex-col items-center gap-3 border-t border-border px-4 py-4 text-xs text-muted-foreground sm:flex-row sm:justify-center sm:gap-6">
         <p>{t('copyright', { year: new Date().getFullYear() })}</p>

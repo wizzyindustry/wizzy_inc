@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { SubscribeForm } from '@/components/forms/SubscribeForm';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
 import { GetInTouch } from '@/components/sections/GetInTouch';
@@ -110,7 +111,9 @@ export default async function HomePage({ params }: Props) {
         )}
         location={text(settings?.location)}
         workingHours={text(settings?.workingHours)}
-      />
+      >
+        <SubscribeForm source="home" />
+      </GetInTouch>
     </>
   );
 }

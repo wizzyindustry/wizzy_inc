@@ -6,6 +6,8 @@ export type RateLimitPolicy = { limit: number; windowMs: number };
 export const RATE_LIMITS = {
   quote: { limit: 5, windowMs: 60 * 60 * 1000 }, // 5 quote requests per hour
   contact: { limit: 5, windowMs: 60 * 60 * 1000 }, // 5 contact messages per hour
+  subscribe: { limit: 5, windowMs: 60 * 60 * 1000 }, // 5 newsletter sign-ups per hour
+  unsubscribe: { limit: 20, windowMs: 60 * 60 * 1000 }, // unsubscribe button (token guessing)
 } as const satisfies Record<string, RateLimitPolicy>;
 
 export type RateLimitAction = keyof typeof RATE_LIMITS;

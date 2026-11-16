@@ -472,7 +472,8 @@
         "site": "Site"
       },
       "legal": "Legal pages",
-      "company": "Company info"
+      "company": "Company info",
+      "subscribers": "Subscribers"
     },
     "leads": {
       "heading": "Leads",
@@ -799,7 +800,32 @@
       }
     },
     "menu": "Menu",
-    "viewSite": "View website"
+    "viewSite": "View website",
+    "subscribers": {
+      "heading": "Subscribers",
+      "intro": "People who signed up for updates with the \"Stay updated\" form. Each gets a welcome email with an unsubscribe link. Download the list as CSV for your email tool, and remove anyone who asks.",
+      "loading": "Loading…",
+      "loadError": "Could not load subscribers. Check your connection and reload.",
+      "count": "{count, plural, =0 {No subscribers yet} one {# subscriber} other {# subscribers}}",
+      "download": "Download CSV",
+      "empty": "No one has subscribed yet.",
+      "caption": "Newsletter subscribers, newest first",
+      "columns": {
+        "email": "Email",
+        "language": "Language",
+        "source": "Signed up from",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "sources": {
+        "home": "Home page",
+        "footer": "Footer"
+      },
+      "remove": "Remove {email}",
+      "removeShort": "Remove",
+      "confirmRemove": "Remove {email} from the list? This cannot be undone.",
+      "removeError": "Could not remove the subscriber. Please try again."
+    }
   },
   "Faq": {
     "meta": {
@@ -866,5 +892,32 @@
     "contactHeading": "Planning a visit?",
     "contactText": "Let us know when you are coming, so the right person is there to meet you.",
     "contactButton": "Contact us"
+  },
+  "Subscribe": {
+    "heading": "Stay updated",
+    "intro": "Get occasional news, tips and new work from Wizzy Inc by email.",
+    "emailLabel": "Your email address",
+    "placeholder": "you@example.com",
+    "button": "Subscribe",
+    "sending": "Subscribing…",
+    "success": "Thank you! Check your inbox for a welcome email.",
+    "consent": "You can unsubscribe at any time. See our <link>Privacy Policy</link>.",
+    "errors": {
+      "invalidEmail": "Please enter a valid email address.",
+      "rateLimited": "Too many tries. Please wait a while and try again.",
+      "appCheck": "We could not check this request. Please reload the page and try again.",
+      "network": "No connection. Please check your internet and try again.",
+      "server": "Something went wrong. Please try again."
+    }
+  },
+  "Unsubscribe": {
+    "title": "Unsubscribe from updates",
+    "intro": "Press the button to stop receiving emails from Wizzy Inc. Your email address will be deleted from our list.",
+    "button": "Unsubscribe",
+    "busy": "Unsubscribing…",
+    "done": "You have been unsubscribed. Your email address has been deleted from our list.",
+    "notFound": "This link is no longer valid — you may already be unsubscribed.",
+    "noToken": "This page needs the link from one of our emails.",
+    "error": "Something went wrong. Please try again in a moment."
   }
 }

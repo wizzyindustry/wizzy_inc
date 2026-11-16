@@ -227,8 +227,15 @@ There are three places where server logic runs:
 }
 ```
 
+**`subscribers`** (private; Phase 1.3 newsletter)
+```ts
+{ id: sha256(lower-case email).slice(0, 40), email, locale: "en" | "sw",
+  source: "home" | "footer", unsubscribeToken /* 32 random chars */, createdAt: Timestamp }
+```
+Written and deleted only by the server (subscribe / unsubscribe Server Actions in `src/app/[locale]/newsletter-actions.ts`, Admin → Subscribers removal); admins may read. A new document triggers `onSubscriberCreated` (welcome email via Resend with an unsubscribe link to `/{locale}/unsubscribe?t=…`; removal happens only on the button press, so link scanners remove nothing).
+
 **`counters/leads`** — `{ year: number, value: number }` for reference numbers.
-**`rateLimits/{hash}`** (server only) — `{ action, count, windowStart, expiresAt }`, one doc per salted SHA-256 of action + client IP (raw IPs are never stored). Fixed window: 5 quote / 5 contact submissions per IP per hour (`src/lib/security/rate-limit-window.ts`). Set a Firestore TTL policy on `expiresAt` in each project so old docs are deleted automatically.
+**`rateLimits/{hash}`** (server only) — `{ action, count, windowStart, expiresAt }`, one doc per salted SHA-256 of action + client IP (raw IPs are never stored). Fixed window: 5 quote / 5 contact / 5 subscribe / 20 unsubscribe requests per IP per hour (`src/lib/security/rate-limit-window.ts`). Set a Firestore TTL policy on `expiresAt` in each project so old docs are deleted automatically.
 **`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual) and optional `hero.image` (Storage `site/hero/…`), `whyChooseUs` points (`{ title, text }` bilingual; empty = built-in points), FAQ list (also shown on the home page).
 **`settings/legal`** — `privacy`, `terms`, `cookies` (bilingual markdown) and `lastUpdated` (YYYY-MM-DD). Edited in Admin → Legal pages; until saved, the pages show the drafts in `src/lib/legal/drafts.ts`.
 **`settings/about`** — About page text: `intro`, `graphicDesign`, `webDevelopment` (bilingual) and `tools` (`{ name, logo? }[]`, logo in Storage `site/tools/…`; older name-only strings are still read). Edited in Admin → About page; until saved, the page shows the built-in text from `messages/*.json`.

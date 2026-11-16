@@ -42,6 +42,12 @@ service cloud.firestore {
       allow read, update: if isAdmin();
     }
 
+    // Newsletter subscribers (personal data): created and deleted only by the server.
+    // Admins may read the list (Admin → Subscribers).
+    match /subscribers/{id} {
+      allow read: if isAdmin();
+    }
+
     // counters: no client access at all (server only).
   }
 }

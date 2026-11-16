@@ -89,6 +89,29 @@ describe('leads (private)', () => {
   });
 });
 
+describe('subscribers (private)', () => {
+  beforeEach(async () => {
+    await env.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'subscribers/s1'), { email: 'a@example.test' });
+    });
+  });
+
+  it('public and signed-in non-admins cannot read, create or delete subscribers', async () => {
+    for (const db of [publicDb(), userDb()]) {
+      await assertFails(getDoc(doc(db, 'subscribers/s1')));
+      await assertFails(setDoc(doc(db, 'subscribers/s2'), { email: 'b@example.test' }));
+      await assertFails(deleteDoc(doc(db, 'subscribers/s1')));
+    }
+  });
+
+  it('admins can read but not write (the server adds and removes subscribers)', async () => {
+    await assertSucceeds(getDoc(doc(adminDb(), 'subscribers/s1')));
+    await assertFails(setDoc(doc(adminDb(), 'subscribers/s2'), { email: 'b@example.test' }));
+    await assertFails(updateDoc(doc(adminDb(), 'subscribers/s1'), { email: 'c@example.test' }));
+    await assertFails(deleteDoc(doc(adminDb(), 'subscribers/s1')));
+  });
+});
+
 describe('counters and unknown collections', () => {
   it('counters are closed to every client, including admins', async () => {
     await assertFails(getDoc(doc(publicDb(), 'counters/leads')));

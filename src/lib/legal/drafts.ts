@@ -26,6 +26,8 @@ Wizzy Inc is run by Panta-wizzy in Dodoma, Tanzania, and offers graphic design a
 
 **When you send a message:** your name, phone number, email address (optional), how you prefer to be contacted and your message.
 
+**When you subscribe to updates ("Stay updated"):** your email address, the language you used, where on the site you signed up and the date. We send you a welcome email and occasional news. Every email has an unsubscribe link; unsubscribing deletes your address from our list.
+
 **Automatically, to protect the forms:** a one-way, salted code made from your IP address (we never store the IP address itself), used only to limit how many forms can be sent per hour. It is deleted automatically after about one hour. A security check from Google (reCAPTCHA through Firebase App Check) also runs on the forms to stop spam.
 
 We do **not** use advertising or tracking cookies, and we do not sell your data.
@@ -33,11 +35,13 @@ We do **not** use advertising or tracking cookies, and we do not sell your data.
 ## Why we use it
 - To reply to your enquiry and prepare a quote (steps you asked for before a possible contract).
 - To keep a record of our conversations and the work we agreed on.
+- To send you updates, only if you subscribed (your consent, which you can withdraw at any time).
 - To keep the website safe from spam and abuse (our legitimate interest).
 
 ## Who else handles your data
 - **Google Firebase** (database, file storage and hosting) stores your enquiry and files. [TODO: confirm the data location chosen in Firebase, e.g. europe-west1 (Belgium).]
-- **Resend** sends us an email notification when you submit a form. It contains your enquiry details.
+- **Resend** sends us an email notification when you submit a form (it contains your enquiry details), and sends the welcome email to subscribers.
+- **OpenStreetMap**: the office map is loaded from openstreetmap.org, which receives your IP address like any website you visit. It does not set tracking cookies.
 - **WhatsApp** (Meta): only if you choose to contact us there.
 
 Some of these services store data outside Tanzania. We use providers that protect data with recognised safeguards, as the Act requires for transfers abroad.

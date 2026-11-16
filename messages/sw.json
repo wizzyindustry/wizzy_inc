@@ -472,7 +472,8 @@
         "site": "Tovuti"
       },
       "legal": "Kurasa za kisheria",
-      "company": "Taarifa za kampuni"
+      "company": "Taarifa za kampuni",
+      "subscribers": "Waliojiandikisha"
     },
     "leads": {
       "heading": "Maombi",
@@ -799,7 +800,32 @@
       }
     },
     "menu": "Menyu",
-    "viewSite": "Tazama tovuti"
+    "viewSite": "Tazama tovuti",
+    "subscribers": {
+      "heading": "Waliojiandikisha",
+      "intro": "Watu waliojiandikisha kupokea taarifa kupitia fomu ya \"Pata taarifa mpya\". Kila mmoja anapata barua pepe ya kukaribisha yenye kiungo cha kujiondoa. Pakua orodha kama CSV kwa programu yako ya barua pepe, na umwondoe yeyote anayeomba.",
+      "loading": "Inapakia…",
+      "loadError": "Imeshindwa kupakia orodha. Angalia mtandao wako na upakie upya.",
+      "count": "{count, plural, =0 {Hakuna aliyejiandikisha bado} one {Mtu # amejiandikisha} other {Watu # wamejiandikisha}}",
+      "download": "Pakua CSV",
+      "empty": "Hakuna aliyejiandikisha bado.",
+      "caption": "Waliojiandikisha, wapya kwanza",
+      "columns": {
+        "email": "Barua pepe",
+        "language": "Lugha",
+        "source": "Amejiandikisha kutoka",
+        "date": "Tarehe",
+        "actions": "Vitendo"
+      },
+      "sources": {
+        "home": "Ukurasa wa mwanzo",
+        "footer": "Sehemu ya chini"
+      },
+      "remove": "Ondoa {email}",
+      "removeShort": "Ondoa",
+      "confirmRemove": "Ondoa {email} kwenye orodha? Hili haliwezi kutenduliwa.",
+      "removeError": "Imeshindwa kumwondoa. Tafadhali jaribu tena."
+    }
   },
   "Faq": {
     "meta": {
@@ -866,5 +892,32 @@
     "contactHeading": "Unapanga kututembelea?",
     "contactText": "Tujulishe utakapokuja, ili mtu sahihi awepo kukupokea.",
     "contactButton": "Wasiliana nasi"
+  },
+  "Subscribe": {
+    "heading": "Pata taarifa mpya",
+    "intro": "Pokea habari, vidokezo na kazi mpya kutoka Wizzy Inc kwa barua pepe mara kwa mara.",
+    "emailLabel": "Anwani yako ya barua pepe",
+    "placeholder": "wewe@mfano.com",
+    "button": "Jiandikishe",
+    "sending": "Inaandikisha…",
+    "success": "Asante! Angalia barua pepe yako upate ujumbe wa kukaribisha.",
+    "consent": "Unaweza kujiondoa wakati wowote. Soma <link>Sera ya Faragha</link>.",
+    "errors": {
+      "invalidEmail": "Tafadhali weka anwani sahihi ya barua pepe.",
+      "rateLimited": "Majaribio mengi mno. Tafadhali subiri kidogo kisha ujaribu tena.",
+      "appCheck": "Hatukuweza kuthibitisha ombi hili. Tafadhali pakia ukurasa upya ujaribu tena.",
+      "network": "Hakuna mtandao. Tafadhali angalia intaneti yako ujaribu tena.",
+      "server": "Kuna hitilafu. Tafadhali jaribu tena."
+    }
+  },
+  "Unsubscribe": {
+    "title": "Jiondoe kwenye taarifa",
+    "intro": "Bonyeza kitufe ili kuacha kupokea barua pepe kutoka Wizzy Inc. Anwani yako ya barua pepe itafutwa kwenye orodha yetu.",
+    "button": "Jiondoe",
+    "busy": "Inaondoa…",
+    "done": "Umejiondoa. Anwani yako ya barua pepe imefutwa kwenye orodha yetu.",
+    "notFound": "Kiungo hiki hakifanyi kazi tena — huenda tayari umejiondoa.",
+    "noToken": "Ukurasa huu unahitaji kiungo kutoka kwenye mojawapo ya barua pepe zetu.",
+    "error": "Kuna hitilafu. Tafadhali jaribu tena baadaye kidogo."
   }
 }

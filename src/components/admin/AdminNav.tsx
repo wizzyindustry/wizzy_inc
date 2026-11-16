@@ -11,6 +11,7 @@ import {
   Images,
   Inbox,
   LayoutDashboard,
+  Mail,
   MessageSquareQuote,
   Package,
   Scale,
@@ -28,6 +29,7 @@ const GROUPS: { key: string; items: Item[] }[] = [
       { href: '/admin', key: 'dashboard', icon: LayoutDashboard },
       { href: '/admin/leads', key: 'leads', icon: Inbox },
       { href: '/admin/analytics', key: 'analytics', icon: BarChart3 },
+      { href: '/admin/subscribers', key: 'subscribers', icon: Mail },
     ],
   },
   {
