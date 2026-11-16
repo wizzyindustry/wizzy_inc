@@ -22,6 +22,8 @@ import {
 import { leadSchema } from '@/lib/schemas/lead';
 import {
   sampleAbout,
+  SAMPLE_LOGO,
+  SAMPLE_LOGO_PATH,
   PLACEHOLDER_PNG,
   SAMPLE_PDF,
   sampleLeads,
@@ -97,7 +99,8 @@ async function main(): Promise<void> {
   for (const item of samplePortfolio) {
     await bucket.file(item.coverImage).save(PLACEHOLDER_PNG, { contentType: 'image/png' });
   }
-  console.log(`  storage images: ${samplePortfolio.length}`);
+  await bucket.file(SAMPLE_LOGO_PATH).save(SAMPLE_LOGO, { contentType: 'image/svg+xml' });
+  console.log(`  storage images: ${samplePortfolio.length} + 1 logo`);
   await seedAccounts();
 
   // Start from the SAMPLE leads only (removes leads left by local tests and form tries).

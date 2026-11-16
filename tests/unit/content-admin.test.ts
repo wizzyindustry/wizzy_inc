@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CONTENT_FIELDS, fieldKey } from '@/components/admin/content/fields';
+import { CONTENT_FIELDS, fieldTextKey } from '@/components/admin/content/fields';
 import { getPath, setPath, toFormValues, toSaveData } from '@/components/admin/content/form-values';
 import {
   contentFieldErrors,
@@ -165,7 +165,7 @@ describe('editor labels', () => {
       };
       for (const fields of Object.values(CONTENT_FIELDS)) {
         for (const field of fields) {
-          const key = fieldKey(field.path);
+          const key = fieldTextKey(field);
           expect(content.fields, key).toHaveProperty(key);
           if (field.hint) expect(content.hints, key).toHaveProperty(key);
         }

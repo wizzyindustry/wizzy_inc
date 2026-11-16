@@ -18,6 +18,25 @@ const SIGNATURES: Record<string, (bytes: Uint8Array) => boolean> = {
 };
 
 export function contentMatchesType(bytes: Uint8Array, declaredType: string): boolean {
+  if (declaredType === 'image/svg+xml') return svgLooksSafe(bytes);
   const check = SIGNATURES[declaredType];
   return check ? check(bytes) : false;
+}
+
+/**
+ * SVG is text (XML), so it can carry scripts. Accept only a plain drawing: it must start as
+ * an SVG/XML document and contain no scripts, event handlers, links to code or embedded
+ * pages. Strict on purpose — logos exported from Illustrator or Figma pass.
+ */
+export function svgLooksSafe(bytes: Uint8Array): boolean {
+  const text = new TextDecoder('utf-8').decode(bytes).replace(/^﻿/, ''); // drop a BOM
+  const start = text.trimStart().slice(0, 1000).toLowerCase();
+  if (!(start.startsWith('<svg') || start.startsWith('<?xml')) || !/<svg[\s>]/i.test(text)) {
+    return false;
+  }
+  // Scripts, event handlers (onload=…), embedded pages/entities, and any link that is not an
+  // internal "#id" reference (covers href and xlink:href).
+  const dangerous =
+    /<script|<foreignobject|<iframe|<embed|<object|<!entity|\son[a-z]+\s*=|javascript:|href\s*=\s*(?!["']?#)/i;
+  return !dangerous.test(text);
 }

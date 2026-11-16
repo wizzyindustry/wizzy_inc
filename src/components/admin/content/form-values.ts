@@ -51,6 +51,7 @@ function blank(field: FieldDef): unknown {
     case 'services':
     case 'gallery':
     case 'faq':
+    case 'tools':
       return [];
     case 'number':
       return field.path === 'order' ? '0' : ''; // sort order defaults to 0
@@ -79,6 +80,13 @@ export function toFormValues(fields: FieldDef[], doc: Values | null): Values {
         value = { en: (list.en ?? []).join('\n'), sw: (list.sw ?? []).join('\n') };
       } else if (field.type === 'lines') {
         value = (stored as string[]).join('\n');
+      } else if (field.type === 'tools') {
+        // Older documents stored only names.
+        value = (stored as (string | { name: string; logo?: string })[]).map((tool) =>
+          typeof tool === 'string'
+            ? { name: tool, logo: '' }
+            : { name: tool.name, logo: tool.logo ?? '' },
+        );
       }
     }
     values = setPath(values, field.path, value);
@@ -120,6 +128,13 @@ export function toSaveData(fields: FieldDef[], values: Values): Values {
         break;
       case 'portfolioRef':
         value = raw || '';
+        break;
+      case 'tools':
+        // Drop empty rows; keep the logo only when one was uploaded.
+        value = ((raw as { name?: string; logo?: string }[] | undefined) ?? [])
+          .map((tool) => ({ name: String(tool.name ?? '').trim(), logo: tool.logo ?? '' }))
+          .filter((tool) => tool.name !== '')
+          .map((tool) => (tool.logo ? tool : { name: tool.name }));
         break;
     }
     const isEmpty =

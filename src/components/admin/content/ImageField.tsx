@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { uploadPortfolioImage } from '@/app/admin/content/actions';
+import { uploadPortfolioImage, uploadSiteImage } from '@/app/admin/content/actions';
 import { Button } from '@/components/ui/Button';
 import { storageUrl } from '@/lib/utils/storage-url';
 import { useAdminSession } from '../AdminSession';
@@ -24,12 +24,28 @@ type Props = {
   label: string;
   paths: string[];
   multiple: boolean;
+  /** Hero background or tool logo (Storage site/…); otherwise a portfolio image. */
+  siteImage?: 'hero' | 'tool';
+  hint?: string;
   error?: string;
   onChange: (paths: string[]) => void;
 };
 
-/** Upload portfolio images (A5). Files go to portfolio/{itemId}/… via a checked server action. */
-export function ImageField({ id, itemId, label, paths, multiple, error, onChange }: Props) {
+/**
+ * Upload images via a checked server action: portfolio images (A5) go to portfolio/{itemId}/…,
+ * the hero background and tool logos to site/….
+ */
+export function ImageField({
+  id,
+  itemId,
+  label,
+  paths,
+  multiple,
+  siteImage,
+  hint,
+  error,
+  onChange,
+}: Props) {
   const t = useTranslations('Admin.content');
   const { getIdToken } = useAdminSession();
   const [busy, setBusy] = useState(false);
@@ -43,9 +59,15 @@ export function ImageField({ id, itemId, label, paths, multiple, error, onChange
     try {
       for (const file of Array.from(multiple ? files : [files[0]!])) {
         const formData = new FormData();
-        formData.append('itemId', itemId);
         formData.append('file', file);
-        const result = await uploadPortfolioImage(await getIdToken(), formData);
+        let result;
+        if (siteImage) {
+          formData.append('kind', siteImage);
+          result = await uploadSiteImage(await getIdToken(), formData);
+        } else {
+          formData.append('itemId', itemId);
+          result = await uploadPortfolioImage(await getIdToken(), formData);
+        }
         if (!result.ok) {
           setUploadError(
             t.has(`errors.${result.error}`) ? t(`errors.${result.error}`) : t('errors.server'),
@@ -66,6 +88,7 @@ export function ImageField({ id, itemId, label, paths, multiple, error, onChange
   return (
     <fieldset className="flex flex-col gap-2">
       <legend className="mb-1 font-medium">{label}</legend>
+      {hint && <p className="text-sm text-muted-foreground">{hint}</p>}
       {paths.length > 0 && (
         <ul className="flex flex-wrap gap-3">
           {paths.map((path) => (
@@ -76,7 +99,7 @@ export function ImageField({ id, itemId, label, paths, multiple, error, onChange
                 width={120}
                 height={90}
                 unoptimized
-                className="h-[90px] w-[120px] rounded-md border border-border object-cover"
+                className={`h-[90px] w-[120px] rounded-md border border-border ${siteImage === 'tool' ? 'object-contain p-2' : 'object-cover'}`}
               />
               <Button
                 type="button"
@@ -91,12 +114,20 @@ export function ImageField({ id, itemId, label, paths, multiple, error, onChange
         </ul>
       )}
       <label htmlFor={id} className="text-sm text-muted-foreground">
-        {multiple ? t('uploadImages') : paths.length ? t('replaceImage') : t('uploadImage')}
+        {multiple
+          ? t('uploadImages')
+          : siteImage === 'tool'
+            ? t(paths.length ? 'replaceLogo' : 'uploadLogo')
+            : t(paths.length ? 'replaceImage' : 'uploadImage')}
       </label>
       <input
         id={id}
         type="file"
-        accept="image/jpeg,image/png,image/webp"
+        accept={
+          siteImage === 'tool'
+            ? 'image/jpeg,image/png,image/webp,image/svg+xml'
+            : 'image/jpeg,image/png,image/webp'
+        }
         multiple={multiple}
         disabled={busy}
         onChange={(e) => {

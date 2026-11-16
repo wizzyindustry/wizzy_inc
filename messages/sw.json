@@ -271,7 +271,8 @@
       "heading": "Zana tunazotumia",
       "illustrator": "Adobe Illustrator",
       "figma": "Figma",
-      "more": "TODO: real content — zana nyingine na teknolojia za programu"
+      "more": "TODO: real content — zana nyingine na teknolojia za programu",
+      "logoAlt": "Nembo ya {name}"
     }
   },
   "Contact": {
@@ -586,7 +587,9 @@
         "graphicDesign": "Usanifu wa michoro — ujuzi na uzoefu",
         "webDevelopment": "Utengenezaji wa tovuti — ujuzi na uzoefu",
         "repoUrl": "Kiungo cha \"Tazama hazina ya Git\"",
-        "designUrl": "Kiungo cha \"Tazama usanifu\""
+        "designUrl": "Kiungo cha \"Tazama usanifu\"",
+        "hero_image": "Picha ya nyuma ya sehemu ya juu",
+        "aboutTools": "Zana tunazotumia"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -610,7 +613,9 @@
         "webDevelopment": "Huonyeshwa chini ya \"Utengenezaji wa tovuti\" kwenye ukurasa wa Kuhusu.",
         "liveUrl": "Anwani kamili inayoanza na https://, mfano https://tovuti-ya-mteja.co.tz. Kitufe hakionekani ikiwa ni tupu.",
         "repoUrl": "Mfano https://github.com/jina-lako/mradi. Acha tupu kwa msimbo wa siri.",
-        "designUrl": "Mfano ukurasa wa Behance au Dribbble, au PDF ya Google Drive. Huanza na https://."
+        "designUrl": "Mfano ukurasa wa Behance au Dribbble, au PDF ya Google Drive. Huanza na https://.",
+        "hero_image": "Si lazima: picha pana nyuma ya kichwa (JPG, PNG au WebP, upana angalau pikseli 1600, hadi MB 5). Maandishi hupata kivuli cheusi ili yasomeke.",
+        "aboutTools": "Kadi moja kwa kila zana, kwa mpangilio huu. Pakia nembo rasmi (SVG au PNG yenye mandharinyuma angavu ni bora). Bila nembo kadi huonyesha herufi ya kwanza."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -621,12 +626,23 @@
         "imageType": "Picha za JPG, PNG au WebP pekee zinaruhusiwa.",
         "imageTooLarge": "Picha zisizidi MB 5.",
         "server": "Kuna hitilafu. Tafadhali jaribu tena.",
-        "network": "Hakuna mtandao. Tafadhali jaribu tena."
+        "network": "Hakuna mtandao. Tafadhali jaribu tena.",
+        "logoType": "Picha za JPG, PNG, WebP au SVG pekee zinaruhusiwa. Faili za SVG zisiwe na hati (script) wala viungo."
       },
       "swMissing": "Kiswahili hakipo",
       "swSummary": "Vipengele {count} kati ya {total} bado vinahitaji maandishi ya Kiswahili (kwa sasa wageni wa Kiswahili wanaona Kiingereza).",
       "swNotice": "Maandishi ya Kiswahili hayapo katika sehemu hizi. Hadi yaongezwe, wageni wa Kiswahili wanaona maandishi ya Kiingereza:",
-      "aboutHeading": "Ukurasa wa Kuhusu"
+      "aboutHeading": "Ukurasa wa Kuhusu",
+      "toolsField": {
+        "name": "Jina la zana {number}",
+        "logo": "Nembo (si lazima)",
+        "add": "Ongeza zana",
+        "remove": "Ondoa zana",
+        "moveUp": "Sogeza {name} juu",
+        "moveDown": "Sogeza {name} chini"
+      },
+      "uploadLogo": "Pakia nembo (SVG, PNG, JPG au WebP, hadi MB 5)",
+      "replaceLogo": "Badilisha nembo (SVG, PNG, JPG au WebP, hadi MB 5)"
     },
     "analytics": {
       "heading": "Takwimu",

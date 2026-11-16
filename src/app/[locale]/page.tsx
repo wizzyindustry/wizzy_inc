@@ -44,6 +44,7 @@ export default async function HomePage({ params }: Props) {
       <Hero
         headline={settings ? localized(settings.hero.headline, locale) : t('headline')}
         subheadline={settings ? localized(settings.hero.subheadline, locale) : t('subheadline')}
+        image={settings?.hero.image}
       />
       <ServiceCategoryCards services={services} locale={locale} />
       <FeaturedWork items={featured} locale={locale} />

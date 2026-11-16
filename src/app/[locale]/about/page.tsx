@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CtaBanner } from '@/components/sections/CtaBanner';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
 import { getAboutPage } from '@/lib/data/about';
+import type { AboutTool } from '@/lib/schemas/content';
+import { storageUrl } from '@/lib/utils/storage-url';
 import { localized } from '@/lib/i18n/localized';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 
@@ -28,7 +31,9 @@ export default async function AboutPage({ params }: Props) {
   const about = await getAboutPage();
   const skill = (group: (typeof SKILL_GROUPS)[number]) =>
     about ? localized(about[group], locale) : t(`skills.${group}.description`);
-  const tools = about?.tools.length ? about.tools : TOOLS.map((tool) => t(`tools.${tool}`));
+  const tools: AboutTool[] = about?.tools.length
+    ? about.tools
+    : TOOLS.map((tool) => ({ name: t(`tools.${tool}`) }));
 
   return (
     <>
@@ -58,10 +63,32 @@ export default async function AboutPage({ params }: Props) {
           <h2 id="tools-heading" className="font-display text-2xl font-bold">
             {t('tools.heading')}
           </h2>
-          <ul className="mt-6 flex flex-wrap gap-3">
+          <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {tools.map((tool) => (
-              <li key={tool} className="rounded-full bg-muted px-4 py-2 text-sm">
-                {tool}
+              <li
+                key={tool.name}
+                className="flex flex-col items-center gap-3 rounded-lg border border-border p-5 text-center"
+              >
+                {tool.logo ? (
+                  <Image
+                    src={storageUrl(tool.logo)}
+                    alt={t('tools.logoAlt', { name: tool.name })}
+                    width={56}
+                    height={56}
+                    sizes="56px"
+                    // SVG logos are served as they are (the image optimiser does not take SVG).
+                    unoptimized={tool.logo.endsWith('.svg')}
+                    className="size-14 object-contain"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="flex size-14 items-center justify-center rounded-full bg-muted font-display text-xl font-bold text-primary"
+                  >
+                    {tool.name.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <span className="text-sm font-medium">{tool.name}</span>
               </li>
             ))}
           </ul>

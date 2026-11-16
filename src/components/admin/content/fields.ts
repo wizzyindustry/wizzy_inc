@@ -21,7 +21,8 @@ export type FieldType =
   | 'portfolioRef' // optional portfolio item id
   | 'image' // one Storage path
   | 'gallery' // Storage paths
-  | 'faq'; // { q: {en,sw}, a: {en,sw} }[]
+  | 'faq' // { q: {en,sw}, a: {en,sw} }[]
+  | 'tools'; // { name, logo? }[] — About page "Tools we use" cards
 
 export type FieldDef = {
   path: string;
@@ -30,6 +31,10 @@ export type FieldDef = {
   hint?: boolean;
   options?: readonly string[];
   numeric?: boolean; // select whose values are numbers
+  /** Label/hint translation key when two editors use the same path differently. */
+  labelKey?: string;
+  /** Image fields outside the portfolio: where the upload goes (Storage site/hero, site/tools). */
+  siteImage?: 'hero' | 'tool';
   /** Only shown (and saved) when another field has one of these values. */
   showWhen?: { path: string; values: readonly string[] };
 };
@@ -110,6 +115,7 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
   settings: [
     { path: 'hero.headline', type: 'bilingual' },
     { path: 'hero.subheadline', type: 'bilingual' },
+    { path: 'hero.image', type: 'image', optional: true, hint: true, siteImage: 'hero' },
     { path: 'phone', type: 'text', hint: true },
     { path: 'whatsappNumber', type: 'text', hint: true },
     { path: 'email', type: 'text' },
@@ -127,7 +133,7 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'intro', type: 'bilingualLong', hint: true },
     { path: 'graphicDesign', type: 'bilingualLong', hint: true },
     { path: 'webDevelopment', type: 'bilingualLong', hint: true },
-    { path: 'tools', type: 'lines', hint: true },
+    { path: 'tools', type: 'tools', hint: true, labelKey: 'aboutTools' },
   ],
 };
 
@@ -139,6 +145,9 @@ export function fieldVisible(field: FieldDef, values: Record<string, unknown>): 
     .reduce<unknown>((v, k) => (v as Record<string, unknown> | undefined)?.[k], values);
   return field.showWhen.values.includes(String(current ?? ''));
 }
+
+/** Translation key for a field's label and hint (Admin.content.fields / .hints). */
+export const fieldTextKey = (field: FieldDef) => field.labelKey ?? fieldKey(field.path);
 
 /** Translation key for a field path: "hero.headline" -> "hero_headline". */
 export const fieldKey = (path: string) => path.replace(/\./g, '_');

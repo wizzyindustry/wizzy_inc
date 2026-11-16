@@ -16,7 +16,7 @@ import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import { useAdminSession } from '../AdminSession';
 import { ContentField, type Option } from './ContentField';
-import { CONTENT_FIELDS, fieldKey, fieldVisible, type EditorKind } from './fields';
+import { CONTENT_FIELDS, fieldKey, fieldTextKey, fieldVisible, type EditorKind } from './fields';
 import { getPath, setPath, toFormValues, toSaveData, type Values } from './form-values';
 import { missingSwahili } from './translation-status';
 
@@ -201,7 +201,12 @@ export function ContentEditor({ kind, id }: Props) {
         <div className="rounded-md border border-accent bg-background p-3 text-sm">
           <p className="font-semibold">{t('swNotice')}</p>
           <p className="text-muted-foreground">
-            {missingSw.map((path) => t(`fields.${fieldKey(path)}`)).join(' · ')}
+            {missingSw
+              .map((path) => {
+                const field = fields.find((f) => f.path === path);
+                return t(`fields.${field ? fieldTextKey(field) : fieldKey(path)}`);
+              })
+              .join(' · ')}
           </p>
         </div>
       )}

@@ -4,6 +4,7 @@ import {
   bilingualTextSchema,
   priceTZSSchema,
   serviceCategorySchema,
+  siteImagePathSchema,
   slugSchema,
   webUrlSchema,
 } from './common';
@@ -104,11 +105,26 @@ export const siteSettingsSchema = z.object({
       webUrlSchema,
     )
     .default({}),
-  hero: z.object({ headline: bilingualTextSchema, subheadline: bilingualTextSchema }),
+  hero: z.object({
+    headline: bilingualTextSchema,
+    subheadline: bilingualTextSchema,
+    /** Optional background photo (Storage path). Text sits on a dark overlay for contrast. */
+    image: siteImagePathSchema('site/hero').optional(),
+  }),
   /** FAQ page (F12): payment, revisions, timelines, file formats, hosting — owner content. */
   faq: z.array(faqItemSchema).default([]),
 });
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;
+
+/** One "Tools we use" card. Older documents stored just the name, so a plain string is accepted. */
+export const aboutToolSchema = z.union([
+  z
+    .string()
+    .min(1)
+    .transform((name) => ({ name })),
+  z.object({ name: z.string().min(1), logo: siteImagePathSchema('site/tools').optional() }),
+]);
+export type AboutTool = { name: string; logo?: string };
 
 /**
  * About page text (F8), edited in admin (Firestore `settings/about`). Until it is saved,
@@ -118,6 +134,6 @@ export const aboutPageSchema = z.object({
   intro: bilingualTextSchema,
   graphicDesign: bilingualTextSchema,
   webDevelopment: bilingualTextSchema,
-  tools: z.array(z.string().min(1)).default([]),
+  tools: z.array(aboutToolSchema).default([]),
 });
 export type AboutPage = z.infer<typeof aboutPageSchema>;

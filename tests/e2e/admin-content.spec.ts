@@ -162,6 +162,29 @@ test.describe('shared site documents', () => {
     await save(page);
   });
 
+  test('a hero background image is uploaded in settings', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    await signInAsAdmin(page);
+    await page.goto('/admin/settings');
+    const hero = page.getByRole('group', { name: 'Hero background image' });
+    await page
+      .locator('#field-hero_image')
+      .setInputFiles({ name: 'hero.png', mimeType: 'image/png', buffer: PNG });
+    await expect(hero.locator('img')).toBeVisible(); // preview
+    await save(page);
+
+    await page.goto('/en');
+    const firstSection = page.getByRole('main').locator('section').first();
+    await expect(firstSection.locator('img')).toHaveAttribute('src', /site%(25)?2Fhero/);
+
+    // Remove it again, so local review data is left as it was.
+    await page.goto('/admin/settings');
+    await hero.getByRole('button', { name: 'Remove', exact: true }).click();
+    await save(page);
+    await page.goto('/en');
+    await expect(page.getByRole('main').locator('section').first().locator('img')).toHaveCount(0);
+  });
+
   test('the About page text is edited in admin', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
     const intro = `E2E about intro ${Date.now()}`;
@@ -170,19 +193,40 @@ test.describe('shared site documents', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('About page');
     const field = page.locator('#field-intro-en');
     const original = await field.inputValue();
-    const tools = page.locator('#field-tools');
-    const originalTools = await tools.inputValue();
     await field.fill(intro);
-    await tools.fill('Adobe Illustrator\nE2E tool');
+
+    // Add a tool card with an SVG logo; an SVG with a script is refused.
+    const tools = page.getByRole('group', { name: 'Tools we use' });
+    const rows = tools.locator('ol > li'); // one per tool
+    const before = await rows.count();
+    await tools.getByRole('button', { name: 'Add a tool' }).click();
+    await page.locator(`#field-tools-${before}-name`).fill('E2E tool');
+    const logo = page.locator(`#field-tools-${before}-logo`);
+    await logo.setInputFiles({
+      name: 'bad.svg',
+      mimeType: 'image/svg+xml',
+      buffer: Buffer.from('<svg onload="alert(1)"></svg>'),
+    });
+    await expect(page.getByText('SVG files must not contain scripts or links.')).toBeVisible();
+    await logo.setInputFiles({
+      name: 'logo.svg',
+      mimeType: 'image/svg+xml',
+      buffer: Buffer.from(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><rect width="4" height="4"/></svg>',
+      ),
+    });
+    await expect(rows.last().locator('img')).toBeVisible(); // logo preview
     await save(page);
 
     await page.goto('/en/about');
     await expect(page.getByText(intro)).toBeVisible();
-    await expect(page.getByText('E2E tool', { exact: true })).toBeVisible();
+    await expect(page.getByRole('img', { name: 'E2E tool logo' })).toBeVisible();
 
+    // Put everything back, so local review data is left as it was.
     await page.goto('/admin/about');
     await page.locator('#field-intro-en').fill(original);
-    await page.locator('#field-tools').fill(originalTools);
+    await rows.last().getByRole('button', { name: 'Remove tool' }).click();
+    await expect(rows).toHaveCount(before);
     await save(page);
   });
 });

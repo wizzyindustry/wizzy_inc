@@ -4,8 +4,9 @@ import { useTranslations } from 'next-intl';
 import { describedBy, FormField } from '@/components/forms/FormField';
 import { fieldClass } from '@/components/ui/field-styles';
 import { FaqField, type FaqItem } from './FaqField';
-import { fieldKey, type FieldDef } from './fields';
+import { fieldKey, fieldTextKey, type FieldDef } from './fields';
 import { ImageField } from './ImageField';
+import { ToolsField, type ToolItem } from './ToolsField';
 
 export type Option = { value: string; label: string };
 
@@ -32,8 +33,8 @@ export function ContentField({
   const t = useTranslations('Admin.content');
   const key = fieldKey(field.path);
   const id = `field-${key}`;
-  const label = t(`fields.${key}`);
-  const hint = field.hint ? t(`hints.${key}`) : undefined;
+  const label = t(`fields.${fieldTextKey(field)}`);
+  const hint = field.hint ? t(`hints.${fieldTextKey(field)}`) : undefined;
   const optional = field.optional ? t('optional') : undefined;
   const aria = { 'aria-invalid': !!error, 'aria-describedby': describedBy(id, hint, error) };
 
@@ -155,6 +156,18 @@ export function ContentField({
         />
       );
 
+    case 'tools':
+      return (
+        <ToolsField
+          id={id}
+          label={label}
+          hint={hint}
+          items={(value as ToolItem[]) ?? []}
+          error={error}
+          onChange={onChange}
+        />
+      );
+
     case 'image':
     case 'gallery': {
       const paths =
@@ -166,6 +179,8 @@ export function ContentField({
           label={label}
           paths={paths}
           multiple={field.type === 'gallery'}
+          siteImage={field.siteImage}
+          hint={hint}
           error={error}
           onChange={(next) => onChange(field.type === 'image' ? (next[0] ?? '') : next)}
         />

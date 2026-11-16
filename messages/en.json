@@ -271,7 +271,8 @@
       "heading": "Tools we use",
       "illustrator": "Adobe Illustrator",
       "figma": "Figma",
-      "more": "TODO: real content — other tools and code stack"
+      "more": "TODO: real content — other tools and code stack",
+      "logoAlt": "{name} logo"
     }
   },
   "Contact": {
@@ -586,7 +587,9 @@
         "graphicDesign": "Graphic design — skills and experience",
         "webDevelopment": "Web development — skills and experience",
         "repoUrl": "\"View Git repo\" link",
-        "designUrl": "\"View design\" link"
+        "designUrl": "\"View design\" link",
+        "hero_image": "Hero background image",
+        "aboutTools": "Tools we use"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -610,7 +613,9 @@
         "webDevelopment": "Shown under \"Web Development\" on the About page.",
         "liveUrl": "Full address starting with https://, e.g. https://client-site.co.tz. The button is hidden while this is empty.",
         "repoUrl": "e.g. https://github.com/your-name/project. Leave empty for private code.",
-        "designUrl": "e.g. a Behance or Dribbble page, or a shared Google Drive PDF. Starts with https://."
+        "designUrl": "e.g. a Behance or Dribbble page, or a shared Google Drive PDF. Starts with https://.",
+        "hero_image": "Optional wide photo behind the headline (JPG, PNG or WebP, at least 1600 px wide, max 5 MB). The text gets a dark overlay so it stays readable.",
+        "aboutTools": "One card per tool, shown in this order. Upload the official logo (SVG or PNG with a transparent background works best). Without a logo the card shows the first letter."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -621,12 +626,23 @@
         "imageType": "Only JPG, PNG or WebP images are allowed.",
         "imageTooLarge": "Images must be 5 MB or smaller.",
         "server": "Something went wrong. Please try again.",
-        "network": "No connection. Please try again."
+        "network": "No connection. Please try again.",
+        "logoType": "Only JPG, PNG, WebP or SVG images are allowed. SVG files must not contain scripts or links."
       },
       "swMissing": "Swahili missing",
       "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
       "swNotice": "Swahili text is missing in these fields. Until it is added, Swahili visitors see the English text:",
-      "aboutHeading": "About page"
+      "aboutHeading": "About page",
+      "toolsField": {
+        "name": "Tool {number} name",
+        "logo": "Logo (optional)",
+        "add": "Add a tool",
+        "remove": "Remove tool",
+        "moveUp": "Move {name} up",
+        "moveDown": "Move {name} down"
+      },
+      "uploadLogo": "Upload a logo (SVG, PNG, JPG or WebP, max 5 MB)",
+      "replaceLogo": "Replace the logo (SVG, PNG, JPG or WebP, max 5 MB)"
     },
     "analytics": {
       "heading": "Analytics",

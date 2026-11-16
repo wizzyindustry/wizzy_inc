@@ -19,6 +19,10 @@ export type BilingualList = z.infer<typeof bilingualListSchema>;
  */
 export const webUrlSchema = z.httpUrl();
 
+/** A Storage path of an uploaded site image, e.g. "site/hero/1700000000-bg.webp". */
+export const siteImagePathSchema = (folder: 'site/hero' | 'site/tools') =>
+  z.string().regex(new RegExp(`^${folder}/[A-Za-z0-9._-]+$`), 'Invalid image');
+
 export const localeSchema = z.enum(['en', 'sw']);
 
 export const slugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Invalid slug');

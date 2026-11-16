@@ -17,6 +17,16 @@ service firebase.storage {
       allow delete: if isAdmin();
     }
 
+    // Site images (hero background, tool logos): public read; admin upload of
+    // JPG/PNG/WebP/SVG up to 5 MB. Uploads normally go through a checked server action.
+    match /site/{allPaths=**} {
+      allow read;
+      allow create, update: if isAdmin()
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp|svg[+]xml)');
+      allow delete: if isAdmin();
+    }
+
     // Quote attachments: written only by the server (Admin SDK); admins may read.
     match /quotes/{allPaths=**} {
       allow read: if isAdmin();

@@ -195,7 +195,9 @@ There are three places where server logic runs:
   problem: {en, sw}, solution: {en, sw}, result?: {en, sw},
   tools: string[],                    // ["Illustrator", "Next.js"]
   coverImage: string, gallery: string[], // Storage paths
-  liveUrl?: string, featured: boolean,
+  liveUrl?: string, repoUrl?: string,     // web development: "View project", "View Git repo"
+  designUrl?: string,                     // graphic design: "View design" (http(s) only)
+  featured: boolean,
   isPersonalProject: boolean,         // label academic/personal work honestly
   published: boolean, completedAt: Timestamp, order: number
 }
@@ -227,8 +229,8 @@ There are three places where server logic runs:
 
 **`counters/leads`** — `{ year: number, value: number }` for reference numbers.
 **`rateLimits/{hash}`** (server only) — `{ action, count, windowStart, expiresAt }`, one doc per salted SHA-256 of action + client IP (raw IPs are never stored). Fixed window: 5 quote / 5 contact submissions per IP per hour (`src/lib/security/rate-limit-window.ts`). Set a Firestore TTL policy on `expiresAt` in each project so old docs are deleted automatically.
-**`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual), FAQ list.
-**`settings/about`** — About page text: `intro`, `graphicDesign`, `webDevelopment` (bilingual) and `tools` (string list). Edited in Admin → About page; until saved, the page shows the built-in text from `messages/*.json`.
+**`settings/site`** — contact phone, WhatsApp number, email, social links, working hours, hero text (bilingual) and optional `hero.image` (Storage `site/hero/…`), FAQ list.
+**`settings/about`** — About page text: `intro`, `graphicDesign`, `webDevelopment` (bilingual) and `tools` (`{ name, logo? }[]`, logo in Storage `site/tools/…`; older name-only strings are still read). Edited in Admin → About page; until saved, the page shows the built-in text from `messages/*.json`.
 
 ### 5.2 Indexes
 - `leads`: `status ASC, createdAt DESC`; `serviceSlug ASC, createdAt DESC`
@@ -240,7 +242,7 @@ There are three places where server logic runs:
 - `services`, `packages`, `portfolio`, `testimonials`, `settings`: public **read** only where `published == true` (settings always readable); **write** only if `request.auth.token.admin == true`.
 - `rateLimits`: no client access at all (not listed in the rules, so denied by default).
 - `leads`, `counters`: **no client access at all** for the public — created only by the server (Admin SDK). Admins may read/update `leads`; nobody may delete from the client.
-- Storage: `portfolio/**` public read, admin write; `quotes/**` admin read only, server write only.
+- Storage: `portfolio/**` and `site/**` (hero image, tool logos; JPG/PNG/WebP/SVG) public read, admin write; `quotes/**` admin read only, server write only. SVG uploads are checked on the server for scripts and links (`svgLooksSafe`).
 
 Full rules: `firestore.rules`, `storage.rules`. They are tested with the emulator in `tests/rules/`.
 

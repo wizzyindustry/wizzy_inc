@@ -180,6 +180,8 @@ export const sampleSettings = {
   ],
 };
 
+export const SAMPLE_LOGO_PATH = 'site/tools/sample-logo.svg';
+
 /** About page text (settings/about). Placeholder only — the owner writes the real text. */
 export const sampleAbout = {
   intro: s(
@@ -188,8 +190,13 @@ export const sampleAbout = {
   ),
   graphicDesign: s('graphic design skills and experience.'),
   webDevelopment: s('web development skills and experience.'),
-  tools: ['Adobe Illustrator', 'Figma'],
+  tools: [{ name: 'Adobe Illustrator', logo: SAMPLE_LOGO_PATH }, { name: 'Figma' }],
 };
+
+/** Placeholder logo (a plain circle) for the first sample tool card. */
+export const SAMPLE_LOGO = Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#1d4ed8"/></svg>',
+);
 
 /** 1×1 transparent PNG used as a stand-in cover image. */
 export const PLACEHOLDER_PNG = Buffer.from(

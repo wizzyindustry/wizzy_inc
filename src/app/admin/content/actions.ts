@@ -186,3 +186,44 @@ export async function uploadPortfolioImage(
     return { ok: false, error: 'server' };
   }
 }
+
+/** Where each kind of site image goes, and which types it accepts (storage.rules: site/**). */
+const SITE_IMAGES = {
+  hero: { folder: 'site/hero', types: IMAGE_TYPES },
+  tool: { folder: 'site/tools', types: [...IMAGE_TYPES, 'image/svg+xml'] }, // logos are often SVG
+} as const;
+export type SiteImageKind = keyof typeof SITE_IMAGES;
+
+/** Upload a hero background or a tool logo (≤ 5 MB, checked by content) -> Storage path. */
+export async function uploadSiteImage(
+  idToken: string,
+  formData: FormData,
+): Promise<ActionResult<{ path: string }>> {
+  if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
+  const kind = formData.get('kind');
+  const file = formData.get('file');
+  if (kind !== 'hero' && kind !== 'tool') return { ok: false, error: 'validation' };
+  if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'validation' };
+  const { folder, types } = SITE_IMAGES[kind];
+  const typeError = kind === 'tool' ? 'logoType' : 'imageType';
+  if (!(types as readonly string[]).includes(file.type)) return { ok: false, error: typeError };
+  if (file.size > MAX_IMAGE_BYTES) return { ok: false, error: 'imageTooLarge' };
+
+  try {
+    const bytes = Buffer.from(await file.arrayBuffer());
+    if (!contentMatchesType(bytes, file.type)) return { ok: false, error: typeError };
+    const path = `${folder}/${Date.now()}-${safeFileName(file.name)}`;
+    await adminStorage()
+      .bucket()
+      .file(path)
+      .save(bytes, {
+        contentType: file.type,
+        resumable: false,
+        metadata: { cacheControl: 'public, max-age=31536000, immutable' },
+      });
+    return { ok: true, data: { path } };
+  } catch (error) {
+    logFailure('uploadSiteImage', error);
+    return { ok: false, error: 'server' };
+  }
+}
