@@ -295,6 +295,28 @@ Steps:
 > else is already on Firebase. **Vercel works too.** Choose it if you prefer Vercel's dashboard and
 > preview deployments, and are fine with the Pro plan and managing a service-account key.
 
+### Copying content you edited locally to the live site
+
+Edits made in the local admin live only in the emulators on your computer; the live site reads
+the real Firebase project. To copy them once (owner only):
+
+```bash
+# 1. With the emulators running (pnpm emulators):
+pnpm content:copy export
+#    -> writes .production-copy/ (git-ignored) and lists what will be copied, what is skipped
+#       (sample items, leads, subscribers, test accounts) and any leftover sample text.
+
+# 2. Dry run against the real project (writes nothing):
+pnpm content:copy import --key path/to/service-account.json --bucket <your-bucket>
+
+# 3. Copy for real:
+pnpm content:copy import --key path/to/service-account.json --bucket <your-bucket> --confirm
+```
+
+Existing documents in the real project are never overwritten. Keep the key file **outside**
+the project folder, and delete `.production-copy/` afterwards. Then sign in to the live admin
+and press **Save** on any page (or redeploy) so the public pages refresh.
+
 ### Before going live (checklist)
 
 - [ ] Real content entered in the admin (no `SAMPLE:` items left; delete sample data).

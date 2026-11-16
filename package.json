@@ -22,7 +22,8 @@
     "emulators": "tsx scripts/emulators.ts",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "seed": "tsx scripts/seed/index.ts",
-    "admin:claim": "tsx scripts/set-admin-claim.ts"
+    "admin:claim": "tsx scripts/set-admin-claim.ts",
+    "content:copy": "tsx scripts/copy-content.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",
