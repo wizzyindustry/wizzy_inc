@@ -47,4 +47,11 @@ describe('missingSwahili (FR-9 / translation drift)', () => {
     };
     expect(missingSwahili(CONTENT_FIELDS.about, about)).toEqual(['graphicDesign']);
   });
+
+  it('flags "Why choose us" points with English only', () => {
+    const settings = {
+      whyChooseUs: [{ title: { en: 'Fast', sw: 'Haraka' }, text: { en: 'We are fast.', sw: '' } }],
+    };
+    expect(missingSwahili(CONTENT_FIELDS.settings, settings)).toContain('whyChooseUs');
+  });
 });

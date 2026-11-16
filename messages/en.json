@@ -87,6 +87,37 @@
       "heading": "Ready to start your project?",
       "description": "Tell us about your project and get a clear price — no long chats needed.",
       "button": "Request a quote"
+    },
+    "about": {
+      "eyebrow": "About us",
+      "heading": "Who is behind Wizzy Inc",
+      "more": "More about us"
+    },
+    "why": {
+      "heading": "Why choose us",
+      "defaults": {
+        "oneStop": {
+          "title": "Design and web in one place",
+          "text": "Your logo, posters, social media graphics and website made by the same team, so everything looks like one brand."
+        },
+        "clearPrices": {
+          "title": "Clear prices in TZS",
+          "text": "Packages with starting prices in Tanzanian shillings, and a written quote before any work starts."
+        },
+        "bilingual": {
+          "title": "English and Swahili",
+          "text": "We work with you in the language you prefer, and can make your designs and website bilingual."
+        },
+        "local": {
+          "title": "Based in Dodoma",
+          "text": "Close to our clients in Dodoma and reachable on WhatsApp from anywhere in Tanzania."
+        }
+      }
+    },
+    "faq": {
+      "heading": "Questions clients ask",
+      "more": "See all questions",
+      "seeAll": "See all {count} questions"
     }
   },
   "Portfolio": {
@@ -223,7 +254,7 @@
     "next": "Next",
     "submit": "Send request",
     "sending": "Sending…",
-    "privacy": "TODO: real content — privacy notice (Tanzania Personal Data Protection Act 2022) to be written and reviewed by the owner before launch.",
+    "privacy": "By sending, you agree that we use your details to reply to you, as explained in our <link>Privacy Policy</link>.",
     "errors": {
       "serviceRequired": "Please choose a service.",
       "invalidPackage": "This package is not available for the chosen service.",
@@ -315,7 +346,7 @@
     },
     "submit": "Send message",
     "sending": "Sending…",
-    "privacy": "TODO: real content — privacy notice (Tanzania Personal Data Protection Act 2022) to be written and reviewed by the owner before launch.",
+    "privacy": "By sending, you agree that we use your details to reply to you, as explained in our <link>Privacy Policy</link>.",
     "success": {
       "title": "Thank you — your message was sent",
       "body": "We will get back to you soon, usually within one working day.",
@@ -600,7 +631,8 @@
         "lastUpdated": "Last updated (shown on the pages)",
         "privacy": "Privacy Policy",
         "terms": "Terms & Conditions",
-        "cookies": "Cookie Policy"
+        "cookies": "Cookie Policy",
+        "whyChooseUs": "Home page: \"Why choose us\" points"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -630,7 +662,8 @@
         "lastUpdated": "Change this date whenever you make a real change to the text.",
         "privacy": "Markdown: \"## \" starts a heading, \"- \" a bullet point, **bold**, [link text](https://…). Replace every [TODO] and remove the DRAFT line once a lawyer has checked it.",
         "terms": "Same formatting as above. Fill in payment, revisions, ownership and cancellation rules.",
-        "cookies": "Update this list if you ever add cookies, for example visitor statistics."
+        "cookies": "Update this list if you ever add cookies, for example visitor statistics.",
+        "whyChooseUs": "Short title and one or two sentences each (4 points look best). While this list is empty, the home page shows 4 built-in points."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -658,7 +691,13 @@
       },
       "uploadLogo": "Upload a logo (SVG, PNG, JPG or WebP, max 5 MB)",
       "replaceLogo": "Replace the logo (SVG, PNG, JPG or WebP, max 5 MB)",
-      "legalHeading": "Legal pages"
+      "legalHeading": "Legal pages",
+      "points": {
+        "title": "Title",
+        "text": "Text",
+        "add": "Add a point",
+        "remove": "Remove this point"
+      }
     },
     "analytics": {
       "heading": "Analytics",

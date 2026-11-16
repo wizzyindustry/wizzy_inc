@@ -51,6 +51,7 @@ function blank(field: FieldDef): unknown {
     case 'services':
     case 'gallery':
     case 'faq':
+    case 'points':
     case 'tools':
       return [];
     case 'number':

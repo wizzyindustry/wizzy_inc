@@ -42,7 +42,8 @@ test('full quote request ends on the success page with a reference (F6, FR-4)', 
   await page.locator('#phone').fill('0712345678');
   await page.getByRole('button', { name: 'Send request' }).click();
 
-  await expect(page).toHaveURL(/\/en\/quote\/success\?ref=WZ-\d{4}-\d{4,}/);
+  // Sending uploads the file and saves the lead: allow for a slow (busy) machine.
+  await expect(page).toHaveURL(/\/en\/quote\/success\?ref=WZ-\d{4}-\d{4,}/, { timeout: 15_000 });
   await expect(page.getByText(/^WZ-\d{4}-\d{4,}$/)).toBeVisible();
 });
 

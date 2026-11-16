@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { submitQuote } from '@/app/[locale]/quote/actions';
 import { Button } from '@/components/ui/Button';
 import { fieldClass } from '@/components/ui/field-styles';
-import { useRouter } from '@/lib/i18n/navigation';
+import { Link, useRouter } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
 import {
   ALLOWED_ATTACHMENT_TYPES,
@@ -442,7 +442,15 @@ export function QuoteForm({ locale, today, services, packages, categoryLabels, i
             </label>
           ))}
         </fieldset>
-        <p className="rounded-md bg-muted p-3 text-sm text-muted-foreground">{t('privacy')}</p>
+        <p className="rounded-md bg-muted p-3 text-sm text-muted-foreground">
+          {t.rich('privacy', {
+            link: (chunks) => (
+              <Link href="/privacy" className="text-primary underline underline-offset-4">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
       </div>
 
       {/* Honeypot: hidden from people and assistive tech; bots tend to fill it. */}

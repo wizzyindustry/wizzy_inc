@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { submitContact } from '@/app/[locale]/contact/actions';
 import { Button } from '@/components/ui/Button';
 import { fieldClass } from '@/components/ui/field-styles';
+import { Link } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
 import type { ContactData, ContactInput } from '@/lib/schemas/contact-input';
 import { HONEYPOT_FIELD } from '@/lib/security/honeypot';
@@ -223,7 +224,15 @@ export function ContactForm({ locale, whatsappNumber }: Props) {
         />
       </FormField>
 
-      <p className="rounded-md bg-muted p-3 text-sm text-muted-foreground">{t('privacy')}</p>
+      <p className="rounded-md bg-muted p-3 text-sm text-muted-foreground">
+        {t.rich('privacy', {
+          link: (chunks) => (
+            <Link href="/privacy" className="text-primary underline underline-offset-4">
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
 
       {/* Honeypot: hidden from people and assistive tech; bots tend to fill it. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">

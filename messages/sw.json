@@ -87,6 +87,37 @@
       "heading": "Uko tayari kuanza mradi wako?",
       "description": "Tueleze kuhusu mradi wako upate bei iliyo wazi — bila mazungumzo marefu.",
       "button": "Omba makadirio ya bei"
+    },
+    "about": {
+      "eyebrow": "Kuhusu sisi",
+      "heading": "Nani yuko nyuma ya Wizzy Inc",
+      "more": "Zaidi kuhusu sisi"
+    },
+    "why": {
+      "heading": "Kwa nini utuchague",
+      "defaults": {
+        "oneStop": {
+          "title": "Usanifu na tovuti mahali pamoja",
+          "text": "Nembo, mabango, michoro ya mitandao ya kijamii na tovuti yako hutengenezwa na timu moja, hivyo vyote vinaonekana kama chapa moja."
+        },
+        "clearPrices": {
+          "title": "Bei wazi kwa TZS",
+          "text": "Vifurushi vyenye bei za kuanzia kwa shilingi za Kitanzania, na makadirio ya bei kwa maandishi kabla kazi haijaanza."
+        },
+        "bilingual": {
+          "title": "Kiingereza na Kiswahili",
+          "text": "Tunafanya kazi nawe kwa lugha unayopendelea, na tunaweza kufanya michoro na tovuti yako kwa lugha mbili."
+        },
+        "local": {
+          "title": "Tuko Dodoma",
+          "text": "Karibu na wateja wetu wa Dodoma na tunapatikana kwa WhatsApp kutoka popote Tanzania."
+        }
+      }
+    },
+    "faq": {
+      "heading": "Maswali ambayo wateja huuliza",
+      "more": "Tazama maswali yote",
+      "seeAll": "Tazama maswali yote {count}"
     }
   },
   "Portfolio": {
@@ -223,7 +254,7 @@
     "next": "Endelea",
     "submit": "Tuma ombi",
     "sending": "Inatuma…",
-    "privacy": "TODO: real content — taarifa ya faragha (Sheria ya Ulinzi wa Taarifa Binafsi ya Tanzania 2022) itaandikwa na kukaguliwa na mmiliki kabla ya kuzindua.",
+    "privacy": "Kwa kutuma, unakubali tutumie taarifa zako kukujibu, kama ilivyoelezwa kwenye <link>Sera ya Faragha</link>.",
     "errors": {
       "serviceRequired": "Tafadhali chagua huduma.",
       "invalidPackage": "Kifurushi hiki hakipatikani kwa huduma uliyochagua.",
@@ -315,7 +346,7 @@
     },
     "submit": "Tuma ujumbe",
     "sending": "Inatuma…",
-    "privacy": "TODO: real content — taarifa ya faragha (Sheria ya Ulinzi wa Taarifa Binafsi ya Tanzania 2022) itaandikwa na kukaguliwa na mmiliki kabla ya kuzindua.",
+    "privacy": "Kwa kutuma, unakubali tutumie taarifa zako kukujibu, kama ilivyoelezwa kwenye <link>Sera ya Faragha</link>.",
     "success": {
       "title": "Asante — ujumbe wako umetumwa",
       "body": "Tutakujibu hivi karibuni, kwa kawaida ndani ya siku moja ya kazi.",
@@ -600,7 +631,8 @@
         "lastUpdated": "Ilisasishwa (huonyeshwa kwenye kurasa)",
         "privacy": "Sera ya Faragha",
         "terms": "Vigezo na Masharti",
-        "cookies": "Sera ya Vidakuzi"
+        "cookies": "Sera ya Vidakuzi",
+        "whyChooseUs": "Ukurasa wa nyumbani: hoja za \"Kwa nini utuchague\""
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -630,7 +662,8 @@
         "lastUpdated": "Badilisha tarehe hii kila unapofanya mabadiliko halisi ya maandishi.",
         "privacy": "Markdown: \"## \" huanza kichwa, \"- \" kitone, **herufi nzito**, [maandishi ya kiungo](https://…). Jaza kila [TODO] na uondoe mstari wa RASIMU baada ya mwanasheria kukagua.",
         "terms": "Mpangilio sawa na hapo juu. Jaza masharti ya malipo, marekebisho, umiliki na kughairi.",
-        "cookies": "Sasisha orodha hii ukiongeza vidakuzi, kwa mfano takwimu za wageni."
+        "cookies": "Sasisha orodha hii ukiongeza vidakuzi, kwa mfano takwimu za wageni.",
+        "whyChooseUs": "Kichwa kifupi na sentensi moja au mbili kila moja (hoja 4 zinapendeza zaidi). Orodha ikiwa tupu, ukurasa wa nyumbani huonyesha hoja 4 zilizojengwa ndani."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -658,7 +691,13 @@
       },
       "uploadLogo": "Pakia nembo (SVG, PNG, JPG au WebP, hadi MB 5)",
       "replaceLogo": "Badilisha nembo (SVG, PNG, JPG au WebP, hadi MB 5)",
-      "legalHeading": "Kurasa za kisheria"
+      "legalHeading": "Kurasa za kisheria",
+      "points": {
+        "title": "Kichwa",
+        "text": "Maandishi",
+        "add": "Ongeza hoja",
+        "remove": "Ondoa hoja hii"
+      }
     },
     "analytics": {
       "heading": "Takwimu",

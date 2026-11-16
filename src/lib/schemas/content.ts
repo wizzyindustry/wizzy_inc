@@ -111,6 +111,10 @@ export const siteSettingsSchema = z.object({
     /** Optional background photo (Storage path). Text sits on a dark overlay for contrast. */
     image: siteImagePathSchema('site/hero').optional(),
   }),
+  /** Home page "Why choose us" points (Phase 1.2). Empty = built-in points are shown. */
+  whyChooseUs: z
+    .array(z.object({ title: bilingualTextSchema, text: bilingualTextSchema }))
+    .default([]),
   /** FAQ page (F12): payment, revisions, timelines, file formats, hosting — owner content. */
   faq: z.array(faqItemSchema).default([]),
 });

@@ -25,6 +25,19 @@ async function signInAsAdmin(page: Page) {
   await expect(page).toHaveURL(/\/admin$/);
 }
 
+/**
+ * Open a public page until it shows a saved change. While other tests save in parallel, the
+ * page refreshes overlap and can briefly serve the previous version; a reload then shows it.
+ */
+async function openUntil(page: Page, path: string, check: () => Promise<void>) {
+  await expect(async () => {
+    await page.goto(path);
+    await check();
+  }).toPass({ timeout: 20_000 });
+}
+
+const quick = baseExpect.configure({ timeout: 2_000 });
+
 async function save(page: Page) {
   await page.getByRole('button', { name: 'Save', exact: true }).click();
   await expect(page.getByText('Saved. The public site is updated.')).toBeVisible();
@@ -153,8 +166,9 @@ test.describe('shared site documents', () => {
     await field.fill(headline);
     await save(page);
 
-    await page.goto('/en');
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(headline);
+    await openUntil(page, '/en', () =>
+      quick(page.getByRole('heading', { level: 1 })).toHaveText(headline),
+    );
 
     // Put the original headline back, so local review data is left as it was.
     await page.goto('/admin/settings');
@@ -173,16 +187,16 @@ test.describe('shared site documents', () => {
     await expect(hero.locator('img')).toBeVisible(); // preview
     await save(page);
 
-    await page.goto('/en');
-    const firstSection = page.getByRole('main').locator('section').first();
-    await expect(firstSection.locator('img')).toHaveAttribute('src', /site%(25)?2Fhero/);
+    const heroImage = () => page.getByRole('main').locator('section').first().locator('img');
+    await openUntil(page, '/en', () =>
+      quick(heroImage()).toHaveAttribute('src', /site%(25)?2Fhero/),
+    );
 
     // Remove it again, so local review data is left as it was.
     await page.goto('/admin/settings');
     await hero.getByRole('button', { name: 'Remove', exact: true }).click();
     await save(page);
-    await page.goto('/en');
-    await expect(page.getByRole('main').locator('section').first().locator('img')).toHaveCount(0);
+    await openUntil(page, '/en', () => quick(heroImage()).toHaveCount(0));
   });
 
   test('the About page text is edited in admin', async ({ page }, testInfo) => {
@@ -218,15 +232,39 @@ test.describe('shared site documents', () => {
     await expect(rows.last().locator('img')).toBeVisible(); // logo preview
     await save(page);
 
-    await page.goto('/en/about');
-    await expect(page.getByText(intro)).toBeVisible();
-    await expect(page.getByRole('img', { name: 'E2E tool logo' })).toBeVisible();
+    await openUntil(page, '/en/about', async () => {
+      await quick(page.getByText(intro)).toBeVisible();
+      await quick(page.getByRole('img', { name: 'E2E tool logo' })).toBeVisible();
+    });
 
     // Put everything back, so local review data is left as it was.
     await page.goto('/admin/about');
     await page.locator('#field-intro-en').fill(original);
     await rows.last().getByRole('button', { name: 'Remove tool' }).click();
     await expect(rows).toHaveCount(before);
+    await save(page);
+  });
+
+  test('"Why choose us" points are edited in settings', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+    const title = `E2E point ${Date.now()}`;
+    await signInAsAdmin(page);
+    await page.goto('/admin/settings');
+    const points = page.getByRole('group', { name: 'Home page: "Why choose us" points' });
+    await points.getByRole('button', { name: 'Add a point' }).click();
+    await points.getByLabel('Title (EN)').last().fill(title);
+    await points.getByLabel('Text (EN)').last().fill('E2E point text.');
+    await save(page);
+
+    await openUntil(page, '/en', () =>
+      quick(
+        page.getByRole('region', { name: 'Why choose us' }).getByRole('heading', { name: title }),
+      ).toBeVisible(),
+    );
+
+    // Remove it again, so local review data is left as it was.
+    await page.goto('/admin/settings');
+    await points.getByRole('button', { name: 'Remove this point' }).last().click();
     await save(page);
   });
 
@@ -242,8 +280,7 @@ test.describe('shared site documents', () => {
     await privacy.fill(`${original}\n\n${marker}`);
     await save(page);
 
-    await page.goto('/en/privacy');
-    await expect(page.getByText(marker)).toBeVisible();
+    await openUntil(page, '/en/privacy', () => quick(page.getByText(marker)).toBeVisible());
 
     // Put the text back, so local review data is left as it was.
     await page.goto('/admin/legal');

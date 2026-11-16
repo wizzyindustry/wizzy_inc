@@ -31,3 +31,9 @@ test('Swahili visitors are told when only English text exists yet', async ({ pag
   // The drafts are English-only until the owner adds Swahili.
   await expect(page.getByText('Toleo la Kiswahili la ukurasa huu linaandaliwa.')).toBeVisible();
 });
+
+test('the contact form links to the Privacy Policy', async ({ page }) => {
+  await page.goto('/en/contact');
+  await page.getByRole('main').getByRole('link', { name: 'Privacy Policy' }).click();
+  await expect(page).toHaveURL(/\/en\/privacy$/, { timeout: 15_000 });
+});

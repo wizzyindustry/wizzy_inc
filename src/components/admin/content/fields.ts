@@ -22,6 +22,7 @@ export type FieldType =
   | 'image' // one Storage path
   | 'gallery' // Storage paths
   | 'faq' // { q: {en,sw}, a: {en,sw} }[]
+  | 'points' // { title: {en,sw}, text: {en,sw} }[] — home "Why choose us"
   | 'tools'; // { name, logo? }[] — About page "Tools we use" cards
 
 export type FieldDef = {
@@ -129,6 +130,7 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'email', type: 'text' },
     { path: 'location', type: 'bilingual' },
     { path: 'workingHours', type: 'bilingual' },
+    { path: 'whyChooseUs', type: 'points', hint: true },
     { path: 'faq', type: 'faq', hint: true },
     { path: 'socialLinks.instagram', type: 'text', optional: true },
     { path: 'socialLinks.facebook', type: 'text', optional: true },

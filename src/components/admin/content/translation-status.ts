@@ -21,13 +21,11 @@ export function missingSwahili(fields: FieldDef[], data: Values): string[] {
     } else if (field.type === 'bilingualList') {
       const v = value as { en?: unknown; sw?: unknown } | undefined;
       if (hasItems(v?.en) && !hasItems(v?.sw)) missing.push(field.path);
-    } else if (field.type === 'faq' && Array.isArray(value)) {
-      const items = value as {
-        q?: { en?: unknown; sw?: unknown };
-        a?: { en?: unknown; sw?: unknown };
-      }[];
-      const gap = items.some(
-        (i) => (filled(i.q?.en) && !filled(i.q?.sw)) || (filled(i.a?.en) && !filled(i.a?.sw)),
+    } else if ((field.type === 'faq' || field.type === 'points') && Array.isArray(value)) {
+      // Each item is a pair of bilingual texts (question/answer or title/text).
+      const items = value as Record<string, { en?: unknown; sw?: unknown } | undefined>[];
+      const gap = items.some((item) =>
+        Object.values(item).some((part) => filled(part?.en) && !filled(part?.sw)),
       );
       if (gap) missing.push(field.path);
     }

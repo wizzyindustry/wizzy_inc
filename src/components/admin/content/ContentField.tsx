@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { describedBy, FormField } from '@/components/forms/FormField';
 import { fieldClass } from '@/components/ui/field-styles';
-import { FaqField, type FaqItem } from './FaqField';
+import { FaqField, type FaqItem, type PointItem } from './FaqField';
 import { fieldKey, fieldTextKey, type FieldDef } from './fields';
 import { ImageField } from './ImageField';
 import { ToolsField, type ToolItem } from './ToolsField';
@@ -146,11 +146,13 @@ export function ContentField({
     }
 
     case 'faq':
+    case 'points':
       return (
         <FaqField
           label={label}
           hint={hint}
-          items={(value as FaqItem[]) ?? []}
+          variant={field.type}
+          items={(value as FaqItem[] | PointItem[]) ?? []}
           error={error}
           onChange={onChange}
         />

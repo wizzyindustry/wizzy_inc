@@ -21,6 +21,15 @@ dependencies planned; real business content comes from the owner.
   a native speaker (the page shows English until then, and admin flags "Swahili missing").
 - **Home details:** About part + "Why choose us" points editable in admin.
 
+## Status (2026-11-16)
+All six slices done and committed (stacked branches above). Checks: `pnpm check` 146 unit tests,
+rules tests 24, Playwright 141 passed / 5 skipped (on installed Chrome: `PLAYWRIGHT_CHANNEL=chrome`,
+because Windows Smart App Control now blocks the downloaded test browser).
+
+Found and fixed on the way: a `[locale]/loading.tsx` made missing pages answer 200 instead of 404,
+so the W is shown by `NavigationLoader` instead; the quote/contact privacy notice now links to the
+Privacy Policy.
+
 ## Owner to-do
 - Have the legal drafts checked (ideally by a lawyer) and add the Swahili versions before launch.
 - Write the real "Why choose us" points, tool list and hero image.

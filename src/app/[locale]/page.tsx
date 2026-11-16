@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { AboutTeaser } from '@/components/sections/AboutTeaser';
 import { CtaBanner } from '@/components/sections/CtaBanner';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
 import { Hero } from '@/components/sections/Hero';
+import { HomeFaq } from '@/components/sections/HomeFaq';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
 import { ServiceCategoryCards } from '@/components/sections/ServiceCategoryCards';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
+import { getAboutPage } from '@/lib/data/about';
 import { getFeaturedPortfolio } from '@/lib/data/portfolio';
 import { orFallback } from '@/lib/data/read';
 import { getPublishedServices } from '@/lib/data/services';
@@ -30,9 +34,11 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('HomePage.hero');
   const tMeta = await getTranslations('HomePage.meta');
+  const tAbout = await getTranslations('About');
 
-  const [settings, services, featured, testimonials] = await Promise.all([
+  const [settings, about, services, featured, testimonials] = await Promise.all([
     getSiteSettings(),
+    getAboutPage(),
     orFallback(getPublishedServices(), [], 'services'),
     orFallback(getFeaturedPortfolio(), [], 'featured portfolio'),
     orFallback(getPublishedTestimonials(), [], 'testimonials'),
@@ -47,9 +53,22 @@ export default async function HomePage({ params }: Props) {
         image={settings?.hero.image}
       />
       <ServiceCategoryCards services={services} locale={locale} />
+      <AboutTeaser intro={about ? localized(about.intro, locale) : tAbout('intro')} />
+      <WhyChooseUs
+        points={(settings?.whyChooseUs ?? []).map((p) => ({
+          title: localized(p.title, locale),
+          text: localized(p.text, locale),
+        }))}
+      />
       <FeaturedWork items={featured} locale={locale} />
       <ProcessSteps />
       <Testimonials testimonials={testimonials} locale={locale} />
+      <HomeFaq
+        items={(settings?.faq ?? []).map((item) => ({
+          q: localized(item.q, locale),
+          a: localized(item.a, locale),
+        }))}
+      />
       <CtaBanner />
     </>
   );
