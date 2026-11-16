@@ -23,7 +23,8 @@
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "seed": "tsx scripts/seed/index.ts",
     "admin:claim": "tsx scripts/set-admin-claim.ts",
-    "content:copy": "tsx scripts/copy-content.ts"
+    "content:copy": "tsx scripts/copy-content.ts",
+    "go-live": "tsx scripts/go-live.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",

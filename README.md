@@ -295,6 +295,19 @@ Steps:
 > else is already on Firebase. **Vercel works too.** Choose it if you prefer Vercel's dashboard and
 > preview deployments, and are fine with the Pro plan and managing a service-account key.
 
+### Easiest: one guided command
+
+After creating the Firebase project (Firestore in `europe-west1`, Storage, Authentication with
+Email/Password) and downloading a service-account key to your Downloads folder:
+
+```bash
+pnpm go-live
+```
+
+It finds the key, uploads the security rules, copies your exported content (after a practice
+run and your "yes"), and makes your email the admin, printing a link to set the password. The
+steps below do the same things one by one.
+
 ### Copying content you edited locally to the live site
 
 Edits made in the local admin live only in the emulators on your computer; the live site reads
