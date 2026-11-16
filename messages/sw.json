@@ -723,5 +723,18 @@
       "metaTitle": "Sera ya Vidakuzi | Wizzy Inc",
       "metaDescription": "Vidakuzi ambavyo tovuti hii hutumia na jinsi ya kubadilisha chaguo lako."
     }
+  },
+  "CookieBanner": {
+    "label": "Idhini ya vidakuzi",
+    "heading": "Vidakuzi kwenye tovuti hii",
+    "text": "Tunatumia vidakuzi muhimu pekee: kukumbuka lugha yako na chaguo hili, na kulinda fomu zetu dhidi ya barua taka. Hatutumii vidakuzi vya matangazo wala vya kufuatilia.",
+    "policyLink": "Soma Sera ya Vidakuzi",
+    "acceptAll": "Kubali vyote",
+    "essentialOnly": "Muhimu pekee",
+    "settings": "Mipangilio ya vidakuzi",
+    "current": {
+      "all": "Chaguo lako la sasa: Kubali vyote.",
+      "essential": "Chaguo lako la sasa: Muhimu pekee."
+    }
   }
 }

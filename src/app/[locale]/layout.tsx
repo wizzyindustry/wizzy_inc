@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { CookieBanner } from '@/components/layout/CookieBanner';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { NavigationLoader } from '@/components/layout/NavigationLoader';
@@ -32,8 +33,8 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const t = await getTranslations('Layout');
   // Only ship the namespaces client components use, to keep public-page JS small.
-  const { Nav, LanguageSwitcher, Loading } = await getMessages();
-  const clientMessages = { Nav, LanguageSwitcher, Loading };
+  const { Nav, LanguageSwitcher, Loading, CookieBanner: cookieMessages } = await getMessages();
+  const clientMessages = { Nav, LanguageSwitcher, Loading, CookieBanner: cookieMessages };
   const settings = await getSiteSettings();
   const whatsappNumber = resolveWhatsAppNumber(
     settings?.whatsappNumber,
@@ -56,6 +57,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </main>
           <Footer settings={settings} />
           <NavigationLoader />
+          <CookieBanner />
           {whatsappNumber && <WhatsAppButton number={whatsappNumber} />}
         </NextIntlClientProvider>
       </body>

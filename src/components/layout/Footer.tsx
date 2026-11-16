@@ -4,6 +4,7 @@ import { Link } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
 import { LEGAL_PAGES, type SiteSettings } from '@/lib/schemas/content';
 import { formatPhone } from '@/lib/utils/format-phone';
+import { CookieSettingsButton } from './CookieSettingsButton';
 import { ALL_NAV_ITEMS } from './nav-items';
 
 /** Contact details come from Firestore `settings/site`; nothing is shown until the owner sets them. */
@@ -86,6 +87,9 @@ export async function Footer({ settings }: { settings: SiteSettings | null }) {
                 </Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsButton />
+            </li>
           </ul>
         </nav>
       </div>
