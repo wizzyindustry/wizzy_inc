@@ -105,9 +105,12 @@
     "result": "The result",
     "gallery": "Gallery",
     "galleryAlt": "{title} — image {number}",
-    "liveSite": "Visit the live website",
     "similarProject": "Request a similar project",
-    "relatedServices": "Services used"
+    "relatedServices": "Services used",
+    "viewProject": "View project",
+    "viewRepo": "View Git repo",
+    "viewDesign": "View design",
+    "opensInNewTab": "(opens in a new tab)"
   },
   "Categories": {
     "graphic-design": {
@@ -557,7 +560,7 @@
         "tools": "Tools used",
         "coverImage": "Cover image",
         "gallery": "Gallery images",
-        "liveUrl": "Live website link",
+        "liveUrl": "\"View project\" link (live website)",
         "completedAt": "Completed on",
         "featured": "Feature on the home page",
         "role": "Role",
@@ -581,7 +584,9 @@
         "socialLinks_github": "GitHub link",
         "intro": "Introduction",
         "graphicDesign": "Graphic design — skills and experience",
-        "webDevelopment": "Web development — skills and experience"
+        "webDevelopment": "Web development — skills and experience",
+        "repoUrl": "\"View Git repo\" link",
+        "designUrl": "\"View design\" link"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -602,7 +607,10 @@
         "faq": "Questions for the public FAQ page: payment terms, revisions, timelines, file formats, hosting.",
         "intro": "Who Panta-wizzy is, background and what drives the work. Leave a blank line between paragraphs.",
         "graphicDesign": "Shown under \"Graphic Design\" on the About page.",
-        "webDevelopment": "Shown under \"Web Development\" on the About page."
+        "webDevelopment": "Shown under \"Web Development\" on the About page.",
+        "liveUrl": "Full address starting with https://, e.g. https://client-site.co.tz. The button is hidden while this is empty.",
+        "repoUrl": "e.g. https://github.com/your-name/project. Leave empty for private code.",
+        "designUrl": "e.g. a Behance or Dribbble page, or a shared Google Drive PDF. Starts with https://."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",

@@ -102,6 +102,16 @@ test('portfolio item with an uploaded cover image (A5)', async ({ page }, testIn
   await page.locator('#field-clientType').fill('E2E client type');
   await page.locator('#field-problem-en').fill('E2E problem');
   await page.locator('#field-solution-en').fill('E2E solution');
+
+  // Link fields follow the category: design link for graphic design, site + Git for web.
+  await page.locator('#field-category').selectOption('graphic-design');
+  await expect(page.locator('#field-designUrl')).toBeVisible();
+  await expect(page.locator('#field-repoUrl')).toHaveCount(0);
+  await page.locator('#field-category').selectOption('web-development');
+  await expect(page.locator('#field-designUrl')).toHaveCount(0);
+  await page.locator('#field-liveUrl').fill('https://example.com/');
+  await page.locator('#field-repoUrl').fill('https://example.com/e2e-repo');
+
   await page.locator('#field-published').check();
   await save(page);
 
@@ -109,6 +119,10 @@ test('portfolio item with an uploaded cover image (A5)', async ({ page }, testIn
   await publicPage.goto(`/en/portfolio/${slug}`);
   await expect(publicPage.getByRole('heading', { level: 1 })).toHaveText(`E2E work ${slug}`);
   await expect(publicPage.locator('main img').first()).toBeVisible();
+  await expect(publicPage.getByRole('link', { name: /View Git repo/ })).toHaveAttribute(
+    'href',
+    'https://example.com/e2e-repo',
+  );
 
   await deleteItem(page);
   await expect(page).toHaveURL(/\/admin\/content\/portfolio$/);

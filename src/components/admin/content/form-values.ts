@@ -1,5 +1,5 @@
 import { todayInTanzania } from '@/lib/utils/format-date';
-import type { FieldDef } from './fields';
+import { fieldVisible, type FieldDef } from './fields';
 
 /*
  * Converting between stored documents and editor values.
@@ -90,6 +90,7 @@ export function toFormValues(fields: FieldDef[], doc: Values | null): Values {
 export function toSaveData(fields: FieldDef[], values: Values): Values {
   let data: Values = {};
   for (const field of fields) {
+    if (!fieldVisible(field, values)) continue; // e.g. Git link on a graphic design project
     const raw = getPath(values, field.path);
     let value: unknown = raw;
     switch (field.type) {

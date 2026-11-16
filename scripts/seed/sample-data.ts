@@ -129,6 +129,10 @@ export const samplePortfolio = [1, 2, 3, 4].map((n) => {
     problem: s('Problem placeholder.'),
     solution: s('Solution placeholder.'),
     tools: category === 'graphic-design' ? ['Illustrator'] : ['Next.js'],
+    // SAMPLE links (example.com is reserved for examples).
+    ...(category === 'web-development'
+      ? { liveUrl: 'https://example.com/', repoUrl: 'https://example.com/sample-repo' }
+      : { designUrl: 'https://example.com/sample-design' }),
     coverImage: `portfolio/sample-project-${n}/cover.png`,
     gallery: [],
     featured: n <= 3,

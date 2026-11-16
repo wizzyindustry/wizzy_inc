@@ -14,6 +14,11 @@ export const bilingualListSchema = z.object({
 });
 export type BilingualList = z.infer<typeof bilingualListSchema>;
 
+/**
+ * A web link that is safe to put in an href: only http(s) — never `javascript:` or `data:`.
+ */
+export const webUrlSchema = z.httpUrl();
+
 export const localeSchema = z.enum(['en', 'sw']);
 
 export const slugSchema = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Invalid slug');

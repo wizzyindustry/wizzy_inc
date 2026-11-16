@@ -105,9 +105,12 @@
     "result": "Matokeo",
     "gallery": "Picha zaidi",
     "galleryAlt": "{title} — picha {number}",
-    "liveSite": "Tembelea tovuti",
     "similarProject": "Omba mradi kama huu",
-    "relatedServices": "Huduma zilizotumika"
+    "relatedServices": "Huduma zilizotumika",
+    "viewProject": "Tazama mradi",
+    "viewRepo": "Tazama hazina ya Git",
+    "viewDesign": "Tazama usanifu",
+    "opensInNewTab": "(hufunguka kwenye kichupo kipya)"
   },
   "Categories": {
     "graphic-design": {
@@ -557,7 +560,7 @@
         "tools": "Zana zilizotumika",
         "coverImage": "Picha kuu",
         "gallery": "Picha za ziada",
-        "liveUrl": "Kiungo cha tovuti hai",
+        "liveUrl": "Kiungo cha \"Tazama mradi\" (tovuti hai)",
         "completedAt": "Tarehe ya kukamilika",
         "featured": "Onyesha kwenye ukurasa wa mwanzo",
         "role": "Cheo",
@@ -581,7 +584,9 @@
         "socialLinks_github": "Kiungo cha GitHub",
         "intro": "Utangulizi",
         "graphicDesign": "Usanifu wa michoro — ujuzi na uzoefu",
-        "webDevelopment": "Utengenezaji wa tovuti — ujuzi na uzoefu"
+        "webDevelopment": "Utengenezaji wa tovuti — ujuzi na uzoefu",
+        "repoUrl": "Kiungo cha \"Tazama hazina ya Git\"",
+        "designUrl": "Kiungo cha \"Tazama usanifu\""
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -602,7 +607,10 @@
         "faq": "Maswali ya ukurasa wa Maswali: masharti ya malipo, marekebisho, muda wa kazi, aina za mafaili, uhifadhi wa tovuti.",
         "intro": "Panta-wizzy ni nani, historia yake na kinachochochea kazi. Acha mstari mtupu kati ya aya.",
         "graphicDesign": "Huonyeshwa chini ya \"Usanifu wa michoro\" kwenye ukurasa wa Kuhusu.",
-        "webDevelopment": "Huonyeshwa chini ya \"Utengenezaji wa tovuti\" kwenye ukurasa wa Kuhusu."
+        "webDevelopment": "Huonyeshwa chini ya \"Utengenezaji wa tovuti\" kwenye ukurasa wa Kuhusu.",
+        "liveUrl": "Anwani kamili inayoanza na https://, mfano https://tovuti-ya-mteja.co.tz. Kitufe hakionekani ikiwa ni tupu.",
+        "repoUrl": "Mfano https://github.com/jina-lako/mradi. Acha tupu kwa msimbo wa siri.",
+        "designUrl": "Mfano ukurasa wa Behance au Dribbble, au PDF ya Google Drive. Huanza na https://."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",

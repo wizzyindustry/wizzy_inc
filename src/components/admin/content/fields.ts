@@ -30,12 +30,16 @@ export type FieldDef = {
   hint?: boolean;
   options?: readonly string[];
   numeric?: boolean; // select whose values are numbers
+  /** Only shown (and saved) when another field has one of these values. */
+  showWhen?: { path: string; values: readonly string[] };
 };
 
 /** 'settings' and 'about' are single documents in the `settings` collection. */
 export type EditorKind = ContentCollection | 'settings' | 'about';
 
 const CATEGORY = ['graphic-design', 'web-development'] as const;
+const WEB_ONLY = { path: 'category', values: ['web-development'] } as const;
+const DESIGN_ONLY = { path: 'category', values: ['graphic-design'] } as const;
 
 export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
   services: [
@@ -79,7 +83,9 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'tools', type: 'lines', hint: true },
     { path: 'coverImage', type: 'image' },
     { path: 'gallery', type: 'gallery' },
-    { path: 'liveUrl', type: 'text', optional: true },
+    { path: 'liveUrl', type: 'text', optional: true, hint: true, showWhen: WEB_ONLY },
+    { path: 'repoUrl', type: 'text', optional: true, hint: true, showWhen: WEB_ONLY },
+    { path: 'designUrl', type: 'text', optional: true, hint: true, showWhen: DESIGN_ONLY },
     { path: 'completedAt', type: 'date' },
     { path: 'featured', type: 'checkbox', hint: true },
     { path: 'order', type: 'number', hint: true },
@@ -124,6 +130,15 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'tools', type: 'lines', hint: true },
   ],
 };
+
+/** False for a field that does not apply, e.g. "View Git repo" on a graphic design project. */
+export function fieldVisible(field: FieldDef, values: Record<string, unknown>): boolean {
+  if (!field.showWhen) return true;
+  const current = field.showWhen.path
+    .split('.')
+    .reduce<unknown>((v, k) => (v as Record<string, unknown> | undefined)?.[k], values);
+  return field.showWhen.values.includes(String(current ?? ''));
+}
 
 /** Translation key for a field path: "hero.headline" -> "hero_headline". */
 export const fieldKey = (path: string) => path.replace(/\./g, '_');

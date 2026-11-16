@@ -5,6 +5,7 @@ import {
   priceTZSSchema,
   serviceCategorySchema,
   slugSchema,
+  webUrlSchema,
 } from './common';
 
 // Shapes of public content documents AFTER they are read by the data layer
@@ -65,7 +66,11 @@ export const portfolioItemSchema = z.object({
   tools: z.array(z.string()),
   coverImage: z.string().min(1), // Storage path
   gallery: z.array(z.string()),
-  liveUrl: z.url().optional(),
+  /** Web development: "View project" (live site) and "View Git repo". */
+  liveUrl: webUrlSchema.optional(),
+  repoUrl: webUrlSchema.optional(),
+  /** Graphic design: "View design" (e.g. Behance, Dribbble or a shared PDF). */
+  designUrl: webUrlSchema.optional(),
   featured: z.boolean(),
   isPersonalProject: z.boolean(),
   published: z.boolean(),
@@ -94,7 +99,10 @@ export const siteSettingsSchema = z.object({
   location: bilingualTextSchema,
   workingHours: bilingualTextSchema,
   socialLinks: z
-    .partialRecord(z.enum(['instagram', 'facebook', 'tiktok', 'x', 'linkedin', 'github']), z.url())
+    .partialRecord(
+      z.enum(['instagram', 'facebook', 'tiktok', 'x', 'linkedin', 'github']),
+      webUrlSchema,
+    )
     .default({}),
   hero: z.object({ headline: bilingualTextSchema, subheadline: bilingualTextSchema }),
   /** FAQ page (F12): payment, revisions, timelines, file formats, hosting — owner content. */

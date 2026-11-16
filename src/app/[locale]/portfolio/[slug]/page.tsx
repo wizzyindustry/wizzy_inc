@@ -57,6 +57,16 @@ export default async function CaseStudyPage({ params }: Props) {
     ...(item.result ? [{ key: 'result', text: localized(item.result, locale) }] : []),
   ] as const;
 
+  // Buttons depend on the category: websites have a live site and code; designs have a design link.
+  const links =
+    item.category === 'web-development'
+      ? [
+          { href: item.liveUrl, label: t('viewProject') },
+          { href: item.repoUrl, label: t('viewRepo') },
+        ]
+      : [{ href: item.designUrl, label: t('viewDesign') }];
+  const projectLinks = links.filter((l): l is { href: string; label: string } => !!l.href);
+
   return (
     <article className="mx-auto max-w-4xl px-4 py-12">
       <JsonLd data={creativeWorkJsonLd(item, locale)} />
@@ -130,13 +140,14 @@ export default async function CaseStudyPage({ params }: Props) {
       )}
 
       <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-        {item.liveUrl && (
-          <Button asChild variant="outline">
-            <a href={item.liveUrl} target="_blank" rel="noopener noreferrer">
-              {t('liveSite')}
+        {projectLinks.map(({ href, label }) => (
+          <Button key={label} asChild variant="outline">
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {label}
+              <span className="sr-only"> {t('opensInNewTab')}</span>
             </a>
           </Button>
-        )}
+        ))}
         <Button asChild>
           <Link href={{ pathname: '/quote', query: { service: item.serviceSlugs[0] } }}>
             {t('similarProject')}

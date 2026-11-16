@@ -16,7 +16,7 @@ import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
 import { useAdminSession } from '../AdminSession';
 import { ContentField, type Option } from './ContentField';
-import { CONTENT_FIELDS, fieldKey, type EditorKind } from './fields';
+import { CONTENT_FIELDS, fieldKey, fieldVisible, type EditorKind } from './fields';
 import { getPath, setPath, toFormValues, toSaveData, type Values } from './form-values';
 import { missingSwahili } from './translation-status';
 
@@ -207,18 +207,20 @@ export function ContentEditor({ kind, id }: Props) {
       )}
 
       <div className="flex flex-col gap-6 rounded-lg bg-background p-5">
-        {fields.map((field) => (
-          <ContentField
-            key={field.path}
-            field={field}
-            value={getPath(values, field.path)}
-            error={errorFor(field.path)}
-            itemId={docId}
-            serviceOptions={serviceOptions}
-            portfolioOptions={portfolioOptions}
-            onChange={(v) => setValues((current) => setPath(current ?? {}, field.path, v))}
-          />
-        ))}
+        {fields
+          .filter((field) => fieldVisible(field, values))
+          .map((field) => (
+            <ContentField
+              key={field.path}
+              field={field}
+              value={getPath(values, field.path)}
+              error={errorFor(field.path)}
+              itemId={docId}
+              serviceOptions={serviceOptions}
+              portfolioOptions={portfolioOptions}
+              onChange={(v) => setValues((current) => setPath(current ?? {}, field.path, v))}
+            />
+          ))}
       </div>
 
       {message && (

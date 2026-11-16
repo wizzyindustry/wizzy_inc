@@ -16,7 +16,8 @@ test('the loading "W" shows while a page is still loading, then the page appears
   await expect(loading).toBeVisible();
   await expect(loading.locator('svg path')).toHaveCount(2);
 
-  await expect(page).toHaveURL(/\/en\/portfolio$/);
-  await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 15_000 });
+  // The address changes when the slowed-down page data has arrived.
+  await expect(page).toHaveURL(/\/en\/portfolio$/, { timeout: 15_000 });
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(loading).toBeHidden();
 });

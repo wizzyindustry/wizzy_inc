@@ -82,6 +82,32 @@ describe('editor values (A4)', () => {
     expect(parsed.completedAt.toISOString()).toBe('2026-03-15T09:00:00.000Z');
   });
 
+  it('portfolio links: only the fields for the category are saved', () => {
+    const fields = CONTENT_FIELDS.portfolio;
+    let form = toFormValues(fields, null);
+    form = setPath(form, 'category', 'graphic-design');
+    form = setPath(form, 'liveUrl', 'https://example.com/');
+    form = setPath(form, 'repoUrl', 'https://example.com/repo');
+    form = setPath(form, 'designUrl', 'https://example.com/design');
+    const design = toSaveData(fields, form);
+    expect(design.designUrl).toBe('https://example.com/design');
+    expect(design).not.toHaveProperty('liveUrl');
+    expect(design).not.toHaveProperty('repoUrl');
+
+    const web = toSaveData(fields, setPath(form, 'category', 'web-development'));
+    expect(web.liveUrl).toBe('https://example.com/');
+    expect(web.repoUrl).toBe('https://example.com/repo');
+    expect(web).not.toHaveProperty('designUrl');
+  });
+
+  it('links must be http(s) web addresses (no javascript: links)', () => {
+    const links = contentInputSchemas.portfolio.shape.repoUrl;
+    expect(links.safeParse('https://github.com/me/site').success).toBe(true);
+    expect(links.safeParse('javascript:alert(1)').success).toBe(false);
+    expect(links.safeParse('data:text/html,hi').success).toBe(false);
+    expect(links.safeParse('github.com/me/site').success).toBe(false);
+  });
+
   it('testimonial: rating select is numeric; consent is required', () => {
     const fields = CONTENT_FIELDS.testimonials;
     let form = toFormValues(fields, null);
