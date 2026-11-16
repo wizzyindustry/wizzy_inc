@@ -6,6 +6,7 @@ import { CookieBanner } from '@/components/layout/CookieBanner';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { NavigationLoader } from '@/components/layout/NavigationLoader';
+import { PageSplash } from '@/components/layout/PageSplash';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 import { getSiteSettings } from '@/lib/data/settings';
 import { routing } from '@/lib/i18n/routing';
@@ -57,6 +58,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </main>
           <Footer settings={settings} />
           <NavigationLoader />
+          <PageSplash />
           <CookieBanner />
           {whatsappNumber && <WhatsAppButton number={whatsappNumber} />}
         </NextIntlClientProvider>

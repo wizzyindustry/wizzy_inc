@@ -40,6 +40,29 @@
     }
   }
 
+  /* Splash on every full page load: covers the page for ~0.6 s, then fades away (CSS only). */
+  .page-splash {
+    animation: page-splash-out 250ms ease-in 600ms forwards;
+  }
+
+  @keyframes page-splash-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  /* Overlay on page changes inside the site: fades in quickly. */
+  .loading-overlay {
+    animation: loading-overlay-in 150ms ease-out;
+  }
+
+  @keyframes loading-overlay-in {
+    from {
+      opacity: 0;
+    }
+  }
+
   /* Reduced motion: no drawing, just a slow fade. */
   @media (prefers-reduced-motion: reduce) {
     .loading-w-stroke {
