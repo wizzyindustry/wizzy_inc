@@ -14,7 +14,21 @@
     "requestQuoteShort": "Omba bei",
     "openMenu": "Fungua menyu",
     "closeMenu": "Funga menyu",
-    "faq": "Maswali"
+    "faq": "Maswali",
+    "company": "Kampuni",
+    "blog": "Blogu",
+    "support": "Msaada",
+    "offices": "Ofisi",
+    "press": "Habari",
+    "allServices": "Huduma zote",
+    "seePrices": "Tazama bei",
+    "descriptions": {
+      "about": "Historia yetu na jinsi tunavyofanya kazi",
+      "blog": "Habari, vidokezo na kazi mpya",
+      "support": "Msaada kuhusu mradi au tovuti yako",
+      "offices": "Mahali pa kutupata, na ramani",
+      "press": "Uongozi, nembo na rangi za chapa"
+    }
   },
   "LanguageSwitcher": {
     "label": "Chagua lugha",

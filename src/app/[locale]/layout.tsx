@@ -9,7 +9,10 @@ import { NavigationLoader } from '@/components/layout/NavigationLoader';
 import { PageSplash } from '@/components/layout/PageSplash';
 import { ScrollReveal } from '@/components/layout/ScrollReveal';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
+import { orFallback } from '@/lib/data/read';
+import { getPublishedServices } from '@/lib/data/services';
 import { getSiteSettings } from '@/lib/data/settings';
+import { localized } from '@/lib/i18n/localized';
 import { routing } from '@/lib/i18n/routing';
 import { resolveWhatsAppNumber } from '@/lib/utils/whatsapp';
 import '@/styles/globals.css';
@@ -49,7 +52,16 @@ export default async function LocaleLayout({ children, params }: Props) {
   const clientMessages = Object.fromEntries(
     CLIENT_NAMESPACES.map((namespace) => [namespace, messages[namespace]]),
   );
-  const settings = await getSiteSettings();
+  const [settings, services] = await Promise.all([
+    getSiteSettings(),
+    orFallback(getPublishedServices(), [], 'services (menu)'),
+  ]);
+  // Services menu: each published service, title in the visitor's language.
+  const serviceLinks = services.map((s) => ({
+    href: `/services/${s.slug}`,
+    title: localized(s.title, locale),
+    category: s.category,
+  }));
   const whatsappNumber = resolveWhatsAppNumber(
     settings?.whatsappNumber,
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER,
@@ -65,7 +77,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             {t('skipToContent')}
           </a>
-          <Header />
+          <Header services={serviceLinks} />
           <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
             {children}
           </main>

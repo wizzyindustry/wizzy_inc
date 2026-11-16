@@ -190,6 +190,24 @@
     }
   }
 
+  /* Header dropdowns and the mobile menu slide down a little when they open. */
+  .dropdown-enter:not([hidden]) {
+    animation: dropdown-in 150ms ease-out;
+  }
+
+  @keyframes dropdown-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dropdown-enter:not([hidden]) {
+      animation: none;
+    }
+  }
+
   /* Reduced motion: no drawing, just a slow fade. */
   @media (prefers-reduced-motion: reduce) {
     .loading-w-stroke {

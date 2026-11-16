@@ -18,6 +18,8 @@ test('service detail links to a pre-filled quote form (when services exist)', as
   const firstService = page.locator('main article h3 a').first();
   test.skip((await firstService.count()) === 0, 'No services in this environment');
   await firstService.click();
+  // Wait for the new page (the loading "W" shows for a moment on every page change).
+  await expect(page).toHaveURL(/\/en\/services\/[^/#]+$/, { timeout: 15_000 });
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.locator('main a[href*="/quote?service="]')).toBeVisible();
 });

@@ -24,3 +24,24 @@ until then sections stay hidden or show `TODO: real content`. Everything is edit
 - **Loading W:** on every page, short (≈0.6 s), then fades out.
 - **Subscribe:** saved to an admin list **and** a welcome email is sent (same mail setup as quote
   notifications).
+
+## Status (2026-11-16)
+All nine slices done and committed (stacked branches above). Checks: `pnpm check` 162 unit
+tests, rules tests 29, Playwright full run 173 passed / 3 failed / 10 skipped — the 3 were
+timeouts under full parallel load (contact message, hero upload, offices map loading from
+openstreetmap.org); after making the offices test wait only for our own page, all 3 pass when
+re-run (32 passed / 6 skipped).
+
+Notes:
+- Lucide 1.x has no brand logos, so social icons are simple line drawings in
+  `src/components/ui/SocialIcon.tsx` (no new package).
+- The privacy draft now mentions subscribers and the map. If the owner already saved the
+  legal pages in admin, add that paragraph there too (the saved text wins over the draft).
+- Welcome emails need the same Resend setup as lead emails (`RESEND_API_KEY`, `EMAIL_FROM`,
+  `SITE_URL`) — nothing new to configure.
+
+## Owner to-do
+- Admin → Company info: real story, founding year, headquarters, founder name, partner logos
+  (with their permission), impact numbers and office coordinates.
+- Admin → Press page: founder photo/bio/links, logo files, licence PDF, brand colours.
+- Admin → Support page and Blog posts: own text.

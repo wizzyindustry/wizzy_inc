@@ -14,7 +14,21 @@
     "requestQuoteShort": "Get a quote",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "company": "Company",
+    "blog": "Blog",
+    "support": "Support",
+    "offices": "Offices",
+    "press": "Press",
+    "allServices": "All services",
+    "seePrices": "See prices",
+    "descriptions": {
+      "about": "Our story and how we work",
+      "blog": "News, tips and new work",
+      "support": "Help with your project or website",
+      "offices": "Where to find us, with maps",
+      "press": "Leadership, logos and brand colours"
+    }
   },
   "LanguageSwitcher": {
     "label": "Choose language",
