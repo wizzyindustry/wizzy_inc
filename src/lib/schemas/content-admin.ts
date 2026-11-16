@@ -9,6 +9,7 @@ import {
   portfolioItemSchema,
   serviceSchema,
   siteSettingsSchema,
+  supportPageSchema,
   testimonialSchema,
 } from './content';
 
@@ -50,6 +51,7 @@ export const settingsInputSchema = siteSettingsSchema;
 export const aboutInputSchema = aboutPageSchema;
 export const legalInputSchema = legalPagesSchema;
 export const companyInputSchema = companySchema;
+export const supportInputSchema = supportPageSchema;
 
 /** Collections whose `slug` must be unique (it is the public URL). */
 export const SLUG_COLLECTIONS: readonly ContentCollection[] = ['services', 'portfolio', 'posts'];

@@ -52,6 +52,7 @@ export const SINGLE_DOCS = {
   about: { id: 'about', heading: 'aboutHeading', publicPath: '/en/about' },
   legal: { id: 'legal', heading: 'legalHeading', publicPath: '/en/privacy' },
   company: { id: 'company', heading: 'companyHeading', publicPath: '/en' },
+  support: { id: 'support', heading: 'supportHeading', publicPath: '/en/support' },
 } as const;
 export type SingleDocKind = keyof typeof SINGLE_DOCS;
 export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
@@ -199,6 +200,10 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
         { path: 'longitude', type: 'number', decimal: true },
       ],
     },
+  ],
+  support: [
+    { path: 'intro', type: 'bilingualLong', optional: true, hint: true, labelKey: 'supportIntro' },
+    { path: 'topics', type: 'points', hint: true, labelKey: 'supportTopics' },
   ],
   legal: [
     { path: 'lastUpdated', type: 'date', hint: true },

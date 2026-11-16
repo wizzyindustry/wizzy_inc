@@ -186,6 +186,16 @@ export const companySchema = z.object({
 });
 export type Company = z.infer<typeof companySchema>;
 
+/**
+ * Support page (Company → Support), Firestore `settings/support`. Empty = built-in text.
+ * Topics use the same { title, text } shape as the home "Why choose us" points.
+ */
+export const supportPageSchema = z.object({
+  intro: bilingualTextSchema.optional(),
+  topics: z.array(z.object({ title: bilingualTextSchema, text: bilingualTextSchema })).default([]),
+});
+export type SupportPage = z.infer<typeof supportPageSchema>;
+
 /** One "Tools we use" card. Older documents stored just the name, so a plain string is accepted. */
 export const aboutToolSchema = z.union([
   z

@@ -13,6 +13,7 @@ import {
   isContentCollection,
   portfolioPathsValid,
   settingsInputSchema,
+  supportInputSchema,
   SLUG_COLLECTIONS,
 } from '@/lib/schemas/content-admin';
 import { SITE_IMAGE_KINDS } from '@/lib/schemas/common';
@@ -125,6 +126,7 @@ const SITE_DOCUMENTS = {
   about: aboutInputSchema, // About page (F8)
   legal: legalInputSchema, // Privacy, Terms, Cookie Policy
   company: companyInputSchema, // story, fact cards, partners, impact, offices
+  support: supportInputSchema, // Support page
 } as const;
 type SiteDocumentId = keyof typeof SITE_DOCUMENTS;
 const isSiteDocumentId = (id: string): id is SiteDocumentId => Object.hasOwn(SITE_DOCUMENTS, id);

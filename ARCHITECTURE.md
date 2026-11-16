@@ -247,6 +247,7 @@ Written and deleted only by the server (subscribe / unsubscribe Server Actions i
 **`settings/legal`** — `privacy`, `terms`, `cookies` (bilingual markdown) and `lastUpdated` (YYYY-MM-DD). Edited in Admin → Legal pages; until saved, the pages show the drafts in `src/lib/legal/drafts.ts`.
 **`settings/about`** — About page text: `intro`, `graphicDesign`, `webDevelopment` (bilingual) and `tools` (`{ name, logo? }[]`, logo in Storage `site/tools/…`; older name-only strings are still read). Edited in Admin → About page; until saved, the page shows the built-in text from `messages/*.json`.
 **`settings/company`** — home page "Our story" (`story`, bilingual; empty = About intro), fact cards (`foundedYear`, `headquarters`, `founderName`), `partners` (`{ name, logo?, url? }`, logo in Storage `site/partners/…`), `impact` (`{ value, label }`), `offices` (`{ name, address, hours?, phone?, latitude, longitude }`, shown with an OpenStreetMap embed). Edited in Admin → Company info with the generic `list` field; every empty part is hidden on the site.
+**`settings/support`** — Support page `intro` (bilingual, optional) and `topics` (`{ title, text }` bilingual). Edited in Admin → Support page; while empty, built-in text and four built-in topics are shown.
 
 ### 5.2 Indexes
 - `leads`: `status ASC, createdAt DESC`; `serviceSlug ASC, createdAt DESC`

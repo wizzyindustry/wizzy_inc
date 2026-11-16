@@ -474,7 +474,8 @@
       "legal": "Legal pages",
       "company": "Company info",
       "subscribers": "Subscribers",
-      "posts": "Blog posts"
+      "posts": "Blog posts",
+      "support": "Support page"
     },
     "leads": {
       "heading": "Leads",
@@ -691,7 +692,9 @@
         "postBody": "Post text",
         "postCover": "Cover image",
         "author": "Author",
-        "publishedAt": "Date"
+        "publishedAt": "Date",
+        "supportIntro": "Introduction",
+        "supportTopics": "Help topics"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -734,7 +737,9 @@
         "offices_latitude": "On openstreetmap.org, right-click your office and choose \"Show address\". Copy the two numbers: the first is the latitude (e.g. -6.17221), the second the longitude (e.g. 35.73947).",
         "postExcerpt": "One or two sentences, shown on the blog list and in search results.",
         "postBody": "Markdown: ## for headings, - for bullet points, [text](https://…) for links. Leave an empty line between paragraphs.",
-        "publishedAt": "Shown on the post; newest posts are listed first."
+        "publishedAt": "Shown on the post; newest posts are listed first.",
+        "supportIntro": "Shown at the top of the Support page. While empty, the built-in text is shown.",
+        "supportTopics": "What clients can get help with. While empty, four built-in topics are shown."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -782,7 +787,8 @@
         "remove": "Remove {name}",
         "removeShort": "Remove",
         "add": "Add: {item}"
-      }
+      },
+      "supportHeading": "Support page"
     },
     "analytics": {
       "heading": "Analytics",
@@ -943,5 +949,35 @@
     "by": "by {author}",
     "ctaHeading": "Have a project in mind?",
     "ctaButton": "Request a quote"
+  },
+  "Support": {
+    "meta": {
+      "title": "Support",
+      "description": "Get help from Wizzy Inc with your project, changes, your website or files."
+    },
+    "heading": "Support",
+    "intro": "Already working with us, or have a question? Here is how we can help and the fastest ways to reach us.",
+    "topicsHeading": "How we can help",
+    "defaults": {
+      "project": {
+        "title": "Your quote or project",
+        "text": "Questions about a quote, the next steps or the timeline of your project."
+      },
+      "changes": {
+        "title": "Changes and revisions",
+        "text": "Ask for changes to a design or website we are making for you."
+      },
+      "website": {
+        "title": "Help with your website",
+        "text": "Something not working on a website we built? Tell us what you see and on which page."
+      },
+      "files": {
+        "title": "Files and formats",
+        "text": "Need your files in another size or format (PNG, PDF, SVG, print)? Just ask."
+      }
+    },
+    "faqHeading": "Looking for a quick answer?",
+    "faqText": "Payment, revisions, timelines and file formats are explained in our FAQ.",
+    "faqButton": "Read the FAQ"
   }
 }

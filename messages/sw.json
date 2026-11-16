@@ -474,7 +474,8 @@
       "legal": "Kurasa za kisheria",
       "company": "Taarifa za kampuni",
       "subscribers": "Waliojiandikisha",
-      "posts": "Machapisho ya blogu"
+      "posts": "Machapisho ya blogu",
+      "support": "Ukurasa wa msaada"
     },
     "leads": {
       "heading": "Maombi",
@@ -691,7 +692,9 @@
         "postBody": "Maandishi ya chapisho",
         "postCover": "Picha ya juu",
         "author": "Mwandishi",
-        "publishedAt": "Tarehe"
+        "publishedAt": "Tarehe",
+        "supportIntro": "Utangulizi",
+        "supportTopics": "Mada za msaada"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -734,7 +737,9 @@
         "offices_latitude": "Kwenye openstreetmap.org, bofya kulia ofisi yako na uchague \"Show address\". Nakili namba mbili: ya kwanza ni latitudo (mf. -6.17221), ya pili longitudo (mf. 35.73947).",
         "postExcerpt": "Sentensi moja au mbili, zinaonyeshwa kwenye orodha ya blogu na kwenye matokeo ya utafutaji.",
         "postBody": "Markdown: ## kwa vichwa, - kwa vitone, [maandishi](https://…) kwa viungo. Acha mstari mtupu kati ya aya.",
-        "publishedAt": "Inaonyeshwa kwenye chapisho; machapisho mapya yanaonyeshwa kwanza."
+        "publishedAt": "Inaonyeshwa kwenye chapisho; machapisho mapya yanaonyeshwa kwanza.",
+        "supportIntro": "Unaonyeshwa juu ya ukurasa wa Msaada. Ikiwa tupu, maandishi yaliyopo yanaonyeshwa.",
+        "supportTopics": "Mambo ambayo wateja wanaweza kusaidiwa. Ikiwa tupu, mada nne zilizopo zinaonyeshwa."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -782,7 +787,8 @@
         "remove": "Ondoa {name}",
         "removeShort": "Ondoa",
         "add": "Ongeza: {item}"
-      }
+      },
+      "supportHeading": "Ukurasa wa msaada"
     },
     "analytics": {
       "heading": "Takwimu",
@@ -943,5 +949,35 @@
     "by": "na {author}",
     "ctaHeading": "Una mradi akilini?",
     "ctaButton": "Omba makadirio"
+  },
+  "Support": {
+    "meta": {
+      "title": "Msaada",
+      "description": "Pata msaada kutoka Wizzy Inc kuhusu mradi wako, mabadiliko, tovuti yako au mafaili."
+    },
+    "heading": "Msaada",
+    "intro": "Tayari unafanya kazi nasi, au una swali? Hivi ndivyo tunavyoweza kukusaidia na njia za haraka za kutufikia.",
+    "topicsHeading": "Tunavyoweza kusaidia",
+    "defaults": {
+      "project": {
+        "title": "Makadirio au mradi wako",
+        "text": "Maswali kuhusu makadirio, hatua zinazofuata au ratiba ya mradi wako."
+      },
+      "changes": {
+        "title": "Mabadiliko na marekebisho",
+        "text": "Omba mabadiliko kwenye muundo au tovuti tunayokutengenezea."
+      },
+      "website": {
+        "title": "Msaada kuhusu tovuti yako",
+        "text": "Kuna kitu hakifanyi kazi kwenye tovuti tuliyotengeneza? Tueleze unachoona na kwenye ukurasa upi."
+      },
+      "files": {
+        "title": "Mafaili na miundo",
+        "text": "Unahitaji mafaili yako kwa ukubwa au muundo mwingine (PNG, PDF, SVG, uchapishaji)? Uliza tu."
+      }
+    },
+    "faqHeading": "Unatafuta jibu la haraka?",
+    "faqText": "Malipo, marekebisho, muda na miundo ya mafaili vimeelezwa kwenye Maswali Yanayoulizwa Mara kwa Mara.",
+    "faqButton": "Soma maswali"
   }
 }
