@@ -661,5 +661,8 @@
     "moreText": "Tuulize kupitia WhatsApp au tutumie ujumbe — au omba makadirio ya bei tukueleze kila kitu kuhusu mradi wako.",
     "quoteButton": "Omba makadirio ya bei",
     "contactButton": "Wasiliana nasi"
+  },
+  "Loading": {
+    "label": "Inapakia…"
   }
 }

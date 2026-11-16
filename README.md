@@ -60,6 +60,8 @@ when a new quote request is saved (PRD A3 / FR-5), using [Resend](https://resend
 pnpm check        # lint + typecheck + unit tests
 pnpm test:rules   # Firestore/Storage security-rules tests (starts emulators)
 pnpm test:e2e     # Playwright smoke tests (run `pnpm exec playwright install chromium` once)
+                  # Blocked browser (e.g. Windows Smart App Control)? Use installed Chrome:
+                  #   PLAYWRIGHT_CHANNEL=chrome pnpm test:e2e
 pnpm build
 ```
 

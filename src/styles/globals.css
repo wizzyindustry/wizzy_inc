@@ -13,3 +13,38 @@
     outline-offset: 2px;
   }
 }
+
+/*
+ * Loading "W" (LoadingW.tsx): the letter is drawn stroke by stroke, then undrawn, in a loop.
+ * Paths use pathLength="1", so a dash of 1 covers the whole letter.
+ */
+@layer components {
+  .loading-w-stroke {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: loading-w-draw 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes loading-w-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes loading-w-pulse {
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* Reduced motion: no drawing, just a slow fade. */
+  @media (prefers-reduced-motion: reduce) {
+    .loading-w-stroke {
+      stroke-dashoffset: 0;
+      animation: loading-w-pulse 2s ease-in-out infinite;
+    }
+  }
+}

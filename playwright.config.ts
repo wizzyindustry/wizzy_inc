@@ -8,6 +8,9 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
+    // Optional: run on an installed browser (e.g. PLAYWRIGHT_CHANNEL=chrome) when the downloaded
+    // test browser is blocked, such as by Windows Smart App Control.
+    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
   },
   projects: [
     { name: 'mobile-chrome', use: { ...devices['Pixel 7'] } },

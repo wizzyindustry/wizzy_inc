@@ -661,5 +661,8 @@
     "moreText": "Ask us on WhatsApp or send a message — or request a quote and we will explain everything for your project.",
     "quoteButton": "Request a quote",
     "contactButton": "Contact us"
+  },
+  "Loading": {
+    "label": "Loading…"
   }
 }
