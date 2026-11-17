@@ -49,6 +49,14 @@ quote attachments: "raw" + private, downloaded only through the admin route. No 
 **Needs owner approval to record in `ARCHITECTURE-ESSENTIAL.md`** (Data row says Firebase
 Storage) — protected file, not edited.
 
+## Decision (owner, 2026-11-17): forms and emails on the free plan
+- Spam check: reCAPTCHA Enterprise needs Google Cloud billing, so App Check uses the free
+  reCAPTCHA v3 provider when `NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY` is set. Still verified on
+  the server for every public form.
+- Emails: no Cloud Functions on Spark, so the server actions send the same emails through
+  Brevo (`src/lib/email/`), after the answer is sent (`after`). Owner chose Brevo over Gmail
+  and Resend+domain. If the functions are deployed later, unset `BREVO_API_KEY`.
+
 ## Owner to-do
 - Admin → Company info: real story, founding year, headquarters, founder name, partner logos
   (with their permission), impact numbers and office coordinates.

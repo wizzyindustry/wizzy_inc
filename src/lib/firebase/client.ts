@@ -3,6 +3,7 @@ import {
   getToken,
   initializeAppCheck,
   ReCaptchaEnterpriseProvider,
+  ReCaptchaV3Provider,
   type AppCheck,
 } from 'firebase/app-check';
 
@@ -32,13 +33,18 @@ let appCheck: AppCheck | null = null;
 /**
  * App Check token to send with a public form, or null when App Check isn't configured
  * (local development). The server rejects missing tokens outside the emulators.
+ * Provider: reCAPTCHA v3 when NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY is set (free, no Google Cloud
+ * billing — used on the free Firebase plan), otherwise reCAPTCHA Enterprise.
  */
 export async function getAppCheckToken(): Promise<string | null> {
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  if (!siteKey || !config.apiKey || !config.appId) return null;
+  const v3Key = process.env.NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY;
+  const enterpriseKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  if ((!v3Key && !enterpriseKey) || !config.apiKey || !config.appId) return null;
   try {
     appCheck ??= initializeAppCheck(firebaseApp(), {
-      provider: new ReCaptchaEnterpriseProvider(siteKey),
+      provider: v3Key
+        ? new ReCaptchaV3Provider(v3Key)
+        : new ReCaptchaEnterpriseProvider(enterpriseKey!),
       isTokenAutoRefreshEnabled: false,
     });
     return (await getToken(appCheck, false)).token;

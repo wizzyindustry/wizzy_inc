@@ -1,6 +1,7 @@
 'use server';
 
 import { createContactLead } from '@/lib/data/create-lead';
+import { emailOwnerAboutLead } from '@/lib/email/notify';
 import { contactInputSchema } from '@/lib/schemas/contact-input';
 import { guardPublicForm } from '@/lib/security/guard';
 import { HONEYPOT_FIELD } from '@/lib/security/honeypot';
@@ -37,7 +38,8 @@ export async function submitContact(formData: FormData): Promise<ActionResult<{ 
       return { ok: false, error: 'validation', fieldErrors: zodFieldErrors(parsed.error) };
     }
 
-    const { ref } = await createContactLead(parsed.data);
+    const { id, ref } = await createContactLead(parsed.data);
+    emailOwnerAboutLead(id);
     return { ok: true, data: { ref } };
   } catch (error) {
     console.error('[contact] submit failed:', error instanceof Error ? error.message : 'unknown');

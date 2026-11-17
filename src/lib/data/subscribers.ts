@@ -11,18 +11,20 @@ export const subscriberId = (email: string) =>
 /**
  * Add a newsletter subscriber (server only). Signing up twice changes nothing, and the
  * visitor sees the same answer either way, so the form cannot be used to find out who
- * is on the list. A new document triggers the welcome email (Cloud Function).
+ * is on the list. Returns the new document's id (null when already subscribed) so the
+ * caller can send the welcome email (or the Cloud Function sends it, on the Blaze plan).
  */
-export async function addSubscriber(input: SubscribeInput): Promise<void> {
+export async function addSubscriber(input: SubscribeInput): Promise<string | null> {
   const db = adminDb();
   const ref = db.collection('subscribers').doc(subscriberId(input.email));
-  await db.runTransaction(async (tx) => {
-    if ((await tx.get(ref)).exists) return;
+  return db.runTransaction(async (tx) => {
+    if ((await tx.get(ref)).exists) return null;
     tx.create(ref, {
       ...input,
       unsubscribeToken: randomBytes(24).toString('base64url'), // 32 characters
       createdAt: FieldValue.serverTimestamp(),
     });
+    return ref.id;
   });
 }
 

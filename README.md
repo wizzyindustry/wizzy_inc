@@ -219,7 +219,8 @@ Copy `.env.example` to `.env.local` locally. In production, set them in the host
 | Variable | Where used | Notes |
 |---|---|---|
 | `NEXT_PUBLIC_FIREBASE_API_KEY`, `…_AUTH_DOMAIN`, `…_PROJECT_ID`, `…_STORAGE_BUCKET`, `…_APP_ID` | Browser + server | From Firebase console → Project settings → Your apps |
-| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Browser | App Check (reCAPTCHA) site key |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Browser | App Check (reCAPTCHA Enterprise) site key |
+| `NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY` | Browser | Free plan: reCAPTCHA v3 site key instead (used when set; the v3 secret goes in Firebase → App Check) |
 | `FIREBASE_SERVICE_ACCOUNT_KEY` | Server (secret) | Base64 of a service-account JSON. Needed on hosts **other than** Firebase App Hosting |
 | `REVALIDATE_SECRET` | Server (secret) | At least 16 random characters; protects `/api/revalidate` |
 | `RATE_LIMIT_SALT` | Server (secret) | Random string used to hash visitor IPs for rate limiting |
@@ -227,6 +228,7 @@ Copy `.env.example` to `.env.local` locally. In production, set them in the host
 | `NEXT_PUBLIC_SITE_URL` | Server | Public address, e.g. `https://example.com` (SEO, sitemap) |
 | `CLOUDINARY_URL` | Server (secret) | Optional. Free plan only: Cloudinary dashboard → "API environment variable" (`cloudinary://…`) |
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Browser + server | Optional. The Cloudinary cloud name (the part after `@` above) |
+| `BREVO_API_KEY`, `EMAIL_FROM`, `OWNER_NOTIFICATION_EMAIL` | Server (secret) | Free plan (no Cloud Functions): the website sends the lead and welcome emails through Brevo. `EMAIL_FROM` = the sender verified in Brevo, e.g. `Wizzy Inc <you@gmail.com>`. Leave `BREVO_API_KEY` empty when the Cloud Functions send emails |
 
 Cloud Functions have their own settings (`RESEND_API_KEY` secret, `OWNER_EMAIL`, `EMAIL_FROM`,
 `SITE_URL`), set with the Firebase CLI. See [Deployment](#deployment).

@@ -7,6 +7,12 @@ const storageEmulator = process.env.FIREBASE_STORAGE_EMULATOR_HOST;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // The email templates in functions/src (shared with the website, which sends emails on the
+  // free plan) import each other as "./x.js" (Node ESM style); resolve that to the .ts file.
+  webpack: (config) => {
+    config.resolve.extensionAlias = { '.js': ['.ts', '.js'] };
+    return config;
+  },
   experimental: {
     // Quote form: up to 3 attachments x 5 MB (FR-3) plus fields. Default limit is 1 MB.
     serverActions: { bodySizeLimit: '16mb' },
