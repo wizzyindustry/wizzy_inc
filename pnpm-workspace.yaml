@@ -1,2 +1,8 @@
 packages:
   - functions
+
+# firebase-admin pulls jwks-rsa 4, which require()s the ESM-only jose 6. Hosts that run
+# Node without require(esm) (seen on Vercel) then crash every admin page that checks a
+# sign-in. jwks-rsa 3 (jose 4, CommonJS) has the same API and works everywhere.
+overrides:
+  jwks-rsa: ^3.2.0
