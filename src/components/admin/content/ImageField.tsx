@@ -16,6 +16,7 @@ export function previewUrl(path: string): string {
   return storageUrl(path, {
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: projectId,
     NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     FIREBASE_STORAGE_EMULATOR_HOST: projectId?.startsWith('demo-') ? '127.0.0.1:9199' : undefined,
   });
 }

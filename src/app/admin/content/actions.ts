@@ -2,7 +2,8 @@
 
 import { FieldValue } from 'firebase-admin/firestore';
 import { revalidatePublicPages } from '@/lib/data/revalidate-public';
-import { adminDb, adminStorage } from '@/lib/firebase/admin';
+import { adminDb } from '@/lib/firebase/admin';
+import { deleteFolder, saveFile } from '@/lib/media/file-store';
 import {
   aboutInputSchema,
   companyInputSchema,
@@ -109,9 +110,7 @@ export async function deleteContent(
   try {
     await adminDb().collection(collection).doc(id).delete();
     if (collection === 'portfolio') {
-      await adminStorage()
-        .bucket()
-        .deleteFiles({ prefix: `portfolio/${id}/` });
+      await deleteFolder(`portfolio/${id}/`);
     }
     revalidatePublicPages();
     return { ok: true, data: { id } };
@@ -174,14 +173,7 @@ export async function uploadPortfolioImage(
     const bytes = Buffer.from(await file.arrayBuffer());
     if (!contentMatchesType(bytes, file.type)) return { ok: false, error: 'imageType' };
     const path = `portfolio/${itemId}/${Date.now()}-${safeFileName(file.name)}`;
-    await adminStorage()
-      .bucket()
-      .file(path)
-      .save(bytes, {
-        contentType: file.type,
-        resumable: false,
-        metadata: { cacheControl: 'public, max-age=31536000, immutable' },
-      });
+    await saveFile(path, bytes, file.type);
     return { ok: true, data: { path } };
   } catch (error) {
     logFailure('uploadPortfolioImage', error);
@@ -215,14 +207,7 @@ export async function uploadSiteImage(
     const bytes = Buffer.from(await file.arrayBuffer());
     if (!contentMatchesType(bytes, file.type)) return { ok: false, error: typeError };
     const path = `${folder}/${Date.now()}-${safeFileName(file.name)}`;
-    await adminStorage()
-      .bucket()
-      .file(path)
-      .save(bytes, {
-        contentType: file.type,
-        resumable: false,
-        metadata: { cacheControl: 'public, max-age=31536000, immutable' },
-      });
+    await saveFile(path, bytes, file.type);
     return { ok: true, data: { path } };
   } catch (error) {
     logFailure('uploadSiteImage', error);

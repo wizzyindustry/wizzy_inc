@@ -202,7 +202,10 @@ Running `pnpm seed` again **replaces** content with fresh sample data.
 - **Pages are cached** (ISR). When the admin saves, the server refreshes the public pages
   automatically; otherwise they refresh at least hourly.
 - **Files** (images, logos, PDFs) go to Firebase Storage through checked server actions:
-  type and size are verified, and SVGs are checked for scripts.
+  type and size are verified, and SVGs are checked for scripts. On the free Firebase plan
+  (no Storage) they go to **Cloudinary** instead when `CLOUDINARY_URL` is set — same paths,
+  same checks; quote attachments are stored there as private files
+  (`src/lib/media/file-store.ts` decides: emulator → Cloudinary → Firebase Storage).
 
 The full data model is in [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -222,6 +225,8 @@ Copy `.env.example` to `.env.local` locally. In production, set them in the host
 | `RATE_LIMIT_SALT` | Server (secret) | Random string used to hash visitor IPs for rate limiting |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Browser | `255XXXXXXXXX` (no `+`); fallback if not set in admin |
 | `NEXT_PUBLIC_SITE_URL` | Server | Public address, e.g. `https://example.com` (SEO, sitemap) |
+| `CLOUDINARY_URL` | Server (secret) | Optional. Free plan only: Cloudinary dashboard → "API environment variable" (`cloudinary://…`) |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Browser + server | Optional. The Cloudinary cloud name (the part after `@` above) |
 
 Cloud Functions have their own settings (`RESEND_API_KEY` secret, `OWNER_EMAIL`, `EMAIL_FROM`,
 `SITE_URL`), set with the Firebase CLI. See [Deployment](#deployment).

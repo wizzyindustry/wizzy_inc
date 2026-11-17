@@ -40,6 +40,15 @@ Notes:
 - Welcome emails need the same Resend setup as lead emails (`RESEND_API_KEY`, `EMAIL_FROM`,
   `SITE_URL`) — nothing new to configure.
 
+## Decision (owner, 2026-11-17): pictures on Cloudinary
+The Blaze upgrade failed (card), and Firebase Storage needs Blaze, so the owner chose the free
+Cloudinary plan for uploaded files. `src/lib/media/file-store.ts` picks the emulator (dev/tests),
+then Cloudinary (`CLOUDINARY_URL`), then Firebase Storage — paths are unchanged, so switching
+back to Storage later needs no content changes. Public files: Cloudinary "image" uploads;
+quote attachments: "raw" + private, downloaded only through the admin route. No new package.
+**Needs owner approval to record in `ARCHITECTURE-ESSENTIAL.md`** (Data row says Firebase
+Storage) — protected file, not edited.
+
 ## Owner to-do
 - Admin → Company info: real story, founding year, headquarters, founder name, partner logos
   (with their permission), impact numbers and office coordinates.

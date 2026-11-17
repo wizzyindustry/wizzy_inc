@@ -1,4 +1,5 @@
-import { adminDb, adminStorage } from '@/lib/firebase/admin';
+import { adminDb } from '@/lib/firebase/admin';
+import { readPrivateFile } from '@/lib/media/file-store';
 import { attachmentSchema } from '@/lib/schemas/lead';
 import { requireAdmin } from '@/lib/security/require-admin';
 
@@ -29,7 +30,7 @@ export async function GET(request: Request, { params }: Params) {
     if (!snap.exists || !parsed.success) return plain(404, 'Not found');
     const file = parsed.data;
 
-    const [bytes] = await adminStorage().bucket().file(file.path).download();
+    const bytes = await readPrivateFile(file.path);
     return new Response(new Uint8Array(bytes), {
       headers: {
         'content-type': file.contentType,

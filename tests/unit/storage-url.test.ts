@@ -18,4 +18,22 @@ describe('storageUrl', () => {
       'http://127.0.0.1:9199/v0/b/demo-wizzy.appspot.com/o/portfolio%2Fx.png?alt=media',
     );
   });
+
+  it('uses Cloudinary on the free plan (no extension: served in its original format)', () => {
+    const env = {
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: 'wizzy',
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: 'x',
+    };
+    expect(storageUrl('site/hero/1-my photo.png', env)).toBe(
+      'https://res.cloudinary.com/wizzy/image/upload/site/hero/1-my%20photo',
+    );
+  });
+
+  it('prefers the emulator over Cloudinary in local dev', () => {
+    const env = {
+      FIREBASE_STORAGE_EMULATOR_HOST: '127.0.0.1:9199',
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: 'wizzy',
+    };
+    expect(storageUrl('site/x.png', env)).toMatch(/^http:\/\/127\.0\.0\.1:9199\//);
+  });
 });

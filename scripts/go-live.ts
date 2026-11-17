@@ -23,6 +23,7 @@ import { cert, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getSecurityRules } from 'firebase-admin/security-rules';
 import { getStorage } from 'firebase-admin/storage';
+import { cloudinaryConfig } from '../src/lib/media/cloudinary';
 
 const rl = createInterface({ input: stdin, output: stdout });
 const ask = async (question: string) => (await rl.question(question)).trim();
@@ -105,16 +106,19 @@ async function main(): Promise<void> {
       // try the next name
     }
   }
-  // Free (Spark) plan: no Storage. Go live with the text now; pictures/files follow once
-  // Storage is turned on (Blaze) and `pnpm go-live` is run again.
+  // Free (Spark) plan: no Storage. Pictures go to Cloudinary when CLOUDINARY_URL is set;
+  // otherwise go live with the text now and add pictures later.
+  const cloudinary = bucket ? null : cloudinaryConfig();
   if (bucket) {
     console.log(`  ✔ Storage: ${bucket}`);
+  } else if (cloudinary) {
+    console.log(`  ✔ Pictures: Cloudinary (${cloudinary.cloudName})`);
   } else {
     console.log(
       '  ! No Storage (free plan): going live with text only — no pictures or files yet.',
     );
     console.log(
-      '    Later: turn on Storage (Blaze plan), then run `pnpm go-live` again to add them.',
+      '    Later: set CLOUDINARY_URL (free) or turn on Storage, then run `pnpm go-live` again.',
     );
   }
 
@@ -178,7 +182,7 @@ async function main(): Promise<void> {
           'import',
           '--key',
           `"${keyPath}"`,
-          ...(bucket ? ['--bucket', bucket] : ['--text-only']),
+          ...(bucket ? ['--bucket', bucket] : cloudinary ? ['--cloudinary'] : ['--text-only']),
           ...(confirm ? ['--confirm'] : []),
         ],
         { stdio: 'inherit', shell: true },

@@ -10,6 +10,8 @@
  *       -> DRY RUN: shows what would be copied, writes nothing
  *     pnpm content:copy import --key <service-account.json> --bucket <bucket> --confirm
  *       -> copies to the real project
+ *   Free plan (no Firebase Storage): use `--cloudinary` instead of `--bucket` (pictures go to
+ *   Cloudinary; needs CLOUDINARY_URL in the environment) or `--text-only` (no pictures).
  *
  * What is copied: site documents (settings/…), services, packages, portfolio, testimonials,
  * blog posts, and the images/files they use. What is NOT copied: items whose title/name is
@@ -25,6 +27,7 @@ import { dirname, join } from 'node:path';
 import { cert, initializeApp } from 'firebase-admin/app';
 import { getFirestore, Timestamp } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
+import { cloudinaryConfig, cloudinaryExists, cloudinaryUpload } from '../src/lib/media/cloudinary';
 import type { z } from 'zod';
 import {
   aboutPageSchema,
@@ -231,9 +234,14 @@ async function importToProduction(): Promise<void> {
   const confirm = args.includes('--confirm');
   // Free (Spark) plan has no Storage: copy only the text, upload the files later.
   const textOnly = args.includes('--text-only');
+  // Free plan with pictures on Cloudinary (CLOUDINARY_URL set in the environment).
+  const useCloudinary = args.includes('--cloudinary');
+  const cloudinary = useCloudinary ? cloudinaryConfig() : null;
+  if (useCloudinary && !cloudinary)
+    fail('Set CLOUDINARY_URL (Cloudinary dashboard → "API environment variable") first.');
   if (!keyPath || !existsSync(keyPath))
     fail('Give the service-account key file: --key <path/to/key.json>');
-  if (!bucketName && !textOnly)
+  if (!bucketName && !textOnly && !cloudinary)
     fail(
       'Give the Storage bucket: --bucket <name> (Firebase console → Storage, e.g. my-project.firebasestorage.app)',
     );
@@ -257,7 +265,7 @@ async function importToProduction(): Promise<void> {
   const manifest = JSON.parse(readFileSync(join(OUT_DIR, 'content.json'), 'utf8')) as Manifest;
 
   console.log(
-    `\n${confirm ? 'COPYING' : 'DRY RUN (nothing is written)'} → project "${projectId}", ${textOnly ? 'text only (no Storage)' : `bucket "${bucketName}"`}\n`,
+    `\n${confirm ? 'COPYING' : 'DRY RUN (nothing is written)'} → project "${projectId}", ${textOnly ? 'text only (no Storage)' : cloudinary ? `pictures to Cloudinary "${cloudinary.cloudName}"` : `bucket "${bucketName}"`}\n`,
   );
   let written = 0;
   let kept = 0;
@@ -274,6 +282,18 @@ async function importToProduction(): Promise<void> {
   }
   let uploaded = 0;
   for (const entry of textOnly ? [] : manifest.files) {
+    if (cloudinary) {
+      if (await cloudinaryExists(cloudinary, entry.path)) continue;
+      if (confirm) {
+        await cloudinaryUpload(cloudinary, {
+          path: entry.path,
+          bytes: readFileSync(join(OUT_DIR, 'files', entry.path)),
+          contentType: entry.contentType,
+        });
+      }
+      uploaded++;
+      continue;
+    }
     const file = getStorage(app).bucket().file(entry.path);
     if ((await file.exists())[0]) continue;
     if (confirm) {
@@ -306,6 +326,6 @@ if (mode === 'export') await exportFromEmulators();
 else if (mode === 'import') await importToProduction();
 else
   fail(
-    'Usage: pnpm content:copy export | import --key <key.json> (--bucket <bucket> | --text-only) [--confirm]',
+    'Usage: pnpm content:copy export | import --key <key.json> (--bucket <bucket> | --cloudinary | --text-only) [--confirm]',
   );
 process.exit(0);

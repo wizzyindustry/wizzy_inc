@@ -1,6 +1,7 @@
 import 'server-only';
 import { FieldValue, Timestamp, type DocumentReference } from 'firebase-admin/firestore';
-import { adminDb, adminStorage } from '@/lib/firebase/admin';
+import { adminDb } from '@/lib/firebase/admin';
+import { deleteFile, saveFile } from '@/lib/media/file-store';
 import {
   budgetRangeById,
   formatLeadRef,
@@ -55,7 +56,6 @@ export async function createQuoteLead(
   files: UploadFile[],
 ): Promise<{ id: string; ref: string }> {
   const db = adminDb();
-  const bucket = adminStorage().bucket();
   const leadRef = db.collection('leads').doc();
   const uploaded: string[] = [];
 
@@ -63,7 +63,7 @@ export async function createQuoteLead(
     const attachments: Attachment[] = [];
     for (const [i, file] of files.entries()) {
       const path = `quotes/${leadRef.id}/${i + 1}-${safeFileName(file.name)}`;
-      await bucket.file(path).save(file.bytes, { contentType: file.type, resumable: false });
+      await saveFile(path, file.bytes, file.type, { privateFile: true });
       uploaded.push(path);
       attachments.push({
         path,
@@ -94,7 +94,7 @@ export async function createQuoteLead(
     const ref = await insertWithRef(leadRef, lead);
     return { id: leadRef.id, ref };
   } catch (error) {
-    await Promise.allSettled(uploaded.map((path) => bucket.file(path).delete()));
+    await Promise.allSettled(uploaded.map((path) => deleteFile(path, { privateFile: true })));
     throw error;
   }
 }
