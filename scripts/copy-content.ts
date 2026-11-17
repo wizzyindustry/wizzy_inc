@@ -229,9 +229,11 @@ async function importToProduction(): Promise<void> {
   const keyPath = flag('--key');
   const bucketName = flag('--bucket');
   const confirm = args.includes('--confirm');
+  // Free (Spark) plan has no Storage: copy only the text, upload the files later.
+  const textOnly = args.includes('--text-only');
   if (!keyPath || !existsSync(keyPath))
     fail('Give the service-account key file: --key <path/to/key.json>');
-  if (!bucketName)
+  if (!bucketName && !textOnly)
     fail(
       'Give the Storage bucket: --bucket <name> (Firebase console → Storage, e.g. my-project.firebasestorage.app)',
     );
@@ -249,14 +251,13 @@ async function importToProduction(): Promise<void> {
 
   const app = initializeApp({
     credential: cert({ projectId, clientEmail: key.client_email, privateKey: key.private_key }),
-    storageBucket: bucketName,
+    ...(bucketName ? { storageBucket: bucketName } : {}),
   });
   const db = getFirestore(app);
-  const bucket = getStorage(app).bucket();
   const manifest = JSON.parse(readFileSync(join(OUT_DIR, 'content.json'), 'utf8')) as Manifest;
 
   console.log(
-    `\n${confirm ? 'COPYING' : 'DRY RUN (nothing is written)'} → project "${projectId}", bucket "${bucketName}"\n`,
+    `\n${confirm ? 'COPYING' : 'DRY RUN (nothing is written)'} → project "${projectId}", ${textOnly ? 'text only (no Storage)' : `bucket "${bucketName}"`}\n`,
   );
   let written = 0;
   let kept = 0;
@@ -272,8 +273,8 @@ async function importToProduction(): Promise<void> {
     written++;
   }
   let uploaded = 0;
-  for (const entry of manifest.files) {
-    const file = bucket.file(entry.path);
+  for (const entry of textOnly ? [] : manifest.files) {
+    const file = getStorage(app).bucket().file(entry.path);
     if ((await file.exists())[0]) continue;
     if (confirm) {
       await file.save(readFileSync(join(OUT_DIR, 'files', entry.path)), {
@@ -288,7 +289,11 @@ async function importToProduction(): Promise<void> {
   console.log(
     `\n  documents ${confirm ? 'copied' : 'to copy'}: ${written}, already there: ${kept}`,
   );
-  console.log(`  files ${confirm ? 'uploaded' : 'to upload'}: ${uploaded}`);
+  console.log(
+    textOnly
+      ? `  files: ${manifest.files.length} skipped (no Storage yet — run again without --text-only later)`
+      : `  files ${confirm ? 'uploaded' : 'to upload'}: ${uploaded}`,
+  );
   console.log(
     confirm
       ? '\nDone. Refresh the live pages: sign in at <your-site>/admin and press Save on any page (or redeploy on Vercel).\nThen delete the .production-copy folder.\n'
@@ -300,5 +305,7 @@ const mode = args[0];
 if (mode === 'export') await exportFromEmulators();
 else if (mode === 'import') await importToProduction();
 else
-  fail('Usage: pnpm content:copy export | import --key <key.json> --bucket <bucket> [--confirm]');
+  fail(
+    'Usage: pnpm content:copy export | import --key <key.json> (--bucket <bucket> | --text-only) [--confirm]',
+  );
 process.exit(0);

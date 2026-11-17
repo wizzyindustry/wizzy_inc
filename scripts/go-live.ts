@@ -21,6 +21,7 @@ import { stdin, stdout } from 'node:process';
 import { createInterface } from 'node:readline/promises';
 import { cert, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
+import { getSecurityRules } from 'firebase-admin/security-rules';
 import { getStorage } from 'firebase-admin/storage';
 
 const rl = createInterface({ input: stdin, output: stdout });
@@ -104,39 +105,64 @@ async function main(): Promise<void> {
       // try the next name
     }
   }
-  if (!bucket) {
-    stop(
-      'No Storage found. In the Firebase console open "Storage" → Get started (production mode), then run `pnpm go-live` again.',
+  // Free (Spark) plan: no Storage. Go live with the text now; pictures/files follow once
+  // Storage is turned on (Blaze) and `pnpm go-live` is run again.
+  if (bucket) {
+    console.log(`  ✔ Storage: ${bucket}`);
+  } else {
+    console.log(
+      '  ! No Storage (free plan): going live with text only — no pictures or files yet.',
+    );
+    console.log(
+      '    Later: turn on Storage (Blaze plan), then run `pnpm go-live` again to add them.',
     );
   }
-  console.log(`  ✔ Storage: ${bucket}`);
 
   // ---- Security rules ----
   step(2, 'Upload the security rules');
-  const deploy = spawnSync(
-    'pnpm',
-    [
-      'exec',
-      'firebase',
-      'deploy',
-      '--only',
-      'firestore:rules,firestore:indexes,storage',
-      '--project',
-      projectId,
-      '--non-interactive',
-    ],
-    {
-      stdio: 'inherit',
-      shell: true,
-      env: { ...process.env, GOOGLE_APPLICATION_CREDENTIALS: keyPath },
-    },
-  );
-  if (deploy.status !== 0) {
+  // Uploaded with the key itself (the Firebase CLI needs extra Google Cloud permissions).
+  const credential = cert({
+    projectId,
+    clientEmail: key.client_email,
+    privateKey: key.private_key,
+  });
+  try {
+    const rules = getSecurityRules(app);
+    await rules.releaseFirestoreRulesetFromSource(readFileSync('firestore.rules', 'utf8'));
+    if (bucket) {
+      await rules.releaseStorageRulesetFromSource(readFileSync('storage.rules', 'utf8'), bucket);
+    }
+  } catch (error) {
     stop(
-      'The rules could not be uploaded. Check that "Firestore Database" (location europe-west1) and "Storage" are created in the Firebase console, then run `pnpm go-live` again.',
+      `The rules could not be uploaded (${error instanceof Error ? error.message : 'unknown error'}). Check that "Firestore Database" is created in the Firebase console, then run \`pnpm go-live\` again.`,
     );
   }
   console.log('  ✔ Rules uploaded');
+
+  // Indexes the site's lists need (from firestore.indexes.json). Existing ones are kept.
+  const { access_token: token } = await credential.getAccessToken();
+  const { indexes } = JSON.parse(readFileSync('firestore.indexes.json', 'utf8')) as {
+    indexes: { collectionGroup: string; queryScope: string; fields: unknown[] }[];
+  };
+  let indexesFailed = 0;
+  for (const { collectionGroup, ...index } of indexes) {
+    const res = await fetch(
+      `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/collectionGroups/${collectionGroup}/indexes`,
+      {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(index),
+      },
+    );
+    if (!res.ok && res.status !== 409) indexesFailed++;
+  }
+  if (indexesFailed) {
+    console.log(`  ! ${indexesFailed} indexes could not be created: the key is not allowed to.`);
+    console.log('    Google Cloud console → IAM → the "firebase-adminsdk" account → add the role');
+    console.log('    "Cloud Datastore Index Admin", then run `pnpm go-live` again.');
+  } else {
+    console.log(`  ✔ Indexes requested (${indexes.length}; Google builds them in a few minutes)`);
+  }
 
   // ---- Content ----
   step(3, 'Copy your content');
@@ -152,8 +178,7 @@ async function main(): Promise<void> {
           'import',
           '--key',
           `"${keyPath}"`,
-          '--bucket',
-          bucket,
+          ...(bucket ? ['--bucket', bucket] : ['--text-only']),
           ...(confirm ? ['--confirm'] : []),
         ],
         { stdio: 'inherit', shell: true },
