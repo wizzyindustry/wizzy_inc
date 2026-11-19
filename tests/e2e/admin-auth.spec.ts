@@ -58,3 +58,22 @@ test('a wrong password shows a friendly error', async ({ page }) => {
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await expect(page.locator('main p[role="alert"]')).toHaveText('Wrong email or password.');
 });
+
+test('"Forgot password?" asks for the email, then confirms without revealing accounts', async ({
+  page,
+}) => {
+  needsEmulator();
+  await page.goto('/admin/login');
+  const forgot = page.getByRole('button', { name: 'Forgot password?' });
+  await forgot.click();
+  await expect(page.locator('main p[role="alert"]')).toContainText('Type your email above first');
+
+  // Same answer for a real admin and an unknown address.
+  for (const email of ['admin@example.test', 'nobody@example.test']) {
+    await page.locator('#email').fill(email);
+    await forgot.click();
+    await expect(page.locator('main p[role="status"]')).toContainText(
+      'a link to choose a new password',
+    );
+  }
+});

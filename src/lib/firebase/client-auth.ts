@@ -4,6 +4,7 @@ import {
   connectAuthEmulator,
   getAuth,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -34,6 +35,16 @@ export function signInWithEmail(email: string, password: string) {
 
 export function signInWithGoogle() {
   return signInWithPopup(adminAuthClient(), new GoogleAuthProvider());
+}
+
+/**
+ * Email a "choose a new password" link (Firebase sends it). After resetting, the link's
+ * "Continue" button returns to the admin sign-in page.
+ */
+export function sendAdminPasswordReset(email: string) {
+  return sendPasswordResetEmail(adminAuthClient(), email, {
+    url: `${window.location.origin}/admin/login`,
+  });
 }
 
 export function signOutAdmin() {

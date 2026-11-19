@@ -433,13 +433,16 @@
       "signingIn": "Inaingia…",
       "or": "au",
       "google": "Ingia kwa Google",
+      "forgot": "Umesahau nenosiri?",
+      "resetSent": "Kama barua pepe hii ina akaunti ya msimamizi, kiungo cha kuchagua nenosiri jipya kinatumwa. Angalia sanduku lako la barua (na Spam).",
       "errors": {
         "invalidCredentials": "Barua pepe au nenosiri si sahihi.",
         "notAdmin": "Akaunti hii haina ruhusa ya usimamizi.",
         "tooManyAttempts": "Majaribio mengi mno. Tafadhali subiri dakika chache ujaribu tena.",
         "popupClosed": "Dirisha la kuingia kwa Google lilifungwa kabla ya kumaliza.",
         "network": "Hakuna mtandao. Kagua intaneti yako ujaribu tena.",
-        "generic": "Imeshindikana kuingia. Tafadhali jaribu tena."
+        "generic": "Imeshindikana kuingia. Tafadhali jaribu tena.",
+        "resetEmailMissing": "Andika barua pepe yako hapo juu kwanza, kisha bonyeza \"Umesahau nenosiri?\"."
       }
     },
     "dashboard": {
