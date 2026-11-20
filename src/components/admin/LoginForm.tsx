@@ -8,6 +8,7 @@ import { describedBy, FormField } from '@/components/forms/FormField';
 import { Button } from '@/components/ui/Button';
 import { fieldClass } from '@/components/ui/field-styles';
 import {
+  sendAdminPasswordReset,
   signInWithEmail,
   signInWithGoogle,
   signOutAdmin,
@@ -50,6 +51,30 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(
     params.get('error') === 'notAdmin' ? 'notAdmin' : null,
   );
+  const [resetSent, setResetSent] = useState(false);
+
+  /** "Forgot password?": Firebase emails a reset link to the address typed above. */
+  async function sendReset() {
+    const email = emailRef.current?.value.trim() ?? '';
+    setError(null);
+    setResetSent(false);
+    if (!emailRef.current?.checkValidity() || !email) {
+      setError('resetEmailMissing');
+      emailRef.current?.focus();
+      return;
+    }
+    setBusy(true);
+    try {
+      await sendAdminPasswordReset(email);
+      setResetSent(true);
+    } catch (e) {
+      // Same answer whether or not the account exists, so the form can't reveal who has one.
+      if (e instanceof FirebaseError && e.code === 'auth/user-not-found') setResetSent(true);
+      else setError(errorKey(e));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function finish(signIn: () => Promise<UserCredential>) {
     setBusy(true);
@@ -78,6 +103,11 @@ export function LoginForm() {
 
   return (
     <div className="flex flex-col gap-6">
+      {resetSent && (
+        <p role="status" className="rounded-md border border-border p-3">
+          {t('resetSent')}
+        </p>
+      )}
       {error && (
         <p role="alert" className="rounded-md border border-danger p-3 text-danger">
           {t(`errors.${error}`)}
@@ -105,6 +135,14 @@ export function LoginForm() {
             className={fieldClass}
           />
         </FormField>
+        <button
+          type="button"
+          onClick={() => void sendReset()}
+          disabled={busy || !hydrated}
+          className="-mt-2 self-start text-sm text-primary underline-offset-4 hover:underline disabled:opacity-50"
+        >
+          {t('forgot')}
+        </button>
         {/* Disabled until React is ready, so the form never submits natively. */}
         <Button type="submit" disabled={busy || !hydrated}>
           {busy ? t('signingIn') : t('submit')}
