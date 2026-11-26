@@ -53,8 +53,8 @@
   },
   "HomePage": {
     "meta": {
-      "title": "Wizzy Inc — Graphic Design & Web Development",
-      "description": "Graphic design and web development services in Dodoma, Tanzania."
+      "title": "Wizzy Inc — Graphic Design & Websites in Dodoma, Tanzania",
+      "description": "Logos, branding, posters, flyers and business websites for Tanzanian businesses. See our work, compare prices in TZS and request a quote online or on WhatsApp."
     },
     "hero": {
       "headline": "Graphic design and websites that help your business stand out",
@@ -170,7 +170,7 @@
     "coverAlt": "Cover image for {title}",
     "meta": {
       "title": "Portfolio — Design & Web Projects | Wizzy Inc",
-      "description": "Logos, posters, social media graphics and websites designed and built by Wizzy Inc."
+      "description": "Logos, posters, flyers, brochures and websites by Wizzy Inc in Dodoma, plus our latest designs on Pinterest and code on GitHub."
     },
     "heading": "Portfolio",
     "intro": "A selection of design and web projects. Personal and academic projects are labelled.",
@@ -207,7 +207,7 @@
   "Services": {
     "meta": {
       "title": "Services — Graphic Design & Web Development | Wizzy Inc",
-      "description": "Logo design, posters, social media graphics, business websites, landing pages and more, with clear starting prices in TZS."
+      "description": "Logo design, branding, posters, social media graphics, business websites and landing pages in Dodoma, Tanzania, with clear starting prices in TZS."
     },
     "heading": "Services",
     "intro": "Clear services with starting prices. Your final price is confirmed in your quote.",
@@ -226,8 +226,8 @@
   },
   "Pricing": {
     "meta": {
-      "title": "Pricing & Packages | Wizzy Inc",
-      "description": "Basic, Standard and Premium packages for graphic design and web development, with clear starting prices in TZS."
+      "title": "Pricing & Packages in TZS | Wizzy Inc",
+      "description": "Basic, Standard and Premium packages for graphic design and websites, with prices in TZS, revisions and delivery times listed up front."
     },
     "heading": "Pricing & packages",
     "intro": "Pick a package to get started, or ask for a custom quote. All prices are in Tanzanian shillings.",
@@ -249,8 +249,8 @@
   },
   "QuoteForm": {
     "meta": {
-      "title": "Request a quote | Wizzy Inc",
-      "description": "Tell us about your design or website project and get a clear price."
+      "title": "Request a Quote | Wizzy Inc",
+      "description": "Tell us about your logo, poster, branding or website project in a few steps and get a clear price from Wizzy Inc in Dodoma."
     },
     "heading": "Request a quote",
     "intro": "Answer a few quick questions — it takes about 2 minutes. We reply on WhatsApp, by phone or email.",
@@ -333,8 +333,8 @@
   },
   "About": {
     "meta": {
-      "title": "About | Wizzy Inc",
-      "description": "Who we are, our skills, the tools we use and how we work."
+      "title": "About Us | Wizzy Inc",
+      "description": "Meet Wizzy Inc, a graphic design and web development studio in Dodoma, Tanzania: who we are, our skills, the tools we use and how we work."
     },
     "heading": "About Wizzy Inc",
     "intro": "TODO: real content — short introduction to Panta-wizzy: who they are, their background and what drives their work.",
@@ -359,8 +359,8 @@
   },
   "Contact": {
     "meta": {
-      "title": "Contact | Wizzy Inc",
-      "description": "Send us a message, chat on WhatsApp or call us in Dodoma."
+      "title": "Contact Us | Wizzy Inc",
+      "description": "Talk to Wizzy Inc about your design or website: send a message, chat on WhatsApp or call us in Dodoma, Tanzania."
     },
     "heading": "Contact us",
     "intro": "Have a question? Send a message, or chat with us directly on WhatsApp.",
@@ -418,7 +418,7 @@
   "Seo": {
     "ogImage": {
       "headline": "Graphic design and websites in Dodoma",
-      "subline": "Logos, flyers, branding and websites for businesses in Tanzania"
+      "subline": "Logos, branding, posters, flyers and business websites for Tanzanian businesses"
     }
   },
   "Admin": {
@@ -967,8 +967,8 @@
   },
   "Faq": {
     "meta": {
-      "title": "FAQ | Wizzy Inc",
-      "description": "Answers about payment, revisions, timelines, file formats and website hosting."
+      "title": "FAQ — Payment, Revisions & Timelines | Wizzy Inc",
+      "description": "Answers about payment, revisions, timelines, file formats and website hosting for graphic design and web projects with Wizzy Inc."
     },
     "heading": "Frequently asked questions",
     "intro": "Payment, revisions, delivery times, file formats and hosting — the things clients usually ask before starting.",
@@ -1021,8 +1021,8 @@
   },
   "OfficesPage": {
     "meta": {
-      "title": "Our offices",
-      "description": "Where to find Wizzy Inc: office addresses, opening hours and maps."
+      "title": "Our Offices | Wizzy Inc",
+      "description": "Visit Wizzy Inc in Tanzania: office addresses, opening hours, phone numbers and maps."
     },
     "heading": "Our offices",
     "intro": "Visit us in person. Choose an office to see it on the map, or open the map for directions.",
@@ -1060,8 +1060,8 @@
   },
   "Blog": {
     "meta": {
-      "title": "Blog",
-      "description": "News, tips and stories about graphic design and websites from Wizzy Inc."
+      "title": "Blog — Design & Website Tips | Wizzy Inc",
+      "description": "News, tips and stories about graphic design, branding and websites for businesses in Tanzania, from the Wizzy Inc team."
     },
     "heading": "Blog",
     "intro": "News, tips and behind-the-scenes stories from our design and web work.",
@@ -1073,8 +1073,8 @@
   },
   "Support": {
     "meta": {
-      "title": "Support",
-      "description": "Get help from Wizzy Inc with your project, changes, your website or files."
+      "title": "Support | Wizzy Inc",
+      "description": "Get help from Wizzy Inc with your project, changes to your design or website, and your files."
     },
     "heading": "Support",
     "intro": "Already working with us, or have a question? Here is how we can help and the fastest ways to reach us.",
@@ -1103,8 +1103,8 @@
   },
   "Press": {
     "meta": {
-      "title": "Press",
-      "description": "Wizzy Inc for press and partners: leadership, logos, documents, photos and brand colours."
+      "title": "Press & Media | Wizzy Inc",
+      "description": "Wizzy Inc for press and partners: leadership, logos, documents, photos and brand colours to download."
     },
     "heading": "Press",
     "intro": "Everything journalists and partners need: who leads Wizzy Inc, our official logos, documents and photos, and our brand colours.",

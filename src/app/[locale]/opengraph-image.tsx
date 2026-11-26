@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 import { getTranslations } from 'next-intl/server';
 import { toLocale } from '@/lib/i18n/metadata';
 import { OG_COLORS } from '@/lib/seo/og-colors';
+import { SITE_URL } from '@/lib/seo/site-url';
 
 /*
  * Default share image (FR-11) for every public page in a locale, e.g. when a link is sent on
@@ -38,6 +39,8 @@ export default async function OpengraphImage({ params }: Props) {
         <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.1 }}>{t('headline')}</div>
         <div style={{ fontSize: 36, opacity: 0.9 }}>{t('subline')}</div>
       </div>
+      {/* The address, so people know where the link goes before they open it. */}
+      <div style={{ fontSize: 30, opacity: 0.85 }}>{new URL(SITE_URL).host}</div>
     </div>,
     size,
   );
