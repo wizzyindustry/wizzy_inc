@@ -495,7 +495,8 @@
       "support": "Ukurasa wa msaada",
       "press": "Ukurasa wa habari",
       "categories": "Makundi",
-      "github": "Miradi ya GitHub"
+      "github": "Miradi ya GitHub",
+      "pinterest": "Pini za Pinterest"
     },
     "leads": {
       "heading": "Maombi",
@@ -751,7 +752,12 @@
         "githubShow": "Onyesha miradi yangu ya GitHub kwenye tovuti",
         "githubUsername": "Jina la mtumiaji la GitHub",
         "githubHomeCount": "Miradi kwenye ukurasa wa mwanzo",
-        "githubRepos": "Miradi ipi ionyeshwe"
+        "githubRepos": "Miradi ipi ionyeshwe",
+        "pinterestShow": "Onyesha michoro yangu ya Pinterest kwenye tovuti",
+        "pinterestUsername": "Jina la mtumiaji la Pinterest",
+        "pinterestBoards": "Mbao (boards) za kuonyesha",
+        "pinterestHomeCount": "Pini kwenye ukurasa wa mwanzo",
+        "pinterestPins": "Pini zipi zionyeshwe"
       },
       "hints": {
         "slug": "Herufi ndogo, namba na vistari, mfano logo-design. Ukibadilisha, anwani ya ukurasa inabadilika.",
@@ -808,7 +814,12 @@
         "githubShow": "Huonyesha hazina zako za umma kwenye ukurasa wa kazi zetu na ukurasa wa mwanzo. Hazina za faragha hazionyeshwi kamwe.",
         "githubUsername": "Jina lililo kwenye anwani yako ya GitHub, mfano wizzyindustry kwa github.com/wizzyindustry.",
         "githubHomeCount": "Idadi ya miradi uliyoisasisha hivi karibuni itakayoonyeshwa kwenye ukurasa wa mwanzo. 0 huficha sehemu hiyo.",
-        "githubRepos": "Hazina mpya za umma huonekana zenyewe ndani ya saa moja. Ondoa alama kwenye zile usizotaka zionekane, kisha Hifadhi. Nakala (forks), hazina zilizohifadhiwa kumbukumbu na hazina ya README ya wasifu wako haziwekwi kamwe."
+        "githubRepos": "Hazina mpya za umma huonekana zenyewe ndani ya saa moja. Ondoa alama kwenye zile usizotaka zionekane, kisha Hifadhi. Nakala (forks), hazina zilizohifadhiwa kumbukumbu na hazina ya README ya wasifu wako haziwekwi kamwe.",
+        "pinterestShow": "Huonyesha pini za mbao zilizo hapa chini kwenye ukurasa wa kazi zetu na ukurasa wa mwanzo. Mbao za siri hazionyeshwi kamwe.",
+        "pinterestUsername": "Jina lililo kwenye anwani yako ya Pinterest, mfano panta_wizzy kwa pinterest.com/panta_wizzy.",
+        "pinterestBoards": "Ubao mmoja kwa kila mstari, kama ulivyoandikwa kwenye anwani yake: poster-design kwa pinterest.com/panta_wizzy/poster-design. Tumia mbao zenye kazi zako tu, si pini ulizohifadhi kutoka kwa wengine.",
+        "pinterestHomeCount": "Idadi ya pini zako mpya zaidi zitakazoonyeshwa kwenye ukurasa wa mwanzo. 0 huficha sehemu hiyo.",
+        "pinterestPins": "Pini mpya huonekana zenyewe ndani ya saa moja (Pinterest hutoa pini 25 za mwisho za kila ubao). Ondoa alama kwenye zile usizotaka zionekane, kisha Hifadhi."
       },
       "errors": {
         "load": "Imeshindikana kupakia. Kagua mtandao, au toka kisha uingie tena.",
@@ -822,7 +833,8 @@
         "network": "Hakuna mtandao. Tafadhali jaribu tena.",
         "logoType": "Picha za JPG, PNG, WebP au SVG pekee zinaruhusiwa. Faili za SVG zisiwe na hati (script) wala viungo.",
         "pressFileType": "Tumia faili la JPG, PNG, WebP, SVG au PDF.",
-        "githubUsername": "Si jina sahihi la mtumiaji la GitHub."
+        "githubUsername": "Si jina sahihi la mtumiaji la GitHub.",
+        "pinterestUsername": "Si jina sahihi la mtumiaji la Pinterest."
       },
       "swMissing": "Kiswahili hakipo",
       "swSummary": "Vipengele {count} kati ya {total} bado vinahitaji maandishi ya Kiswahili (kwa sasa wageni wa Kiswahili wanaona Kiingereza).",
@@ -881,6 +893,21 @@
         "userNotFound": "GitHub haina akaunti yenye jina hili. Hakiki tahajia.",
         "loadFailed": "Imeshindwa kufikia GitHub. Jaribu tena baada ya dakika moja.",
         "refreshed": "Imekamilika. Tovuti itaonyesha hazina zako mpya ukurasa ukifunguliwa tena.",
+        "refreshFailed": "Imeshindwa kusasisha tovuti. Jaribu tena."
+      },
+      "pinterestHeading": "Pini za Pinterest",
+      "pinterest": {
+        "load": "Pakia pini zangu",
+        "refresh": "Sasisha tovuti sasa",
+        "loading": "Inawasiliana na Pinterest…",
+        "needSetup": "Andika jina lako la mtumiaji la Pinterest na angalau ubao mmoja hapo juu, kisha bonyeza “Pakia pini zangu”.",
+        "noPins": "Mbao hizi bado hazina pini za umma.",
+        "missingBoards": "Mbao hizi hazikupatikana (hakiki tahajia, au huenda ni za siri): {boards}",
+        "showPin": "Onyesha “{name}” kwenye tovuti",
+        "badUsername": "Hilo si jina sahihi la mtumiaji la Pinterest.",
+        "badBoards": "Hakiki majina ya mbao: mmoja kwa kila mstari, kama ulivyoandikwa kwenye anwani yake.",
+        "loadFailed": "Imeshindwa kufikia Pinterest. Jaribu tena baada ya dakika moja.",
+        "refreshed": "Imekamilika. Tovuti itaonyesha pini zako mpya ukurasa ukifunguliwa tena.",
         "refreshFailed": "Imeshindwa kusasisha tovuti. Jaribu tena."
       }
     },
@@ -1126,5 +1153,19 @@
     "viewCode": "Tazama msimbo",
     "viewLive": "Tazama mtandaoni",
     "aboutRepo": "(kuhusu {name})"
+  },
+  "Pinterest": {
+    "heading": "Michoro kwenye Pinterest",
+    "homeHeading": "Michoro mipya",
+    "intro": "Mabango, vipeperushi na broshua, moja kwa moja kutoka mbao zetu za Pinterest.",
+    "viewAll": "Tazama michoro yote",
+    "profile": "Tufuate kwenye Pinterest",
+    "filterLabel": "Chuja michoro kwa ubao",
+    "all": "Zote",
+    "showing": "{count, plural, =0 {Hakuna michoro kwenye ubao huu} one {Mchoro # unaonyeshwa} other {Michoro # inaonyeshwa}}",
+    "pinAlt": "Mchoro: {title}",
+    "pinAltBoard": "Mchoro kutoka ubao wa {board}",
+    "viewPin": "Tazama kwenye Pinterest",
+    "aboutPin": "(kuhusu {name})"
   }
 }

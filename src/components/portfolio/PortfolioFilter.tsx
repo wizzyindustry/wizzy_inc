@@ -12,6 +12,8 @@ type Props = {
   groupLabel: string;
   /** Pre-translated status text per count, e.g. { 0: "No projects", 1: "1 project", ... } */
   statusByCount: Record<number, string>;
+  /** Address parameter that remembers the choice (two filters on one page need two names). */
+  param?: string;
 };
 
 /**
@@ -19,19 +21,25 @@ type Props = {
  * reload and keeps ?category= in the URL so a filtered view can be shared.
  * Cards themselves are rendered on the server and passed in as `card`.
  */
-export function PortfolioFilter({ options, items, groupLabel, statusByCount }: Props) {
+export function PortfolioFilter({
+  options,
+  items,
+  groupLabel,
+  statusByCount,
+  param = 'category',
+}: Props) {
   const [active, setActive] = useState('all');
 
   useEffect(() => {
-    const fromUrl = new URLSearchParams(window.location.search).get('category');
+    const fromUrl = new URLSearchParams(window.location.search).get(param);
     if (fromUrl && options.some((o) => o.id === fromUrl)) setActive(fromUrl);
-  }, [options]);
+  }, [options, param]);
 
   function select(id: string) {
     setActive(id);
     const url = new URL(window.location.href);
-    if (id === 'all') url.searchParams.delete('category');
-    else url.searchParams.set('category', id);
+    if (id === 'all') url.searchParams.delete(param);
+    else url.searchParams.set(param, id);
     window.history.replaceState(null, '', url);
   }
 

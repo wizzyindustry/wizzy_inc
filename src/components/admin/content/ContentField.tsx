@@ -8,6 +8,7 @@ import { fieldKey, fieldTextKey, type FieldDef } from './fields';
 import type { Values } from './form-values';
 import { ImageField } from './ImageField';
 import { ListField } from './ListField';
+import { PinChecklist } from './PinChecklist';
 import { RepoChecklist } from './RepoChecklist';
 import { ToolsField, type ToolItem } from './ToolsField';
 
@@ -164,6 +165,23 @@ export function ContentField({
           label={label}
           hint={hint}
           username={String(formValues?.username ?? '')}
+          hidden={(value as string[]) ?? []}
+          error={error}
+          onChange={onChange}
+        />
+      );
+
+    case 'pins':
+      return (
+        <PinChecklist
+          id={id}
+          label={label}
+          hint={hint}
+          username={String(formValues?.username ?? '')}
+          boards={String(formValues?.boards ?? '')
+            .split('\n')
+            .map((b) => b.trim())
+            .filter(Boolean)}
           hidden={(value as string[]) ?? []}
           error={error}
           onChange={onChange}

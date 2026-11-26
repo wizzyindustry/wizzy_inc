@@ -495,7 +495,8 @@
       "support": "Support page",
       "press": "Press page",
       "categories": "Categories",
-      "github": "GitHub projects"
+      "github": "GitHub projects",
+      "pinterest": "Pinterest pins"
     },
     "leads": {
       "heading": "Leads",
@@ -751,7 +752,12 @@
         "githubShow": "Show my GitHub projects on the website",
         "githubUsername": "GitHub username",
         "githubHomeCount": "Projects on the home page",
-        "githubRepos": "Which projects to show"
+        "githubRepos": "Which projects to show",
+        "pinterestShow": "Show my Pinterest designs on the website",
+        "pinterestUsername": "Pinterest username",
+        "pinterestBoards": "Boards to show",
+        "pinterestHomeCount": "Pins on the home page",
+        "pinterestPins": "Which pins to show"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -808,7 +814,12 @@
         "githubShow": "Shows your public repositories on the portfolio page and the home page. Private repositories are never shown.",
         "githubUsername": "The name in your GitHub address, e.g. wizzyindustry for github.com/wizzyindustry.",
         "githubHomeCount": "How many of your most recently updated projects the home page shows. 0 hides the home section.",
-        "githubRepos": "New public repositories appear automatically within an hour. Untick any you don’t want on the website, then Save. Forks, archived repositories and your profile README repository are always left out."
+        "githubRepos": "New public repositories appear automatically within an hour. Untick any you don’t want on the website, then Save. Forks, archived repositories and your profile README repository are always left out.",
+        "pinterestShow": "Shows pins from the boards below on the portfolio page and the home page. Secret boards are never shown.",
+        "pinterestUsername": "The name in your Pinterest address, e.g. panta_wizzy for pinterest.com/panta_wizzy.",
+        "pinterestBoards": "One board per line, as written in the board’s address: poster-design for pinterest.com/panta_wizzy/poster-design. Use boards with your own work only, not pins you saved from others.",
+        "pinterestHomeCount": "How many of your newest pins the home page shows. 0 hides the home section.",
+        "pinterestPins": "New pins appear automatically within an hour (Pinterest shares the latest 25 pins of each board). Untick any you don’t want on the website, then Save."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -822,7 +833,8 @@
         "network": "No connection. Please try again.",
         "logoType": "Only JPG, PNG, WebP or SVG images are allowed. SVG files must not contain scripts or links.",
         "pressFileType": "Use a JPG, PNG, WebP, SVG or PDF file.",
-        "githubUsername": "Not a valid GitHub username."
+        "githubUsername": "Not a valid GitHub username.",
+        "pinterestUsername": "Not a valid Pinterest username."
       },
       "swMissing": "Swahili missing",
       "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
@@ -881,6 +893,21 @@
         "userNotFound": "GitHub has no account with this username. Check the spelling.",
         "loadFailed": "Could not reach GitHub. Try again in a minute.",
         "refreshed": "Done. The website shows your latest repositories on the next page load.",
+        "refreshFailed": "Could not refresh the website. Try again."
+      },
+      "pinterestHeading": "Pinterest pins",
+      "pinterest": {
+        "load": "Load my pins",
+        "refresh": "Refresh the website now",
+        "loading": "Talking to Pinterest…",
+        "needSetup": "Type your Pinterest username and at least one board above, then press “Load my pins”.",
+        "noPins": "These boards have no public pins yet.",
+        "missingBoards": "Could not find these boards (check the spelling, or they may be secret): {boards}",
+        "showPin": "Show “{name}” on the website",
+        "badUsername": "That is not a valid Pinterest username.",
+        "badBoards": "Check the board names: one per line, as written in the board’s address.",
+        "loadFailed": "Could not reach Pinterest. Try again in a minute.",
+        "refreshed": "Done. The website shows your latest pins on the next page load.",
         "refreshFailed": "Could not refresh the website. Try again."
       }
     },
@@ -1126,5 +1153,19 @@
     "viewCode": "View code",
     "viewLive": "View live",
     "aboutRepo": "(about {name})"
+  },
+  "Pinterest": {
+    "heading": "Designs on Pinterest",
+    "homeHeading": "Latest designs",
+    "intro": "Posters, flyers and brochures, straight from our Pinterest boards.",
+    "viewAll": "See all designs",
+    "profile": "Follow us on Pinterest",
+    "filterLabel": "Filter designs by board",
+    "all": "All",
+    "showing": "{count, plural, =0 {No designs on this board} one {Showing # design} other {Showing # designs}}",
+    "pinAlt": "Design: {title}",
+    "pinAltBoard": "Design from the {board} board",
+    "viewPin": "View on Pinterest",
+    "aboutPin": "(about {name})"
   }
 }

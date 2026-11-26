@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { GithubProjects } from '@/components/portfolio/GithubProjects';
+import { PinterestPins } from '@/components/portfolio/PinterestPins';
 import { PortfolioCard } from '@/components/portfolio/PortfolioCard';
 import { PortfolioFilter } from '@/components/portfolio/PortfolioFilter';
 import { getGithubProjects } from '@/lib/data/github';
+import { getPinterestPins } from '@/lib/data/pinterest';
 import { getPublishedPortfolio } from '@/lib/data/portfolio';
 import { getPortfolioCategories } from '@/lib/data/portfolio-categories';
 import { orFallback } from '@/lib/data/read';
@@ -23,15 +25,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-/** Portfolio grid (F4) with client-side category filter (FR-7), then public GitHub repos. */
+/** Portfolio grid (F4) with category filter (FR-7), then Pinterest pins and GitHub repos. */
 export default async function PortfolioPage({ params }: Props) {
   const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations('Portfolio');
-  const [items, categories, github] = await Promise.all([
+  const [items, categories, github, pinterest] = await Promise.all([
     orFallback(getPublishedPortfolio(), [], 'portfolio'),
     getPortfolioCategories(),
     getGithubProjects(),
+    getPinterestPins(),
   ]);
   // Filter buttons: categories in the admin's order that have at least one project.
   const used = new Set(items.map((item) => item.category));
@@ -51,7 +54,8 @@ export default async function PortfolioPage({ params }: Props) {
       <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{t('intro')}</p>
 
       {items.length === 0 ? (
-        github.repos.length === 0 && <p className="mt-10 rounded-md bg-muted p-4">{t('empty')}</p>
+        github.repos.length === 0 &&
+        pinterest.pins.length === 0 && <p className="mt-10 rounded-md bg-muted p-4">{t('empty')}</p>
       ) : (
         <div className="mt-8">
           <PortfolioFilter
@@ -67,6 +71,11 @@ export default async function PortfolioPage({ params }: Props) {
         </div>
       )}
 
+      <PinterestPins
+        pins={pinterest.pins}
+        username={pinterest.settings?.username ?? ''}
+        variant="portfolio"
+      />
       <GithubProjects
         repos={github.repos}
         username={github.settings?.username ?? ''}

@@ -50,6 +50,7 @@ function blank(field: FieldDef): unknown {
       return { ...emptyBilingual };
     case 'services':
     case 'repos':
+    case 'pins':
     case 'gallery':
     case 'faq':
     case 'points':

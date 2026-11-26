@@ -5,6 +5,7 @@ import { revalidateTag } from 'next/cache';
 import { revalidatePublicPages } from '@/lib/data/revalidate-public';
 import { adminDb } from '@/lib/firebase/admin';
 import { fetchPublicReposFresh, GITHUB_REPOS_TAG } from '@/lib/github/repos';
+import { fetchPinsFresh, PINTEREST_TAG } from '@/lib/pinterest/pins';
 import { deleteFolder, saveFile } from '@/lib/media/file-store';
 import {
   aboutInputSchema,
@@ -15,6 +16,7 @@ import {
   contentInputSchemas,
   docIdSchema,
   githubInputSchema,
+  pinterestInputSchema,
   isContentCollection,
   portfolioPathsValid,
   pressInputSchema,
@@ -23,7 +25,11 @@ import {
   SLUG_COLLECTIONS,
 } from '@/lib/schemas/content-admin';
 import { SITE_IMAGE_KINDS } from '@/lib/schemas/common';
-import { githubUsernameSchema } from '@/lib/schemas/content';
+import {
+  githubUsernameSchema,
+  pinterestBoardSchema,
+  pinterestUsernameSchema,
+} from '@/lib/schemas/content';
 import { contentMatchesType } from '@/lib/security/file-type';
 import { requireAdmin } from '@/lib/security/require-admin';
 import type { ActionResult } from '@/lib/utils/action-result';
@@ -135,6 +141,7 @@ const SITE_DOCUMENTS = {
   press: pressInputSchema, // Press page: leadership, media, brand colours
   categories: categoriesInputSchema, // portfolio categories (filter buttons)
   github: githubInputSchema, // GitHub projects on the portfolio and home pages
+  pinterest: pinterestInputSchema, // Pinterest pins on the portfolio and home pages
 } as const;
 type SiteDocumentId = keyof typeof SITE_DOCUMENTS;
 const isSiteDocumentId = (id: string): id is SiteDocumentId => Object.hasOwn(SITE_DOCUMENTS, id);
@@ -154,6 +161,7 @@ export async function saveSiteDocument(
   try {
     await adminDb().doc(`settings/${id}`).set(withoutUndefined(parsed.data));
     if (id === 'github') revalidateTag(GITHUB_REPOS_TAG);
+    if (id === 'pinterest') revalidateTag(PINTEREST_TAG);
     revalidatePublicPages();
     return { ok: true, data: { id } };
   } catch (error) {
@@ -248,6 +256,44 @@ export async function listGithubRepos(
 export async function refreshGithubRepos(idToken: string): Promise<ActionResult<null>> {
   if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
   revalidateTag(GITHUB_REPOS_TAG);
+  revalidatePublicPages();
+  return { ok: true, data: null };
+}
+
+/** Admin → Pinterest: the chosen boards' pins right now, so the owner can choose what to hide. */
+export async function listPinterestPins(
+  idToken: string,
+  input: { username: string; boards: string[] },
+): Promise<
+  ActionResult<{
+    pins: { id: string; title: string; image: string; boardTitle: string }[];
+    missingBoards: string[];
+  }>
+> {
+  if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
+  const username = pinterestUsernameSchema.safeParse(input.username);
+  const boards = pinterestBoardSchema.array().min(1).max(10).safeParse(input.boards);
+  if (!username.success) return { ok: false, error: 'pinterestUsername' };
+  if (!boards.success) return { ok: false, error: 'pinterestBoards' };
+  try {
+    const { pins, missingBoards } = await fetchPinsFresh(username.data, boards.data);
+    return {
+      ok: true,
+      data: {
+        pins: pins.map(({ id, title, image, boardTitle }) => ({ id, title, image, boardTitle })),
+        missingBoards,
+      },
+    };
+  } catch (error) {
+    logFailure('listPinterestPins', error);
+    return { ok: false, error: 'pinterest' };
+  }
+}
+
+/** Admin → Pinterest "Refresh now": read the boards again on the next page view. */
+export async function refreshPinterestPins(idToken: string): Promise<ActionResult<null>> {
+  if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
+  revalidateTag(PINTEREST_TAG);
   revalidatePublicPages();
   return { ok: true, data: null };
 }

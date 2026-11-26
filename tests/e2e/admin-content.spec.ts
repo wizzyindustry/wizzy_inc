@@ -367,6 +367,17 @@ test('GitHub projects page asks for a username before loading repos', async ({ p
   await expect(page.getByText(/Type your GitHub username above/)).toBeVisible();
 });
 
+test('Pinterest page asks for a username and boards before loading pins', async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto('/admin/pinterest');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Pinterest pins');
+  await page.locator('#field-username').fill('panta_wizzy');
+  // No board yet (the saved settings may have some): the button stays off.
+  await page.locator('#field-boards').fill('');
+  await expect(page.getByRole('button', { name: 'Load my pins' })).toBeDisabled();
+  await expect(page.getByText(/at least one board above/)).toBeVisible();
+});
+
 test('/api/revalidate refuses requests without the secret', async ({ request }) => {
   const res = await request.post('/api/revalidate');
   expect(res.status()).toBe(401);
