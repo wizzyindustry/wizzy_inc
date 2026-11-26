@@ -22,6 +22,7 @@ export type FieldType =
   | 'portfolioRef' // optional portfolio item id
   | 'category' // portfolio category slug (Admin → Categories)
   | 'repos' // string[] of hidden GitHub repo names (checklist of public repos)
+  | 'pins' // string[] of hidden Pinterest pin ids (checklist of the boards' pins)
   | 'image' // one Storage path
   | 'gallery' // Storage paths
   | 'faq' // { q: {en,sw}, a: {en,sw} }[]
@@ -60,6 +61,7 @@ export const SINGLE_DOCS = {
   press: { id: 'press', heading: 'pressHeading', publicPath: '/en/press' },
   categories: { id: 'categories', heading: 'categoriesHeading', publicPath: '/en/portfolio' },
   github: { id: 'github', heading: 'githubHeading', publicPath: '/en/portfolio' },
+  pinterest: { id: 'pinterest', heading: 'pinterestHeading', publicPath: '/en/portfolio' },
 } as const;
 export type SingleDocKind = keyof typeof SINGLE_DOCS;
 export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
@@ -288,6 +290,20 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
       options: ['0', '3', '6'],
     },
     { path: 'hiddenRepos', type: 'repos', hint: true, labelKey: 'githubRepos' },
+  ],
+  pinterest: [
+    { path: 'show', type: 'checkbox', hint: true, labelKey: 'pinterestShow' },
+    { path: 'username', type: 'text', optional: true, hint: true, labelKey: 'pinterestUsername' },
+    { path: 'boards', type: 'lines', hint: true, labelKey: 'pinterestBoards' },
+    {
+      path: 'homeCount',
+      type: 'select',
+      numeric: true,
+      hint: true,
+      labelKey: 'pinterestHomeCount',
+      options: ['0', '3', '6', '9'],
+    },
+    { path: 'hiddenPins', type: 'pins', hint: true, labelKey: 'pinterestPins' },
   ],
   legal: [
     { path: 'lastUpdated', type: 'date', hint: true },

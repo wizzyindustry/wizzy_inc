@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubscribeForm } from '@/components/forms/SubscribeForm';
 import { GithubProjects } from '@/components/portfolio/GithubProjects';
+import { PinterestPins } from '@/components/portfolio/PinterestPins';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
 import { GetInTouch } from '@/components/sections/GetInTouch';
@@ -18,6 +19,7 @@ import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { getAboutPage } from '@/lib/data/about';
 import { getCompany } from '@/lib/data/company';
 import { getGithubProjects } from '@/lib/data/github';
+import { getPinterestPins } from '@/lib/data/pinterest';
 import { getFeaturedPortfolio } from '@/lib/data/portfolio';
 import { orFallback } from '@/lib/data/read';
 import { getPublishedServices } from '@/lib/data/services';
@@ -44,15 +46,17 @@ export default async function HomePage({ params }: Props) {
   const tMeta = await getTranslations('HomePage.meta');
   const tAbout = await getTranslations('About');
 
-  const [settings, about, company, services, featured, testimonials, github] = await Promise.all([
-    getSiteSettings(),
-    getAboutPage(),
-    getCompany(),
-    orFallback(getPublishedServices(), [], 'services'),
-    orFallback(getFeaturedPortfolio(), [], 'featured portfolio'),
-    orFallback(getPublishedTestimonials(), [], 'testimonials'),
-    getGithubProjects(),
-  ]);
+  const [settings, about, company, services, featured, testimonials, github, pinterest] =
+    await Promise.all([
+      getSiteSettings(),
+      getAboutPage(),
+      getCompany(),
+      orFallback(getPublishedServices(), [], 'services'),
+      orFallback(getFeaturedPortfolio(), [], 'featured portfolio'),
+      orFallback(getPublishedTestimonials(), [], 'testimonials'),
+      getGithubProjects(),
+      getPinterestPins(),
+    ]);
   const text = (value: { en: string; sw: string } | undefined) =>
     value ? localized(value, locale) || undefined : undefined;
   // "Our story" until the owner writes it: the About introduction.
@@ -87,6 +91,11 @@ export default async function HomePage({ params }: Props) {
         }))}
       />
       <FeaturedWork items={featured} locale={locale} />
+      <PinterestPins
+        pins={pinterest.pins.slice(0, pinterest.settings?.homeCount ?? 0)}
+        username={pinterest.settings?.username ?? ''}
+        variant="home"
+      />
       <GithubProjects
         repos={github.repos.slice(0, github.settings?.homeCount ?? 0)}
         username={github.settings?.username ?? ''}

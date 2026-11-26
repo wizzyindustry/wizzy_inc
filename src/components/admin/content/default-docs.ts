@@ -13,4 +13,5 @@ export const DEFAULT_DOCS: Partial<Record<EditorKind, Values>> = {
   // The categories the site already uses, so the owner adds to them instead of starting empty.
   categories: { items: BUILT_IN_CATEGORIES },
   github: { show: true, username: '', homeCount: 3, hiddenRepos: [] },
+  pinterest: { show: true, username: '', boards: [], homeCount: 6, hiddenPins: [] },
 };

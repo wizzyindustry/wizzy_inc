@@ -307,3 +307,30 @@ export const githubSettingsSchema = z.object({
   hiddenRepos: z.array(z.string().trim().min(1).max(100)).max(200).default([]),
 });
 export type GithubSettings = z.infer<typeof githubSettingsSchema>;
+
+/** A Pinterest username: letters, digits and underscores (3–30). */
+export const pinterestUsernameSchema = z
+  .string()
+  .trim()
+  .regex(/^[A-Za-z0-9_]{3,30}$/, 'Invalid Pinterest username');
+
+/** A board's name in its address, e.g. "poster-design" in pinterest.com/<user>/poster-design. */
+export const pinterestBoardSchema = z
+  .string()
+  .trim()
+  .regex(/^[A-Za-z0-9_-]{1,100}$/, 'Invalid board name');
+
+/** Pinterest pins (Admin → Pinterest), Firestore `settings/pinterest`. Public boards only. */
+export const pinterestSettingsSchema = z.object({
+  show: z.boolean(),
+  username: pinterestUsernameSchema.optional(),
+  boards: z.array(pinterestBoardSchema).max(10).default([]),
+  /** How many of the newest pins the home page shows (0 hides the home section). */
+  homeCount: z.number().int().min(0).max(12),
+  /** Pin ids the owner chose not to show. */
+  hiddenPins: z
+    .array(z.string().regex(/^[A-Za-z0-9_-]{1,120}$/))
+    .max(500)
+    .default([]),
+});
+export type PinterestSettings = z.infer<typeof pinterestSettingsSchema>;

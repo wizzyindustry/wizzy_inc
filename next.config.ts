@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com', pathname: '/v0/b/**' },
       // Free plan: pictures hosted on Cloudinary (NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME).
       { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' },
+      // Pinterest pins (portfolio and home page), from the owner's public boards.
+      { protocol: 'https', hostname: 'i.pinimg.com', pathname: '/**' },
       // Local development against the Storage emulator only.
       ...(storageEmulator
         ? [
