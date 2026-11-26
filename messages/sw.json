@@ -53,8 +53,8 @@
   },
   "HomePage": {
     "meta": {
-      "title": "Wizzy Inc — Usanifu wa Michoro na Utengenezaji wa Tovuti",
-      "description": "Huduma za usanifu wa michoro na utengenezaji wa tovuti Dodoma, Tanzania."
+      "title": "Wizzy Inc — Usanifu wa Michoro na Tovuti Dodoma, Tanzania",
+      "description": "Nembo, utambulisho wa chapa, mabango, vipeperushi na tovuti za biashara kwa biashara za Tanzania. Tazama kazi zetu, linganisha bei kwa TZS na omba makadirio mtandaoni au WhatsApp."
     },
     "hero": {
       "headline": "Michoro na tovuti zinazoifanya biashara yako ionekane",
@@ -170,7 +170,7 @@
     "coverAlt": "Picha kuu ya {title}",
     "meta": {
       "title": "Kazi Zetu — Miradi ya Usanifu na Tovuti | Wizzy Inc",
-      "description": "Nembo, mabango, michoro ya mitandao ya kijamii na tovuti zilizosanifiwa na kutengenezwa na Wizzy Inc."
+      "description": "Nembo, mabango, vipeperushi, broshua na tovuti za Wizzy Inc Dodoma, pamoja na michoro yetu mipya Pinterest na msimbo GitHub."
     },
     "heading": "Kazi Zetu",
     "intro": "Baadhi ya miradi ya usanifu na tovuti. Miradi binafsi na ya masomo imewekewa alama.",
@@ -206,8 +206,8 @@
   },
   "Services": {
     "meta": {
-      "title": "Huduma — Usanifu wa Michoro na Utengenezaji wa Tovuti | Wizzy Inc",
-      "description": "Usanifu wa nembo, mabango, michoro ya mitandao ya kijamii, tovuti za biashara, kurasa za kutua na zaidi, kwa bei za kuanzia kwa TZS."
+      "title": "Huduma — Usanifu wa Michoro na Tovuti | Wizzy Inc",
+      "description": "Usanifu wa nembo, utambulisho wa chapa, mabango, michoro ya mitandao ya kijamii, tovuti za biashara na kurasa za kutua Dodoma, Tanzania, kwa bei za kuanzia kwa TZS."
     },
     "heading": "Huduma",
     "intro": "Huduma zilizo wazi zenye bei za kuanzia. Bei yako ya mwisho inathibitishwa kwenye makadirio.",
@@ -226,8 +226,8 @@
   },
   "Pricing": {
     "meta": {
-      "title": "Bei na Vifurushi | Wizzy Inc",
-      "description": "Vifurushi vya Msingi, Kawaida na Premium kwa usanifu wa michoro na utengenezaji wa tovuti, kwa bei za kuanzia kwa TZS."
+      "title": "Bei na Vifurushi kwa TZS | Wizzy Inc",
+      "description": "Vifurushi vya Msingi, Kawaida na Premium kwa usanifu wa michoro na tovuti, vyenye bei kwa TZS, idadi ya marekebisho na muda wa kukabidhi."
     },
     "heading": "Bei na vifurushi",
     "intro": "Chagua kifurushi kuanza, au omba makadirio maalum. Bei zote ni kwa shilingi za Tanzania.",
@@ -249,8 +249,8 @@
   },
   "QuoteForm": {
     "meta": {
-      "title": "Omba makadirio ya bei | Wizzy Inc",
-      "description": "Tueleze kuhusu mradi wako wa usanifu au tovuti upate bei iliyo wazi."
+      "title": "Omba Makadirio ya Bei | Wizzy Inc",
+      "description": "Tueleze kuhusu mradi wako wa nembo, bango, chapa au tovuti kwa hatua chache upate bei iliyo wazi kutoka Wizzy Inc Dodoma."
     },
     "heading": "Omba makadirio ya bei",
     "intro": "Jibu maswali machache — inachukua takriban dakika 2. Tunajibu kwa WhatsApp, simu au barua pepe.",
@@ -333,8 +333,8 @@
   },
   "About": {
     "meta": {
-      "title": "Kuhusu sisi | Wizzy Inc",
-      "description": "Sisi ni nani, ujuzi wetu, zana tunazotumia na jinsi tunavyofanya kazi."
+      "title": "Kuhusu Sisi | Wizzy Inc",
+      "description": "Ifahamu Wizzy Inc, studio ya usanifu wa michoro na utengenezaji wa tovuti Dodoma, Tanzania: sisi ni nani, ujuzi wetu, zana tunazotumia na jinsi tunavyofanya kazi."
     },
     "heading": "Kuhusu Wizzy Inc",
     "intro": "TODO: real content — utangulizi mfupi wa Panta-wizzy: ni nani, historia yake na kinachomsukuma katika kazi.",
@@ -359,8 +359,8 @@
   },
   "Contact": {
     "meta": {
-      "title": "Wasiliana nasi | Wizzy Inc",
-      "description": "Tutumie ujumbe, ongea nasi WhatsApp au tupigie simu Dodoma."
+      "title": "Wasiliana Nasi | Wizzy Inc",
+      "description": "Ongea na Wizzy Inc kuhusu usanifu au tovuti yako: tuma ujumbe, ongea nasi WhatsApp au tupigie simu Dodoma, Tanzania."
     },
     "heading": "Wasiliana nasi",
     "intro": "Una swali? Tutumie ujumbe, au ongea nasi moja kwa moja kupitia WhatsApp.",
@@ -418,7 +418,7 @@
   "Seo": {
     "ogImage": {
       "headline": "Usanifu wa michoro na tovuti Dodoma",
-      "subline": "Nembo, vipeperushi, utambulisho wa chapa na tovuti kwa biashara za Tanzania"
+      "subline": "Nembo, chapa, mabango, vipeperushi na tovuti kwa biashara za Tanzania"
     }
   },
   "Admin": {
@@ -967,8 +967,8 @@
   },
   "Faq": {
     "meta": {
-      "title": "Maswali | Wizzy Inc",
-      "description": "Majibu kuhusu malipo, marekebisho, muda wa kazi, aina za mafaili na uhifadhi wa tovuti."
+      "title": "Maswali — Malipo, Marekebisho na Muda | Wizzy Inc",
+      "description": "Majibu kuhusu malipo, marekebisho, muda wa kazi, aina za mafaili na uhifadhi wa tovuti kwa miradi ya usanifu na tovuti na Wizzy Inc."
     },
     "heading": "Maswali yanayoulizwa mara kwa mara",
     "intro": "Malipo, marekebisho, muda wa kukabidhi, aina za mafaili na uhifadhi wa tovuti — mambo ambayo wateja huuliza kabla ya kuanza.",
@@ -1021,8 +1021,8 @@
   },
   "OfficesPage": {
     "meta": {
-      "title": "Ofisi zetu",
-      "description": "Mahali pa kuipata Wizzy Inc: anwani za ofisi, saa za kufungua na ramani."
+      "title": "Ofisi Zetu | Wizzy Inc",
+      "description": "Tembelea Wizzy Inc Tanzania: anwani za ofisi, saa za kufungua, namba za simu na ramani."
     },
     "heading": "Ofisi zetu",
     "intro": "Tutembelee ana kwa ana. Chagua ofisi uione kwenye ramani, au fungua ramani upate maelekezo.",
@@ -1060,8 +1060,8 @@
   },
   "Blog": {
     "meta": {
-      "title": "Blogu",
-      "description": "Habari, vidokezo na hadithi kuhusu usanifu wa michoro na tovuti kutoka Wizzy Inc."
+      "title": "Blogu — Vidokezo vya Usanifu na Tovuti | Wizzy Inc",
+      "description": "Habari, vidokezo na hadithi kuhusu usanifu wa michoro, chapa na tovuti kwa biashara za Tanzania, kutoka timu ya Wizzy Inc."
     },
     "heading": "Blogu",
     "intro": "Habari, vidokezo na hadithi za nyuma ya pazia kutoka kazi zetu za usanifu na tovuti.",
@@ -1073,8 +1073,8 @@
   },
   "Support": {
     "meta": {
-      "title": "Msaada",
-      "description": "Pata msaada kutoka Wizzy Inc kuhusu mradi wako, mabadiliko, tovuti yako au mafaili."
+      "title": "Msaada | Wizzy Inc",
+      "description": "Pata msaada kutoka Wizzy Inc kuhusu mradi wako, mabadiliko ya usanifu au tovuti yako, na mafaili yako."
     },
     "heading": "Msaada",
     "intro": "Tayari unafanya kazi nasi, au una swali? Hivi ndivyo tunavyoweza kukusaidia na njia za haraka za kutufikia.",
@@ -1103,8 +1103,8 @@
   },
   "Press": {
     "meta": {
-      "title": "Vyombo vya habari",
-      "description": "Wizzy Inc kwa waandishi wa habari na washirika: uongozi, nembo, nyaraka, picha na rangi za chapa."
+      "title": "Vyombo vya Habari | Wizzy Inc",
+      "description": "Wizzy Inc kwa waandishi wa habari na washirika: uongozi, nembo, nyaraka, picha na rangi za chapa za kupakua."
     },
     "heading": "Vyombo vya habari",
     "intro": "Kila kitu ambacho waandishi wa habari na washirika wanahitaji: viongozi wa Wizzy Inc, nembo zetu rasmi, nyaraka na picha, na rangi za chapa yetu.",
