@@ -8,6 +8,7 @@ import { fieldKey, fieldTextKey, type FieldDef } from './fields';
 import type { Values } from './form-values';
 import { ImageField } from './ImageField';
 import { ListField } from './ListField';
+import { RepoChecklist } from './RepoChecklist';
 import { ToolsField, type ToolItem } from './ToolsField';
 
 export type Option = { value: string; label: string };
@@ -19,6 +20,10 @@ type Props = {
   itemId: string;
   serviceOptions: Option[];
   portfolioOptions: Option[];
+  /** Portfolio categories (Admin → Categories) for `category` fields. */
+  categoryOptions?: Option[];
+  /** The whole form, for fields that depend on another one (repos need the username). */
+  formValues?: Values;
   /** Errors of fields inside a list item ("offices.0.latitude"). */
   errorFor?: (path: string) => string | undefined;
   onChange: (value: unknown) => void;
@@ -32,6 +37,8 @@ export function ContentField({
   itemId,
   serviceOptions,
   portfolioOptions,
+  categoryOptions = [],
+  formValues,
   errorFor,
   onChange,
 }: Props) {
@@ -150,6 +157,19 @@ export function ContentField({
       );
     }
 
+    case 'repos':
+      return (
+        <RepoChecklist
+          id={id}
+          label={label}
+          hint={hint}
+          username={String(formValues?.username ?? '')}
+          hidden={(value as string[]) ?? []}
+          error={error}
+          onChange={onChange}
+        />
+      );
+
     case 'faq':
     case 'points':
       return (
@@ -221,14 +241,25 @@ export function ContentField({
       let control;
       if (field.type === 'textarea' || field.type === 'lines') {
         control = <textarea rows={4} {...common} />;
-      } else if (field.type === 'select' || field.type === 'portfolioRef') {
-        const options: Option[] =
+      } else if (
+        field.type === 'select' ||
+        field.type === 'portfolioRef' ||
+        field.type === 'category'
+      ) {
+        let options: Option[] =
           field.type === 'portfolioRef'
             ? portfolioOptions
-            : (field.options ?? []).map((o) => ({
-                value: o,
-                label: t.has(`options.${o}`) ? t(`options.${o}`) : o,
-              }));
+            : field.type === 'category'
+              ? categoryOptions
+              : (field.options ?? []).map((o) => ({
+                  value: o,
+                  label: t.has(`options.${o}`) ? t(`options.${o}`) : o,
+                }));
+        // A category that was deleted from the list stays selectable for its old projects.
+        const current = String(value ?? '');
+        if (field.type === 'category' && current && !options.some((o) => o.value === current)) {
+          options = [...options, { value: current, label: current }];
+        }
         control = (
           <select {...common}>
             {field.optional && <option value="">—</option>}

@@ -49,6 +49,7 @@ function blank(field: FieldDef): unknown {
     case 'bilingualList':
       return { ...emptyBilingual };
     case 'services':
+    case 'repos':
     case 'gallery':
     case 'faq':
     case 'points':

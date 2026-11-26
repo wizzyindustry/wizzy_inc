@@ -9,6 +9,7 @@ import { deleteContent, saveContent, saveSiteDocument } from '@/app/admin/conten
 import { Button } from '@/components/ui/Button';
 import { toPlain } from '@/lib/data/to-plain';
 import { adminDbClient } from '@/lib/firebase/client-db';
+import { BUILT_IN_CATEGORIES } from '@/lib/portfolio/categories';
 import { useAdminSession } from '../AdminSession';
 import { ContentField, type Option } from './ContentField';
 import {
@@ -57,6 +58,7 @@ export function ContentEditor({ kind, id }: Props) {
   const unsaved = isNew && !created;
   const [serviceOptions, setServiceOptions] = useState<Option[]>([]);
   const [portfolioOptions, setPortfolioOptions] = useState<Option[]>([]);
+  const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -90,6 +92,23 @@ export function ContentEditor({ kind, id }: Props) {
       if (needs.has('portfolioRef')) {
         const list = await options('portfolio', titleOf, (docId) => docId);
         if (active) setPortfolioOptions(list);
+      }
+      if (needs.has('category')) {
+        // Admin → Categories; the built-in two until that list has been saved.
+        const saved = await getDoc(doc(db, 'settings', 'categories'));
+        const items = (saved.data()?.items as { slug: string; name: { en: string } }[] | undefined)
+          ?.length
+          ? (saved.data()!.items as { slug: string; name: { en: string } }[])
+          : BUILT_IN_CATEGORIES;
+        const list = items.map((c) => ({ value: c.slug, label: c.name.en || c.slug }));
+        if (!active) return;
+        setCategoryOptions(list);
+        // New project: preselect the first category.
+        setValues((current) =>
+          current && !current.category && list[0]
+            ? { ...current, category: list[0].value }
+            : current,
+        );
       }
     })().catch(() => active && setMessage({ kind: 'error', text: t('errors.load') }));
     return () => {
@@ -224,6 +243,8 @@ export function ContentEditor({ kind, id }: Props) {
               itemId={docId}
               serviceOptions={serviceOptions}
               portfolioOptions={portfolioOptions}
+              categoryOptions={categoryOptions}
+              formValues={values}
               errorFor={errorFor}
               onChange={(v) => setValues((current) => setPath(current ?? {}, field.path, v))}
             />

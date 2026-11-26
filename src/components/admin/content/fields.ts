@@ -20,6 +20,8 @@ export type FieldType =
   | 'lines' // string[] one item per line
   | 'services' // string[] of service slugs (checkboxes)
   | 'portfolioRef' // optional portfolio item id
+  | 'category' // portfolio category slug (Admin → Categories)
+  | 'repos' // string[] of hidden GitHub repo names (checklist of public repos)
   | 'image' // one Storage path
   | 'gallery' // Storage paths
   | 'faq' // { q: {en,sw}, a: {en,sw} }[]
@@ -44,6 +46,8 @@ export type FieldDef = {
   itemFields?: FieldDef[];
   /** Only shown (and saved) when another field has one of these values. */
   showWhen?: { path: string; values: readonly string[] };
+  /** Hidden (and not saved) when another field has one of these values. */
+  hideWhen?: { path: string; values: readonly string[] };
 };
 
 /** Single documents in the `settings` collection (one editor page each, never deleted). */
@@ -54,6 +58,8 @@ export const SINGLE_DOCS = {
   company: { id: 'company', heading: 'companyHeading', publicPath: '/en' },
   support: { id: 'support', heading: 'supportHeading', publicPath: '/en/support' },
   press: { id: 'press', heading: 'pressHeading', publicPath: '/en/press' },
+  categories: { id: 'categories', heading: 'categoriesHeading', publicPath: '/en/portfolio' },
+  github: { id: 'github', heading: 'githubHeading', publicPath: '/en/portfolio' },
 } as const;
 export type SingleDocKind = keyof typeof SINGLE_DOCS;
 export const isSingleDoc = (kind: string): kind is SingleDocKind => kind in SINGLE_DOCS;
@@ -76,8 +82,9 @@ const SOCIAL_LINK_FIELDS: FieldDef[] = [
   'dribbble',
   'github',
 ].map((path) => ({ path, type: 'text', optional: true }));
-const WEB_ONLY = { path: 'category', values: ['web-development'] } as const;
-const DESIGN_ONLY = { path: 'category', values: ['graphic-design'] } as const;
+// Links that don't apply to the built-in categories; new categories get all three.
+const NOT_DESIGN = { path: 'category', values: ['graphic-design'] } as const;
+const NOT_WEB = { path: 'category', values: ['web-development'] } as const;
 
 export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
   services: [
@@ -111,7 +118,7 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
   portfolio: [
     { path: 'title', type: 'bilingual' },
     { path: 'slug', type: 'text', hint: true },
-    { path: 'category', type: 'select', options: CATEGORY },
+    { path: 'category', type: 'category', hint: true, labelKey: 'portfolioCategory' },
     { path: 'serviceSlugs', type: 'services' },
     { path: 'clientType', type: 'text', hint: true },
     { path: 'isPersonalProject', type: 'checkbox', hint: true },
@@ -121,9 +128,9 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
     { path: 'tools', type: 'lines', hint: true },
     { path: 'coverImage', type: 'image' },
     { path: 'gallery', type: 'gallery' },
-    { path: 'liveUrl', type: 'text', optional: true, hint: true, showWhen: WEB_ONLY },
-    { path: 'repoUrl', type: 'text', optional: true, hint: true, showWhen: WEB_ONLY },
-    { path: 'designUrl', type: 'text', optional: true, hint: true, showWhen: DESIGN_ONLY },
+    { path: 'liveUrl', type: 'text', optional: true, hint: true, hideWhen: NOT_DESIGN },
+    { path: 'repoUrl', type: 'text', optional: true, hint: true, hideWhen: NOT_DESIGN },
+    { path: 'designUrl', type: 'text', optional: true, hint: true, hideWhen: NOT_WEB },
     { path: 'completedAt', type: 'date' },
     { path: 'featured', type: 'checkbox', hint: true },
     { path: 'order', type: 'number', hint: true },
@@ -257,6 +264,31 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
       ],
     },
   ],
+  categories: [
+    {
+      path: 'items',
+      type: 'list',
+      hint: true,
+      labelKey: 'categoryItems',
+      itemFields: [
+        { path: 'name', type: 'bilingual' },
+        { path: 'slug', type: 'text', hint: true },
+      ],
+    },
+  ],
+  github: [
+    { path: 'show', type: 'checkbox', hint: true, labelKey: 'githubShow' },
+    { path: 'username', type: 'text', optional: true, hint: true, labelKey: 'githubUsername' },
+    {
+      path: 'homeCount',
+      type: 'select',
+      numeric: true,
+      hint: true,
+      labelKey: 'githubHomeCount',
+      options: ['0', '3', '6'],
+    },
+    { path: 'hiddenRepos', type: 'repos', hint: true, labelKey: 'githubRepos' },
+  ],
   legal: [
     { path: 'lastUpdated', type: 'date', hint: true },
     { path: 'privacy', type: 'bilingualLong', hint: true },
@@ -267,11 +299,19 @@ export const CONTENT_FIELDS: Record<EditorKind, FieldDef[]> = {
 
 /** False for a field that does not apply, e.g. "View Git repo" on a graphic design project. */
 export function fieldVisible(field: FieldDef, values: Record<string, unknown>): boolean {
-  if (!field.showWhen) return true;
-  const current = field.showWhen.path
-    .split('.')
-    .reduce<unknown>((v, k) => (v as Record<string, unknown> | undefined)?.[k], values);
-  return field.showWhen.values.includes(String(current ?? ''));
+  const valueAt = (path: string) =>
+    String(
+      path
+        .split('.')
+        .reduce<unknown>((v, k) => (v as Record<string, unknown> | undefined)?.[k], values) ?? '',
+    );
+  if (field.showWhen && !field.showWhen.values.includes(valueAt(field.showWhen.path))) {
+    return false;
+  }
+  if (field.hideWhen && field.hideWhen.values.includes(valueAt(field.hideWhen.path))) {
+    return false;
+  }
+  return true;
 }
 
 /** Translation key for a field's label and hint (Admin.content.fields / .hints). */

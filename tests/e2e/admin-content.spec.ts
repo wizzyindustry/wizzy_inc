@@ -321,6 +321,52 @@ test.describe('shared site documents', () => {
   });
 });
 
+// Portfolio categories are one shared document as well; run once, in the desktop project.
+test('a new portfolio category can be picked for projects and offers all links', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name.includes('mobile'), 'Shared document: run in one project only');
+  const slug = `e2e-apps-${Date.now()}`;
+  await signInAsAdmin(page);
+  await page.goto('/admin/categories');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Portfolio categories');
+  const list = page.getByRole('group', { name: 'Categories', exact: true });
+  // Starts with the two categories the site already uses.
+  await expect(list.locator('ol > li')).toHaveCount(2);
+  await list.getByRole('button', { name: 'Add: Category' }).click();
+  const item = list.locator('ol > li').last();
+  await item.getByLabel('English', { exact: true }).fill('E2E apps');
+  await item.getByRole('textbox', { name: 'Web address name (slug)' }).fill('Not A Slug');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await item.getByRole('textbox', { name: 'Web address name (slug)' }).fill(slug);
+  await save(page);
+
+  await page.goto('/admin/content/portfolio/new');
+  await page.locator('#field-category').selectOption(slug);
+  await expect(page.locator('#field-liveUrl')).toBeVisible();
+  await expect(page.locator('#field-repoUrl')).toBeVisible();
+  await expect(page.locator('#field-designUrl')).toBeVisible();
+
+  // Remove it again, so local review data is left as it was.
+  await page.goto('/admin/categories');
+  await list
+    .locator('ol > li')
+    .last()
+    .getByRole('button', { name: /^Remove Category/ })
+    .click();
+  await save(page);
+});
+
+test('GitHub projects page asks for a username before loading repos', async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto('/admin/github');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('GitHub projects');
+  await expect(page.locator('#field-show')).toBeChecked();
+  await expect(page.getByRole('button', { name: 'Load my repositories' })).toBeDisabled();
+  await expect(page.getByText(/Type your GitHub username above/)).toBeVisible();
+});
+
 test('/api/revalidate refuses requests without the secret', async ({ request }) => {
   const res = await request.post('/api/revalidate');
   expect(res.status()).toBe(401);

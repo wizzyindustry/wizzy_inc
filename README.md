@@ -226,6 +226,7 @@ Copy `.env.example` to `.env.local` locally. In production, set them in the host
 | `RATE_LIMIT_SALT` | Server (secret) | Random string used to hash visitor IPs for rate limiting |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Browser | `255XXXXXXXXX` (no `+`); fallback if not set in admin |
 | `NEXT_PUBLIC_SITE_URL` | Server | Public address, e.g. `https://example.com` (SEO, sitemap) |
+| `GITHUB_TOKEN` | Server (secret) | Optional. Raises GitHub's rate limit for the portfolio GitHub section; a token with no scopes is enough |
 | `CLOUDINARY_URL` | Server (secret) | Optional. Free plan only: Cloudinary dashboard → "API environment variable" (`cloudinary://…`) |
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Browser + server | Optional. The Cloudinary cloud name (the part after `@` above) |
 | `BREVO_API_KEY`, `EMAIL_FROM`, `OWNER_NOTIFICATION_EMAIL` | Server (secret) | Free plan (no Cloud Functions): the website sends the lead and welcome emails through Brevo. `EMAIL_FROM` = the sender verified in Brevo, e.g. `Wizzy Inc <you@gmail.com>`. Leave `BREVO_API_KEY` empty when the Cloud Functions send emails |

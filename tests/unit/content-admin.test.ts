@@ -64,6 +64,7 @@ describe('editor values (A4)', () => {
     for (const [path, value] of Object.entries({
       'title.en': 'Salon logo',
       slug: 'salon-logo',
+      category: 'graphic-design', // the editor preselects the first category once loaded
       clientType: 'Salon',
       'problem.en': 'No brand',
       'solution.en': 'A logo',
@@ -98,6 +99,12 @@ describe('editor values (A4)', () => {
     expect(web.liveUrl).toBe('https://example.com/');
     expect(web.repoUrl).toBe('https://example.com/repo');
     expect(web).not.toHaveProperty('designUrl');
+
+    // A category the owner added (Admin → Categories) offers all three links.
+    const custom = toSaveData(fields, setPath(form, 'category', 'mobile-apps'));
+    expect(custom.liveUrl).toBe('https://example.com/');
+    expect(custom.repoUrl).toBe('https://example.com/repo');
+    expect(custom.designUrl).toBe('https://example.com/design');
   });
 
   it('links must be http(s) web addresses (no javascript: links)', () => {

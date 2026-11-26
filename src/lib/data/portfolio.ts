@@ -1,13 +1,12 @@
 import 'server-only';
 import { cache } from 'react';
 import { adminDb } from '@/lib/firebase/admin';
-import type { ServiceCategory } from '@/lib/schemas/common';
 import { portfolioItemSchema, type PortfolioItem } from '@/lib/schemas/content';
 import { queryDocs } from './read';
 
 const published = () => adminDb().collection('portfolio').where('published', '==', true);
 
-export async function getPublishedPortfolio(category?: ServiceCategory): Promise<PortfolioItem[]> {
+export async function getPublishedPortfolio(category?: string): Promise<PortfolioItem[]> {
   const query = category ? published().where('category', '==', category) : published();
   return queryDocs(portfolioItemSchema, query.orderBy('order'));
 }
