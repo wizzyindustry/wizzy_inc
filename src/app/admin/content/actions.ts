@@ -1,16 +1,20 @@
 'use server';
 
 import { FieldValue } from 'firebase-admin/firestore';
+import { revalidateTag } from 'next/cache';
 import { revalidatePublicPages } from '@/lib/data/revalidate-public';
 import { adminDb } from '@/lib/firebase/admin';
+import { fetchPublicReposFresh, GITHUB_REPOS_TAG } from '@/lib/github/repos';
 import { deleteFolder, saveFile } from '@/lib/media/file-store';
 import {
   aboutInputSchema,
+  categoriesInputSchema,
   companyInputSchema,
   contentFieldErrors,
   legalInputSchema,
   contentInputSchemas,
   docIdSchema,
+  githubInputSchema,
   isContentCollection,
   portfolioPathsValid,
   pressInputSchema,
@@ -19,6 +23,7 @@ import {
   SLUG_COLLECTIONS,
 } from '@/lib/schemas/content-admin';
 import { SITE_IMAGE_KINDS } from '@/lib/schemas/common';
+import { githubUsernameSchema } from '@/lib/schemas/content';
 import { contentMatchesType } from '@/lib/security/file-type';
 import { requireAdmin } from '@/lib/security/require-admin';
 import type { ActionResult } from '@/lib/utils/action-result';
@@ -128,6 +133,8 @@ const SITE_DOCUMENTS = {
   company: companyInputSchema, // story, fact cards, partners, impact, offices
   support: supportInputSchema, // Support page
   press: pressInputSchema, // Press page: leadership, media, brand colours
+  categories: categoriesInputSchema, // portfolio categories (filter buttons)
+  github: githubInputSchema, // GitHub projects on the portfolio and home pages
 } as const;
 type SiteDocumentId = keyof typeof SITE_DOCUMENTS;
 const isSiteDocumentId = (id: string): id is SiteDocumentId => Object.hasOwn(SITE_DOCUMENTS, id);
@@ -146,6 +153,7 @@ export async function saveSiteDocument(
   }
   try {
     await adminDb().doc(`settings/${id}`).set(withoutUndefined(parsed.data));
+    if (id === 'github') revalidateTag(GITHUB_REPOS_TAG);
     revalidatePublicPages();
     return { ok: true, data: { id } };
   } catch (error) {
@@ -213,4 +221,33 @@ export async function uploadSiteImage(
     logFailure('uploadSiteImage', error);
     return { ok: false, error: 'server' };
   }
+}
+
+/** Admin → GitHub: the account's public repos right now, so the owner can choose what to hide. */
+export async function listGithubRepos(
+  idToken: string,
+  username: string,
+): Promise<ActionResult<{ repos: { name: string; description: string | null }[] }>> {
+  if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
+  const parsed = githubUsernameSchema.safeParse(username);
+  if (!parsed.success) return { ok: false, error: 'githubUsername' };
+  try {
+    const repos = await fetchPublicReposFresh(parsed.data);
+    return {
+      ok: true,
+      data: { repos: repos.map(({ name, description }) => ({ name, description })) },
+    };
+  } catch (error) {
+    logFailure('listGithubRepos', error);
+    const notFound = error instanceof Error && error.message === 'GitHub user not found';
+    return { ok: false, error: notFound ? 'githubUsername' : 'github' };
+  }
+}
+
+/** Admin → GitHub "Refresh now": fetch the repo list again on the next page view. */
+export async function refreshGithubRepos(idToken: string): Promise<ActionResult<null>> {
+  if (!(await requireAdmin(idToken))) return { ok: false, error: 'unauthorized' };
+  revalidateTag(GITHUB_REPOS_TAG);
+  revalidatePublicPages();
+  return { ok: true, data: null };
 }

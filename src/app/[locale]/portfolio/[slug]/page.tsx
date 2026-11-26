@@ -5,11 +5,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Button } from '@/components/ui/Button';
 import { getPortfolioBySlug, getPublishedPortfolio } from '@/lib/data/portfolio';
+import { getPortfolioCategories } from '@/lib/data/portfolio-categories';
 import { orFallback } from '@/lib/data/read';
 import { getPublishedServices } from '@/lib/data/services';
 import { localized } from '@/lib/i18n/localized';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
 import { Link } from '@/lib/i18n/navigation';
+import { categoryName } from '@/lib/portfolio/categories';
 import { creativeWorkJsonLd } from '@/lib/seo/json-ld';
 import { formatMonthYear } from '@/lib/utils/format-date';
 import { storageUrl } from '@/lib/utils/storage-url';
@@ -46,7 +48,7 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!item) notFound();
 
   const t = await getTranslations('Portfolio');
-  const tCat = await getTranslations('Categories');
+  const categories = await getPortfolioCategories();
   const title = localized(item.title, locale);
   const services = await orFallback(getPublishedServices(), [], 'services');
   const relatedServices = services.filter((s) => item.serviceSlugs.includes(s.slug));
@@ -57,14 +59,12 @@ export default async function CaseStudyPage({ params }: Props) {
     ...(item.result ? [{ key: 'result', text: localized(item.result, locale) }] : []),
   ] as const;
 
-  // Buttons depend on the category: websites have a live site and code; designs have a design link.
-  const links =
-    item.category === 'web-development'
-      ? [
-          { href: item.liveUrl, label: t('viewProject') },
-          { href: item.repoUrl, label: t('viewRepo') },
-        ]
-      : [{ href: item.designUrl, label: t('viewDesign') }];
+  // Whichever links the project has (the admin only offers the ones that fit its category).
+  const links = [
+    { href: item.liveUrl, label: t('viewProject') },
+    { href: item.repoUrl, label: t('viewRepo') },
+    { href: item.designUrl, label: t('viewDesign') },
+  ];
   const projectLinks = links.filter((l): l is { href: string; label: string } => !!l.href);
 
   return (
@@ -74,7 +74,7 @@ export default async function CaseStudyPage({ params }: Props) {
         ← {t('backToPortfolio')}
       </Link>
       <p className="mt-4 text-sm font-medium tracking-wide text-muted-foreground uppercase">
-        {tCat(`${item.category}.title`)}
+        {categoryName(item.category, categories, locale)}
       </p>
       <h1 className="mt-1 font-display text-3xl font-bold sm:text-4xl">{title}</h1>
       {item.isPersonalProject && (

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubscribeForm } from '@/components/forms/SubscribeForm';
+import { GithubProjects } from '@/components/portfolio/GithubProjects';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
 import { GetInTouch } from '@/components/sections/GetInTouch';
@@ -16,6 +17,7 @@ import { VisitOffice } from '@/components/sections/VisitOffice';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { getAboutPage } from '@/lib/data/about';
 import { getCompany } from '@/lib/data/company';
+import { getGithubProjects } from '@/lib/data/github';
 import { getFeaturedPortfolio } from '@/lib/data/portfolio';
 import { orFallback } from '@/lib/data/read';
 import { getPublishedServices } from '@/lib/data/services';
@@ -42,13 +44,14 @@ export default async function HomePage({ params }: Props) {
   const tMeta = await getTranslations('HomePage.meta');
   const tAbout = await getTranslations('About');
 
-  const [settings, about, company, services, featured, testimonials] = await Promise.all([
+  const [settings, about, company, services, featured, testimonials, github] = await Promise.all([
     getSiteSettings(),
     getAboutPage(),
     getCompany(),
     orFallback(getPublishedServices(), [], 'services'),
     orFallback(getFeaturedPortfolio(), [], 'featured portfolio'),
     orFallback(getPublishedTestimonials(), [], 'testimonials'),
+    getGithubProjects(),
   ]);
   const text = (value: { en: string; sw: string } | undefined) =>
     value ? localized(value, locale) || undefined : undefined;
@@ -84,6 +87,12 @@ export default async function HomePage({ params }: Props) {
         }))}
       />
       <FeaturedWork items={featured} locale={locale} />
+      <GithubProjects
+        repos={github.repos.slice(0, github.settings?.homeCount ?? 0)}
+        username={github.settings?.username ?? ''}
+        locale={locale}
+        variant="home"
+      />
       <ProcessSteps />
       <Testimonials testimonials={testimonials} locale={locale} />
       <HomeFaq

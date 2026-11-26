@@ -57,7 +57,8 @@ export type Package = z.infer<typeof packageSchema>;
 export const portfolioItemSchema = z.object({
   id: z.string(),
   slug: slugSchema,
-  category: serviceCategorySchema,
+  /** Slug of a portfolio category (settings/categories; built in: graphic-design, web-development). */
+  category: slugSchema,
   serviceSlugs: z.array(slugSchema),
   title: bilingualTextSchema,
   clientType: z.string(),
@@ -268,3 +269,41 @@ export const aboutPageSchema = z.object({
   tools: z.array(aboutToolSchema).default([]),
 });
 export type AboutPage = z.infer<typeof aboutPageSchema>;
+
+/** One portfolio category: the slug is stored on projects and used in ?category= links. */
+export const portfolioCategorySchema = z.object({
+  slug: slugSchema,
+  name: bilingualTextSchema,
+});
+export type PortfolioCategory = z.infer<typeof portfolioCategorySchema>;
+
+/** Portfolio categories (Admin → Categories), Firestore `settings/categories`, in display order. */
+export const portfolioCategoriesSchema = z
+  .object({ items: z.array(portfolioCategorySchema).max(30) })
+  .superRefine(({ items }, ctx) => {
+    const seen = new Set<string>();
+    items.forEach((item, i) => {
+      if (seen.has(item.slug)) {
+        ctx.addIssue({ code: 'custom', path: ['items', i, 'slug'], message: 'Duplicate slug' });
+      }
+      seen.add(item.slug);
+    });
+  });
+export type PortfolioCategories = z.infer<typeof portfolioCategoriesSchema>;
+
+/** A GitHub user or organisation name (letters, digits and single dashes, max 39). */
+export const githubUsernameSchema = z
+  .string()
+  .trim()
+  .regex(/^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/, 'Invalid GitHub username');
+
+/** GitHub projects (Admin → GitHub), Firestore `settings/github`. Public repos only. */
+export const githubSettingsSchema = z.object({
+  show: z.boolean(),
+  username: githubUsernameSchema.optional(),
+  /** How many of the latest repos the home page shows (0 hides the home section). */
+  homeCount: z.number().int().min(0).max(6),
+  /** Repo names the owner chose not to show. */
+  hiddenRepos: z.array(z.string().trim().min(1).max(100)).max(200).default([]),
+});
+export type GithubSettings = z.infer<typeof githubSettingsSchema>;

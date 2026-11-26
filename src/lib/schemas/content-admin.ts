@@ -4,8 +4,10 @@ import {
   aboutPageSchema,
   blogPostSchema,
   companySchema,
+  githubSettingsSchema,
   legalPagesSchema,
   packageSchema,
+  portfolioCategoriesSchema,
   portfolioItemSchema,
   pressPageSchema,
   serviceSchema,
@@ -54,6 +56,8 @@ export const legalInputSchema = legalPagesSchema;
 export const companyInputSchema = companySchema;
 export const supportInputSchema = supportPageSchema;
 export const pressInputSchema = pressPageSchema;
+export const categoriesInputSchema = portfolioCategoriesSchema;
+export const githubInputSchema = githubSettingsSchema;
 
 /** Collections whose `slug` must be unique (it is the public URL). */
 export const SLUG_COLLECTIONS: readonly ContentCollection[] = ['services', 'portfolio', 'posts'];

@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import { getPortfolioCategories } from '@/lib/data/portfolio-categories';
 import { localized } from '@/lib/i18n/localized';
 import { Link } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/routing';
+import { categoryName } from '@/lib/portfolio/categories';
 import type { PortfolioItem } from '@/lib/schemas/content';
 import { storageUrl } from '@/lib/utils/storage-url';
 
@@ -10,7 +12,7 @@ type Props = { item: PortfolioItem; locale: Locale };
 
 export async function PortfolioCard({ item, locale }: Props) {
   const t = await getTranslations('Portfolio');
-  const tCat = await getTranslations('Categories');
+  const categories = await getPortfolioCategories();
   const title = localized(item.title, locale);
 
   return (
@@ -27,7 +29,7 @@ export async function PortfolioCard({ item, locale }: Props) {
         </div>
         <div className="flex flex-col gap-2 p-4">
           <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-            {tCat(`${item.category}.title`)}
+            {categoryName(item.category, categories, locale)}
           </p>
           <h3 className="font-semibold group-hover:text-primary">{title}</h3>
           {item.isPersonalProject && (

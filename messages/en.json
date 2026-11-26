@@ -493,7 +493,9 @@
       "subscribers": "Subscribers",
       "posts": "Blog posts",
       "support": "Support page",
-      "press": "Press page"
+      "press": "Press page",
+      "categories": "Categories",
+      "github": "GitHub projects"
     },
     "leads": {
       "heading": "Leads",
@@ -741,7 +743,15 @@
         "colors": "Brand colours",
         "colors_name": "Colour name",
         "colors_hex": "HEX code",
-        "colors_usage": "Where it is used"
+        "colors_usage": "Where it is used",
+        "portfolioCategory": "Category",
+        "categoryItems": "Categories",
+        "categoryItems_name": "Name",
+        "categoryItems_slug": "Web address name (slug)",
+        "githubShow": "Show my GitHub projects on the website",
+        "githubUsername": "GitHub username",
+        "githubHomeCount": "Projects on the home page",
+        "githubRepos": "Which projects to show"
       },
       "hints": {
         "slug": "Lowercase letters, numbers and dashes, e.g. logo-design. Changing it changes the page address.",
@@ -791,7 +801,14 @@
         "media": "Logos, documents (e.g. business licence as PDF) and photos people may download.",
         "media_file": "JPG, PNG, WebP, SVG or PDF, up to 5 MB.",
         "colors": "Your brand palette. The RGB value is worked out automatically.",
-        "colors_hex": "Six-digit code with #, e.g. #1D4ED8."
+        "colors_hex": "Six-digit code with #, e.g. #1D4ED8.",
+        "portfolioCategory": "Add or rename categories in Admin → Categories.",
+        "categoryItems": "These are the filter buttons on the portfolio page, in this order. A button only appears when at least one published project uses its category.",
+        "categoryItems_slug": "Small letters, numbers and dashes, e.g. mobile-apps. It is saved on every project in this category, so don’t change it after you have used it.",
+        "githubShow": "Shows your public repositories on the portfolio page and the home page. Private repositories are never shown.",
+        "githubUsername": "The name in your GitHub address, e.g. wizzyindustry for github.com/wizzyindustry.",
+        "githubHomeCount": "How many of your most recently updated projects the home page shows. 0 hides the home section.",
+        "githubRepos": "New public repositories appear automatically within an hour. Untick any you don’t want on the website, then Save. Forks, archived repositories and your profile README repository are always left out."
       },
       "errors": {
         "load": "Could not load. Check your connection, or sign out and in again.",
@@ -804,7 +821,8 @@
         "server": "Something went wrong. Please try again.",
         "network": "No connection. Please try again.",
         "logoType": "Only JPG, PNG, WebP or SVG images are allowed. SVG files must not contain scripts or links.",
-        "pressFileType": "Use a JPG, PNG, WebP, SVG or PDF file."
+        "pressFileType": "Use a JPG, PNG, WebP, SVG or PDF file.",
+        "githubUsername": "Not a valid GitHub username."
       },
       "swMissing": "Swahili missing",
       "swSummary": "{count} of {total} items still need Swahili text (English is shown to Swahili visitors meanwhile).",
@@ -834,7 +852,8 @@
         "offices": "Office",
         "leaders": "Person",
         "media": "Resource",
-        "colors": "Colour"
+        "colors": "Colour",
+        "categoryItems": "Category"
       },
       "listField": {
         "itemTitle": "{item} {number}",
@@ -849,7 +868,21 @@
       "uploadFile": "Upload a file (image or PDF)",
       "replaceFile": "Replace the file",
       "removeFile": "Remove file",
-      "openPdf": "Open PDF"
+      "openPdf": "Open PDF",
+      "categoriesHeading": "Portfolio categories",
+      "githubHeading": "GitHub projects",
+      "github": {
+        "load": "Load my repositories",
+        "refresh": "Refresh the website now",
+        "loading": "Talking to GitHub…",
+        "needUsername": "Type your GitHub username above, then press “Load my repositories”.",
+        "noRepos": "This account has no public repositories yet.",
+        "showRepo": "Show {name} on the website",
+        "userNotFound": "GitHub has no account with this username. Check the spelling.",
+        "loadFailed": "Could not reach GitHub. Try again in a minute.",
+        "refreshed": "Done. The website shows your latest repositories on the next page load.",
+        "refreshFailed": "Could not refresh the website. Try again."
+      }
     },
     "analytics": {
       "heading": "Analytics",
@@ -1079,5 +1112,19 @@
       "dribbble": "Dribbble",
       "github": "GitHub"
     }
+  },
+  "Github": {
+    "heading": "Code on GitHub",
+    "homeHeading": "Latest on GitHub",
+    "intro": "Open-source projects and experiments, straight from our GitHub.",
+    "viewAll": "See all projects",
+    "profile": "Visit our GitHub",
+    "noDescription": "No description yet.",
+    "language": "Language",
+    "stars": "Stars",
+    "updated": "Updated",
+    "viewCode": "View code",
+    "viewLive": "View live",
+    "aboutRepo": "(about {name})"
   }
 }

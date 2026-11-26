@@ -8,6 +8,7 @@ import {
   Building2,
   Briefcase,
   FileText,
+  FolderGit2,
   Images,
   Inbox,
   LayoutDashboard,
@@ -19,6 +20,7 @@ import {
   Package,
   Scale,
   Settings,
+  Tags,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -41,6 +43,8 @@ const GROUPS: { key: string; items: Item[] }[] = [
       { href: '/admin/content/services', key: 'services', icon: Briefcase },
       { href: '/admin/content/packages', key: 'packages', icon: Package },
       { href: '/admin/content/portfolio', key: 'portfolio', icon: Images },
+      { href: '/admin/categories', key: 'categories', icon: Tags },
+      { href: '/admin/github', key: 'github', icon: FolderGit2 },
       { href: '/admin/content/testimonials', key: 'testimonials', icon: MessageSquareQuote },
       { href: '/admin/content/posts', key: 'posts', icon: Newspaper },
       { href: '/admin/about', key: 'about', icon: FileText },

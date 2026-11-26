@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { GithubProjects } from '@/components/portfolio/GithubProjects';
 import { PortfolioCard } from '@/components/portfolio/PortfolioCard';
 import { PortfolioFilter } from '@/components/portfolio/PortfolioFilter';
+import { getGithubProjects } from '@/lib/data/github';
 import { getPublishedPortfolio } from '@/lib/data/portfolio';
+import { getPortfolioCategories } from '@/lib/data/portfolio-categories';
 import { orFallback } from '@/lib/data/read';
 import { pageMetadata, toLocale } from '@/lib/i18n/metadata';
-import type { ServiceCategory } from '@/lib/schemas/common';
+import { categoryName } from '@/lib/portfolio/categories';
 
 type Props = { params: Promise<{ locale: string }> };
-
-const CATEGORIES: ServiceCategory[] = ['graphic-design', 'web-development'];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = toLocale((await params).locale);
@@ -22,13 +23,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-/** Portfolio grid (F4) with client-side category filter (FR-7). */
+/** Portfolio grid (F4) with client-side category filter (FR-7), then public GitHub repos. */
 export default async function PortfolioPage({ params }: Props) {
   const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations('Portfolio');
-  const tCat = await getTranslations('Categories');
-  const items = await orFallback(getPublishedPortfolio(), [], 'portfolio');
+  const [items, categories, github] = await Promise.all([
+    orFallback(getPublishedPortfolio(), [], 'portfolio'),
+    getPortfolioCategories(),
+    getGithubProjects(),
+  ]);
+  // Filter buttons: categories in the admin's order that have at least one project.
+  const used = new Set(items.map((item) => item.category));
+  const options = [
+    ...categories.filter((c) => used.has(c.slug)).map((c) => c.slug),
+    ...[...used].filter((slug) => !categories.some((c) => c.slug === slug)), // deleted categories
+  ].map((slug) => ({ id: slug, label: categoryName(slug, categories, locale) }));
 
   // Status text is pre-translated for every possible count so the client needs no messages.
   const statusByCount = Object.fromEntries(
@@ -41,15 +51,12 @@ export default async function PortfolioPage({ params }: Props) {
       <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{t('intro')}</p>
 
       {items.length === 0 ? (
-        <p className="mt-10 rounded-md bg-muted p-4">{t('empty')}</p>
+        github.repos.length === 0 && <p className="mt-10 rounded-md bg-muted p-4">{t('empty')}</p>
       ) : (
         <div className="mt-8">
           <PortfolioFilter
             groupLabel={t('filterLabel')}
-            options={[
-              { id: 'all', label: t('all') },
-              ...CATEGORIES.map((c) => ({ id: c, label: tCat(`${c}.title`) })),
-            ]}
+            options={[{ id: 'all', label: t('all') }, ...options]}
             statusByCount={statusByCount}
             items={items.map((item) => ({
               id: item.id,
@@ -59,6 +66,13 @@ export default async function PortfolioPage({ params }: Props) {
           />
         </div>
       )}
+
+      <GithubProjects
+        repos={github.repos}
+        username={github.settings?.username ?? ''}
+        locale={locale}
+        variant="portfolio"
+      />
     </div>
   );
 }
